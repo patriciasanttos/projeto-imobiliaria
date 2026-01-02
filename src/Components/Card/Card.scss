@@ -1,0 +1,91 @@
+.card-container {
+    background-color: var(--color-primary);
+    border-radius: 10px;
+    width: 25.5rem;
+
+    .card-img {
+        width: 20rem;
+        padding: 1.5rem 2rem 0 2rem;
+    }
+
+    .card-information {
+        padding: 2rem;
+        color: white;
+
+        h3 {
+            font-size: clamp(1rem, 8vw, 1.6rem);
+            font-weight: 600;
+        }
+
+        .card-location {
+            display: flex;
+            gap: 0.5rem;
+            padding-top: 1.2rem;
+
+            p {
+                font-size: clamp(0.6rem, 8vw, 1rem);
+            }
+        }
+
+        .card-tag-list {
+            display: flex;
+            justify-content: space-between;
+            gap: 0.5rem;
+            padding-top: 2rem;
+
+            .card-tags {
+                display: flex;
+                gap: 0.5rem;
+                background-color: var(--title);
+                border-radius: 40px;
+                padding: 0.3rem 0.7rem;
+                align-items: center;
+
+                p {
+                    font-size: clamp(0.5rem, 5vw, 0.8rem);
+                }
+            }
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 2rem;
+
+            .card-price {
+                .price-title {
+                    font-size: clamp(0.7rem, 6vw, 1rem);
+                }
+
+                .price-value {
+                    font-size: clamp(1rem, 8vw, 1.2rem);
+                    padding-top: 0.5rem;
+                }
+            }
+
+            .card-button-container {
+                .card-button {
+                    background-color: var(--title);
+                    color: white;
+                    width: 7rem;
+                    padding: 1.1rem 0;
+                    border-radius: 10px;
+                    border: none;
+                    font-size: clamp(0.7rem, 6vw, 1rem);
+                    cursor: pointer;
+                    transition: background-color 0.3s ease-in-out;
+                }
+
+                .card-button:hover {
+                    background-color: var(--hover);
+                }
+            }
+        }
+    }
+}
+
+.card-container:hover {
+    box-shadow:10px 10px 12px -7px rgba(0, 0, 0, 0.65);
+    transition: box-shadow 0.3s ease-in-out;
+}
