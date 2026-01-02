@@ -13,17 +13,32 @@
   --hover: #1E7F78;
   --lines: #C9A24D;
 }
+#root {
+  overflow: hidden;
+}
 
 body {
   margin: 0;
   padding: 0;
-  display: flex;
-  place-items: center;
   background-color: #F6F7F5;
 }
 
 a {
   text-decoration: none;
   color: white;
+}
+
+p {
+  font-family: var(--font-secondary);
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  margin: 0;
+}
+
+button {
+  font-family: var(--font-tertiary);
 }
 
