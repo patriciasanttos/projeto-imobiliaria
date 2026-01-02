@@ -1,17 +1,16 @@
 import "./Card.scss";
 
 //Images
-import House1 from "../../assets/Images/house-1.svg";
 
 //Icons
 import Location from "../../assets/Icons/Propiedades/location-icon.svg";
 
 
-function Card({tagList, title, nameLocation }) {
+function Card({tagList, title, nameLocation, image, price }) {
  
   return (
     <section className="card-container">
-      <img src={House1} alt="" className="card-img" />
+      <img src={image} alt="" className="card-img" />
       <section className="card-information">
         <h3>{title}</h3>
 
@@ -32,7 +31,7 @@ function Card({tagList, title, nameLocation }) {
         <div className="card-footer">
           <div className="card-price">
             <p className="price-title">Precio</p>
-            <p className="price-value">Gs. 4.500.000</p>
+            <p className="price-value">{price}</p>
           </div>
           <div className="card-button-container">
             <button className="card-button">Ver Detalles</button>
