@@ -13,11 +13,11 @@ import Email from '../../assets/Icons/Social media/email-icon.svg';
 function Header() {
 
     const menuItems = [
-        {name: 'Inicio', link: '#inicio'},
-        {name: 'Quienes Somos', link: '#quienes-somos'},
-        {name: 'Servicios', link: '#servicios'},
-        {name: 'Contactos', link: '#contactos'}
-    ]
+      { name: "Inicio", link: "inicio" },
+      { name: "Quienes Somos", link: "quienes-somos" },
+      { name: "Servicios", link: "propiedades"},
+      { name: "Contactos", link: "contacto" },
+    ];
 
     const socialMedia = [
         {icon: {WhatsApp}, link: '#'},
@@ -26,10 +26,14 @@ function Header() {
         {icon: {Email}, link: '#'}
     ]
 
+    const onClickLogo = () => {
+        window.location.href = '/';
+    }
+
     return (
       <header className="header-section">
         <section className="header-content">
-          <img src={Logo} alt="" className="logo-header"/>
+          <img src={Logo} alt="" className="logo-header" onClick={onClickLogo}/>
           <section className="menu-items-header">
             {menuItems.map((item, index) => (
                 <a key={index} href={item.link}>{item.name}</a>

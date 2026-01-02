@@ -3,11 +3,16 @@ import "./Card.scss";
 //Images
 
 //Icons
+
 import Location from "../../assets/Icons/Propiedades/location-icon.svg";
+import { useNavigate } from 'react-router-dom';
 
+function Card({ id, tagList, title, nameLocation, image, price }) {
+  const navigate = useNavigate();
+  const onClickPropertyDetails = () => {
+    navigate(`/propiedades/${id}`);
+  };
 
-function Card({tagList, title, nameLocation, image, price }) {
- 
   return (
     <section className="card-container">
       <img src={image} alt="" className="card-img" />
@@ -34,7 +39,7 @@ function Card({tagList, title, nameLocation, image, price }) {
             <p className="price-value">{price}</p>
           </div>
           <div className="card-button-container">
-            <button className="card-button">Ver Detalles</button>
+            <button className="card-button" onClick={onClickPropertyDetails}>Ver Detalles</button>
           </div>
         </div>
       </section>
