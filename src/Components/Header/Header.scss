@@ -12,6 +12,7 @@
             position: relative;
             top: clamp(1rem, 2vw, 1rem);
             width: clamp(2rem, 12vw, 5.5rem);
+            cursor: pointer;
         }
 
         .menu-items-header {
