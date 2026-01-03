@@ -3,51 +3,49 @@ import Room from "../../assets/Icons/Propiedades/room-icon.svg";
 import Bathroom from "../../assets/Icons/Propiedades/bathroom-icon.svg";
 import Car from "../../assets/Icons/Propiedades/car-icon.svg";
 import CardList from "../../Components/CardList/CardList.jsx";
+import { useEffect, useState } from "react";
+import { fetchGoogleSheetCSV } from "../../utils/googleSheet";
 
 //Images
 import House1 from "../../assets/Images/house-1.svg";
 
+
+const SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS9HwFXM91221YFd2SSXmNISzCmYPQB-4uvh-qWAkKf0ESpFZEGSXSkVBxh-MenIHqZ6RIqROo9CBot/pub?output=csv";
+
+function mapSheetRowToCard(row) {
+
+  return {
+    id: row.ID,
+    title: row.Titulo,
+    nameLocation: row.Ubicacion,
+    image: House1,
+    price: row.Precio,
+    tagList: [
+      { icon: Room, name: `${row.Habitaciones}-Habitación`},
+      { icon: Bathroom, name: `${row.Bano}-Baño`},
+      { icon: Car, name: `${row.Cochera}-Auto`},
+    ]
+  };
+}
+
 function Home() {
+  const [cardList, setCardList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    fetchGoogleSheetCSV(SHEET_URL)
+      .then(rows => setCardList(rows.map(mapSheetRowToCard)))
+      .catch(err => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return <div>Carregando propriedades...</div>;
+  if (error) return <div>Erro ao carregar propriedades: {error}</div>;
+
   return (
     <div>
-      <CardList
-        cardList={[
-          {
-            id: 1,
-            title: "Dúplex en Venta",
-            nameLocation: "Barrio San Miguel, Cambyretá",
-            image: House1,
-            price: "Gs. 4.500.000",
-            tagList: [
-              { icon: Room, name: "2-Habitación" },
-              { icon: Bathroom, name: "2-Baño" },
-              { icon: Car, name: "2-Auto" },
-            ],
-          },
-          {
-            id: 2,
-            title: "Tchururu",
-            nameLocation: "Barrio San Miguel, Cambyretá",
-            image: House1,
-            price: "Gs. 3.500.000",
-            tagList: [
-              { icon: Room, name: "1-Habitación" },
-              { icon: Bathroom, name: "1-Baño" },
-            ],
-          },
-          {
-            id: 3,
-            title: "Departamento en Alquiler",
-            nameLocation: "Barrio San Miguel, Cambyretá",
-            image: House1,
-            price: "Gs. 2.500.000",
-            tagList: [
-              { icon: Room, name: "1-Habitación" },
-              { icon: Bathroom, name: "1-Baño" },
-            ],
-          },
-        ]}
-      />
+      <CardList cardList={cardList} />
     </div>
   );
 }
