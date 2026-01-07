@@ -13,7 +13,7 @@ import Email from '../../assets/Icons/Social media/email-icon.svg';
 function Header() {
 
     const menuItems = [
-      { name: "Inicio", link: "inicio" },
+      { name: "Inicio", link: "/" },
       { name: "Quienes Somos", link: "quienes-somos" },
       { name: "Servicios", link: "propiedades"},
       { name: "Contactos", link: "contacto" },

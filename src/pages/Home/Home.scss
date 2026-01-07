@@ -1,0 +1,82 @@
+.home-section {
+    .hero-section {
+        display: flex;
+        gap: 2rem;
+        width: clamp(65%, 90vw, 80%);
+        margin: 6rem auto;
+
+        .hero-img {
+            width: 45%;
+        }
+
+        .description-section {
+
+            .hero-title {
+                font-size: 2.5rem;
+                font-weight: 500;
+                line-height: 1;
+                margin-bottom: 1rem;
+                width: clamp(60%, 90vw, 80%);
+            }
+
+            .hero-text {
+                font-size: 1.4rem;
+                color: var(--text);
+                line-height: 1.5;
+                width: clamp(60%, 90vw, 60%);
+                margin-bottom: 2rem;
+
+                span {
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .hero-buttons-container {
+            display: flex;
+            gap: 2rem;
+
+            img {
+                width: 0.5rem;
+            }
+
+            .hero-btn {
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                width: 14rem;
+                border-radius: 40px;
+                font-size: 1rem;
+                font-weight: 600;
+                padding: 1rem;
+                cursor: pointer;
+            }
+
+            .btn-green {
+                background-color: var(--color-primary);
+                color: white;
+                border: none;
+                transition: background-color 0.3s ease-in-out;
+
+                &:hover {
+                    background-color: var(--hover);
+                }
+            }
+
+            .btn-gold {
+                border: 1px solid var(--lines);
+                transition: background-color 0.3s ease-in-out;
+
+                &:hover {
+                    background-color: var(--lines);
+                    color: white;
+                }
+            }
+        }
+    }
+
+    .div-home {
+        border: 2px solid var(--lines);
+        margin: 6rem 0;
+    }
+}

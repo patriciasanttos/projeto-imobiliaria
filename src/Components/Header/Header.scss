@@ -6,7 +6,7 @@
 
     .header-content {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-around;
 
         .logo-header {
             position: relative;
@@ -17,7 +17,7 @@
 
         .menu-items-header {
             display: flex;
-            gap: 2rem;
+            gap: 1.2rem;
             align-items: center;
 
             font-family: var(--font-secondary);
@@ -25,16 +25,14 @@
             font-size: 1.2rem;
 
             a {
-                padding: 0.5rem 1rem;
-                border-radius: 20px;
                 cursor: pointer;
-                transition: background-color 0.3s ease-in-out;
+                transition: 0.3s ease-in-out;
             }
         }
 
         .menu-items-header a:hover {
-            border: 2px;
-            background-color: rgba(255, 255, 255, 0.114);
+            color: var(--lines);
+            border-bottom: 1px solid var(--lines);
         }
 
         .social-media-icons {
