@@ -35,13 +35,26 @@
             border-bottom: 1px solid var(--lines);
         }
 
-        .social-media-icons {
+        .social-media-icons-container {
             display: flex;
-            gap: 1.5rem;
+            gap: 0.8rem;
             align-items: center;
+
+            a {
+                background-color: rgba(255, 255, 255, 0.197);
+                border-radius: 40px;
+                padding: 0.5rem;
+                width: 1.7rem;
+                align-items: center;
+                text-align: center;
+            }
+
+            img {
+                width: 1.5rem;
+            }
         }
 
-        .social-media-icons img:hover {
+        .social-media-icons-container a:hover {
             cursor: pointer;
             transform: scale(1.1);
         }

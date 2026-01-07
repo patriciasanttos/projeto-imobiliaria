@@ -39,7 +39,7 @@ function Header() {
                 <a key={index} href={item.link}>{item.name}</a>
             ))}
           </section>
-          <section className="social-media-icons">
+          <section className="social-media-icons-container">
             {socialMedia.map((item, index) => (
                 <a key={index} href={item.link}>
                     <img src={Object.values(item.icon)[0]} alt="" />

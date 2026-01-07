@@ -1,7 +1,7 @@
 .home-section {
     .hero-section {
         display: flex;
-        gap: 2rem;
+        gap: 4rem;
         width: clamp(65%, 90vw, 80%);
         margin: 6rem auto;
 
@@ -23,7 +23,7 @@
                 font-size: 1.4rem;
                 color: var(--text);
                 line-height: 1.5;
-                width: clamp(60%, 90vw, 60%);
+                width: clamp(60%, 90vw, 65%);
                 margin-bottom: 2rem;
 
                 span {
@@ -32,7 +32,7 @@
             }
         }
 
-        .hero-buttons-container {
+        .home-buttons-container {
             display: flex;
             gap: 2rem;
 
@@ -40,7 +40,7 @@
                 width: 0.5rem;
             }
 
-            .hero-btn {
+            .home-btn {
                 display: flex;
                 align-items: center;
                 justify-content: space-evenly;
@@ -50,17 +50,6 @@
                 font-weight: 600;
                 padding: 1rem;
                 cursor: pointer;
-            }
-
-            .btn-green {
-                background-color: var(--color-primary);
-                color: white;
-                border: none;
-                transition: background-color 0.3s ease-in-out;
-
-                &:hover {
-                    background-color: var(--hover);
-                }
             }
 
             .btn-gold {
@@ -78,5 +67,50 @@
     .div-home {
         border: 2px solid var(--lines);
         margin: 6rem 0;
+    }
+
+    .card-description-container {
+        .card-description-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            width: 77%;
+            margin: auto auto 2rem auto;
+
+            .card-description-title {
+                font-size: 2rem;
+                font-weight: 600;
+            }
+
+            .card-description-text {
+                color: var(--text);
+                width: 52rem;
+            }
+
+            .card-button-container {
+                margin-right: 35px;
+                .btn-green {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-evenly;
+                    width: 14rem;
+                    border-radius: 40px;
+                    font-size: 1rem;
+                    font-weight: 600;
+                    padding: 1rem;
+                    cursor: pointer;
+                    background-color: var(--color-primary);
+                    color: white;
+                    border: none;
+                    transition: background-color 0.3s ease-in-out;
+
+                    &:hover {
+                        background-color: var(--hover);
+                    }
+                }
+            }
+
+        }
     }
 }
