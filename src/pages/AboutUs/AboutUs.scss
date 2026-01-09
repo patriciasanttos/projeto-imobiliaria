@@ -10,14 +10,14 @@
             width: 55%;
 
             .aboutus-title {
-                font-size: 2rem;
+                font-size: clamp(1.8rem, 5vw, 2rem);
                 font-weight: 500;
             }
 
             .aboutus-text {
                 color: var(--text);
                 margin-top: 2.5rem;
-                font-size: 1.2rem;
+                font-size: clamp(1rem, 5vw, 1.2rem);
                 width: 69%;
 
                 span {
@@ -27,7 +27,7 @@
         }
 
         .aboutus-logo {
-            width: 26rem;
+            width: clamp(18.5rem, 40vw, 26rem);
         }
     }
 
@@ -66,6 +66,87 @@
                 margin: auto;
                 width: 90%;
                 line-height: 1.4rem;
+            }
+        }
+    }
+
+    @media (max-width: 1200px) {
+        .aboutus-description-container {
+            width: 95%;
+            margin: auto;
+
+            .aboutus-description {
+                .aboutus-text {
+                    width: 95%;
+                }
+            }
+        }
+
+        .aboutus-cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+
+            .aboutus-card {
+                flex: 0 0 20rem;
+                margin-bottom: 1rem;
+                height: auto;
+                min-height: 26rem;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .aboutus-description-container {
+            flex-direction: column-reverse;
+            align-items: center;
+            gap: 1.5rem;
+
+            .aboutus-description {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .aboutus-title {
+                    width: 85%;
+                    text-align: center;
+                }
+
+                .aboutus-text {
+                    width: 85%;
+                    margin-top: 1.5rem;
+                    text-align: left;
+                }
+            }
+
+            .aboutus-logo {
+                margin-bottom: 1rem;
+            }
+        }
+
+        .aboutus-cards-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+
+            .aboutus-card {
+                width: 90%;
+                max-width: 22rem;
+                margin: 0 0 1rem 0;
+                height: auto;
+                min-height: 24rem;
+            }
+        }
+    }
+
+    @media (min-width: 323px) and (max-width: 415px) {
+        .aboutus-cards-container {
+            .aboutus-card {
+                max-width: 16.5rem;
+                min-height: 27rem;
             }
         }
     }
