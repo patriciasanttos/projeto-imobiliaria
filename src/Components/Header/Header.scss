@@ -7,11 +7,14 @@
     .header-content {
         display: flex;
         justify-content: space-around;
+        align-items: center;
+        height: 100%;
+        padding: 0 1.2rem;
 
         .logo-header {
             position: relative;
             top: clamp(1rem, 2vw, 1rem);
-            width: clamp(2rem, 12vw, 5.5rem);
+            width: clamp(4.8rem, 12vw, 5.5rem);
             cursor: pointer;
         }
 
@@ -57,6 +60,15 @@
         .social-media-icons-container a:hover {
             cursor: pointer;
             transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .logo-header {
+                width: 4.8rem;
+            }
+            .mobile-menu-container {
+                margin-left: auto;
+            }
         }
     }
 }
