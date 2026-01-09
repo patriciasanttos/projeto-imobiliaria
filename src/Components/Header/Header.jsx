@@ -12,7 +12,7 @@ import Instagram from "../../assets/Icons/Social media/instagram-icon.svg";
 import Email from "../../assets/Icons/Social media/email-icon.svg";
 
 function Header() {
-  const isMobile = useMediaQuery({ maxWidth: 768 });
+  const isMobile = useMediaQuery({ maxWidth: 848 });
 
   const menuItems = [
     { name: "Inicio", link: "/" },
