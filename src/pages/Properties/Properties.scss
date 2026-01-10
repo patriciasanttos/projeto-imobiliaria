@@ -1,0 +1,37 @@
+.properties-container {
+    margin: 6rem auto;
+
+    .properties-description {
+        width: 80%;
+        margin: auto;
+
+        h1 {
+            font-weight: 600;
+        }
+
+        p {
+            color: var(--text);
+            margin-top: 1rem;
+        }
+    }
+
+    .div-properties {
+        border: 1px solid var(--lines);
+        margin: 6rem 0;
+    }
+
+    .properties-filters-container {
+        border: 1px solid red;
+
+        .properties-filters-section {
+            border: 1px solid blue;
+            width: 80%;
+            height: auto;
+            margin: auto;
+
+            input {
+                width: 20%;
+            }
+        }
+    }
+}

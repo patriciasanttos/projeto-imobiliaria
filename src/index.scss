@@ -29,11 +29,13 @@ a {
 }
 
 p {
+  font-size: clamp(1.1rem, 5vw, 1.2rem);
   font-family: var(--font-secondary);
   margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
+  font-size: clamp(1.8rem, 5vw, 2rem);
   font-family: var(--font-primary);
   margin: 0;
 }
