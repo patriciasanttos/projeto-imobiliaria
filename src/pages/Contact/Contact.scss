@@ -8,7 +8,7 @@
             width: 40%;
 
             h1 {
-                font-size: 2rem;
+                font-size: clamp(1.8rem, 5vw, 2rem);
                 font-weight: 500;
                 line-height: 2.2rem;
                 width: 65%;
@@ -16,7 +16,7 @@
 
             p {
                 color: var(--text);
-                font-size: 1.2rem;
+                font-size: clamp(1.1rem, 5vw, 1.2rem);
                 line-height: 1.6rem;
                 margin-top: 1rem;
                 width: 58%;
@@ -25,7 +25,7 @@
 
         .contact-image {
             img {
-                width: 26rem;
+                width: clamp(19rem, 40vw, 26rem);
             }
         }
     }
@@ -34,14 +34,16 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 3rem 1.5rem;
+        gap: 1rem 1.5rem;
         max-width: 80rem;
         margin: 0 auto;
 
         .contact-card {
             border-radius: 20px;
             background-color: var(--color-primary);
-            flex: 0 0 24rem;
+            flex: 0 0 19rem;
+            margin-bottom: 1rem;
+            height: auto;
             transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
             border: 1px solid transparent;
             cursor: pointer;
@@ -77,26 +79,57 @@
         }
     }
 
-.contact-map-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin: 6rem 0 10rem 0;
-    width: 100%;
-    gap: 2rem;
-
-    h1 {
-        font-size: 2rem;
-        font-weight: 600;
+    .contact-map-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 6rem 0 10rem 0;
         width: 100%;
-        max-width: 1200px;
-        text-align: left;
+        gap: 2rem;
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            width: 100%;
+            max-width: 1200px;
+            text-align: left;
+        }
+
+        iframe {
+            border-radius: 8px;
+            max-width: 95%;
+        }
     }
 
-    iframe {
-        border-radius: 8px;
-        max-width: 100%;
+    @media (max-width: 1024px) {
+        .contact-description-container {
+            flex-direction: column-reverse;
+            justify-content: center;
+            align-items: center;
+            margin: 6rem auto 4rem auto;
+
+            .contact-description {
+                width: 95%;
+                text-align: center;
+                margin-top: 1.2rem;
+
+                h1 {
+                    width: 100%;
+                }
+
+                p {
+                    width: 100%;
+                }
+            }
+        }
+
+        .contact-map-container {
+            gap: 1rem;
+
+            h1 {
+                text-align: center;
+            }
+        }
     }
-}
 }
