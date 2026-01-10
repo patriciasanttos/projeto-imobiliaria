@@ -9,7 +9,6 @@ const MobileMenu = ({ menuItems, socialMedia }) => {
   const [isOpen, setIsOpen] = useState(false);
   const overlayRef = useRef(null);
 
-  // Fecha o menu ao clicar fora
   useEffect(() => {
     if (!isOpen) return;
     const handleClickOutside = (event) => {
@@ -21,7 +20,6 @@ const MobileMenu = ({ menuItems, socialMedia }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen]);
 
-  // Fecha com ESC
   useEffect(() => {
     if (!isOpen) return;
     const handleEsc = (event) => {
