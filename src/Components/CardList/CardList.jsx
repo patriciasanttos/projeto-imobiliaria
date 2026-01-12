@@ -22,39 +22,45 @@ function CardList({ isShowAll, isFilterByHome, filters }) {
     const filteredList = getListByFlags(list).filter((card) => {
       let returnRow = true;
 
-      if (filters.operationType) {
-        returnRow =
-          returnRow &&
-          card.operationType.toLowerCase() ===
-            filters.operationType.toLowerCase();
-      }
-
-      if (filters.bedrooms) {
-        const bedrooms = parseInt(card.bedrooms);
-        const filterBedrooms = parseInt(filters.bedrooms);
-
-        if (filterBedrooms === 4) {
-          returnRow = returnRow && bedrooms >= 4;
-        } else {
-          returnRow = returnRow && bedrooms === filterBedrooms;
+      if (filters) {
+        if (filters.operationType) {
+          returnRow =
+            returnRow &&
+            card.operationType.toLowerCase() ===
+              filters.operationType.toLowerCase();
         }
-      }
 
-      if (filters.propertyType) {
-        returnRow =
-          returnRow &&
-          card.propertyType.toLowerCase() ===
-            filters.propertyType.toLowerCase();
-      }
+        if (filters.bedrooms) {
+          const bedrooms = parseInt(card.bedrooms);
+          const filterBedrooms = parseInt(filters.bedrooms);
 
-      if (filters.minPrice && card.price) {
-        const price = parseInt(card.price.replace(/\./g, "").replace(/,/g, ""));
-        returnRow = returnRow && price >= filters.minPrice;
-      }
+          if (filterBedrooms === 4) {
+            returnRow = returnRow && bedrooms >= 4;
+          } else {
+            returnRow = returnRow && bedrooms === filterBedrooms;
+          }
+        }
 
-      if (filters.maxPrice && card.price) {
-        const price = parseInt(card.price.replace(/\./g, "").replace(/,/g, ""));
-        returnRow = returnRow && price <= filters.maxPrice;
+        if (filters.propertyType) {
+          returnRow =
+            returnRow &&
+            card.propertyType.toLowerCase() ===
+              filters.propertyType.toLowerCase();
+        }
+
+        if (filters.minPrice && card.price) {
+          const price = parseInt(
+            card.price.replace(/\./g, "").replace(/,/g, "")
+          );
+          returnRow = returnRow && price >= filters.minPrice;
+        }
+
+        if (filters.maxPrice && card.price) {
+          const price = parseInt(
+            card.price.replace(/\./g, "").replace(/,/g, "")
+          );
+          returnRow = returnRow && price <= filters.maxPrice;
+        }
       }
 
       return returnRow;
