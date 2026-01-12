@@ -16,6 +16,16 @@ function PropertiesFilter({ filters, setFilters }) {
     }));
   };
 
+  const onClickClear = () => {
+    setFilters({
+      operationType: "",
+      bedrooms: "",
+      propertyType: "",
+      minPrice: "",
+      maxPrice: "",
+    });
+  };
+
   return (
     <div className="property-filter">
       <div className="property-filter__group">
@@ -88,9 +98,9 @@ function PropertiesFilter({ filters, setFilters }) {
         />
       </div>
 
-      {/* <button className="property-filter__btn" onClick={onClickSearch}>
-        Buscar
-      </button> */}
+      <button className="property-filter__btn" onClick={onClickClear}>
+        Limpiar filtros
+      </button>
     </div>
   );
 }
