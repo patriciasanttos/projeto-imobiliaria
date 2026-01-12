@@ -11,7 +11,9 @@ function Card({ id, tagList, title, nameLocation, image, price }) {
 
   return (
     <section className="card-container">
-      <img src={image} alt="" className="card-img" />
+      <div className="card-img-container">
+        <img src={image} alt="" className="card-img" />
+      </div>
       <section className="card-information">
         <h3>{title}</h3>
 
