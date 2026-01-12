@@ -1,7 +1,7 @@
 .card-container {
     background-color: var(--color-primary);
     border-radius: 10px;
-    width: clamp(22rem, 40vw, 25.5rem);
+    width: clamp(25rem, 40vw, 25.5rem);
 
     .card-img-container {
         display: flex;
@@ -37,7 +37,6 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 1rem;
-            // max-width: 26rem;
             margin: 1.5rem auto 1rem auto;
 
             .card-tags {
@@ -97,8 +96,15 @@
     transition: box-shadow 0.3s ease-in-out;
 }
 
-@media (min-width: 320px) and (max-width: 370px){
+@media (max-width: 360px){
     .card-container {
-        width: 19.8rem;
+        width: 20rem;
+    }
+}
+
+
+@media (min-width: 360px) and (max-width: 400px) {
+    .card-container {
+        width: 22rem;
     }
 }
