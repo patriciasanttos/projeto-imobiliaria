@@ -33,15 +33,11 @@
         }
 
         .card-tag-list {
-            // display: flex;
-            // justify-content: space-between;
-            // gap: 0.5rem;
-            // padding-top: 2rem;
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 1rem 1.5rem;
-            max-width: 26rem;
+            gap: 1rem;
+            // max-width: 26rem;
             margin: 1.5rem auto 1rem auto;
 
             .card-tags {
