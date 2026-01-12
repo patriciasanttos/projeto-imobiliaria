@@ -1,11 +1,41 @@
+import { useState } from "react";
 import "./PropertiesFilter.scss";
+import { formatPYG, unformatPYG } from "../../utils/currency";
 
-function PropertiesFilter() {
+function PropertiesFilter({ filters, setFilters }) {
+  const handleChange = (e) => {
+    let { name, value } = e.target;
+
+    if (name === "minPrice" || name === "maxPrice") {
+      value = unformatPYG(value);
+    }
+
+    setFilters((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const onClickClear = () => {
+    setFilters({
+      operationType: "",
+      bedrooms: "",
+      propertyType: "",
+      minPrice: "",
+      maxPrice: "",
+    });
+  };
+
   return (
     <div className="property-filter">
       <div className="property-filter__group">
         <label className="property-filter__label">Modalidad</label>
-        <select className="property-filter__select">
+        <select
+          className="property-filter__select"
+          name="operationType"
+          value={filters.operationType}
+          onChange={handleChange}
+        >
           <option value="">Seleccionar</option>
           <option value="venta">Venta</option>
           <option value="alquiler">Alquiler</option>
@@ -14,7 +44,12 @@ function PropertiesFilter() {
 
       <div className="property-filter__group">
         <label className="property-filter__label">Dormitorios</label>
-        <select className="property-filter__select">
+        <select
+          className="property-filter__select"
+          name="bedrooms"
+          value={filters.bedrooms}
+          onChange={handleChange}
+        >
           <option value="">Seleccionar</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -25,7 +60,12 @@ function PropertiesFilter() {
 
       <div className="property-filter__group">
         <label className="property-filter__label">Tipo de propiedad</label>
-        <select className="property-filter__select">
+        <select
+          className="property-filter__select"
+          name="propertyType"
+          value={filters.propertyType}
+          onChange={handleChange}
+        >
           <option value="">Seleccionar</option>
           <option value="casa">Casa</option>
           <option value="duplex">Dúplex</option>
@@ -37,22 +77,30 @@ function PropertiesFilter() {
       <div className="property-filter__group">
         <label className="property-filter__label">Precio de:</label>
         <input
-          type="number"
+          type="text"
           className="property-filter__input"
           placeholder="Min"
+          name="minPrice"
+          value={formatPYG(filters.minPrice)}
+          onChange={handleChange}
         />
       </div>
 
       <div className="property-filter__group">
         <label className="property-filter__label">Precio hasta:</label>
         <input
-          type="number"
+          type="text"
           className="property-filter__input"
           placeholder="Max"
+          name="maxPrice"
+          value={formatPYG(filters.maxPrice)}
+          onChange={handleChange}
         />
       </div>
 
-      <button className="property-filter__btn">Buscar</button>
+      <button className="property-filter__btn" onClick={onClickClear}>
+        Limpiar filtros
+      </button>
     </div>
   );
 }
