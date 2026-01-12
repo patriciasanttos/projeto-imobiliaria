@@ -1,9 +1,5 @@
 import "./Card.scss";
 
-//Images
-
-//Icons
-
 import Location from "../../assets/Icons/Propiedades/location-icon.svg";
 import { useNavigate } from 'react-router-dom';
 

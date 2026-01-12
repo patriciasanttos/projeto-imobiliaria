@@ -1,0 +1,40 @@
+.property-container {
+
+    .back-page {
+        display: flex;
+    }
+
+    .property-description-container {
+        display: flex;
+        justify-content: space-around;
+
+        .property-photos {
+            display: flex;
+            flex-direction: column;
+
+            .property-main-photo {
+                background-image: url("../../assets/Images/house-1.svg");
+                background-repeat: no-repeat;
+                border: 1px solid red;
+                border-radius: 20px;
+                width: 22rem;
+                max-width: 24rem;
+                height: auto;
+                min-height: 30rem;
+
+
+            }
+        }
+
+        .property-info {
+
+            .property-title {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            
+        }
+
+    }
+}

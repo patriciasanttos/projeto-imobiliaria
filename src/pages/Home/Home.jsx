@@ -1,4 +1,5 @@
 import "./Home.scss";
+import { useNavigate } from 'react-router-dom';
 
 //Components
 import Button from "../../Components/Button/Button.jsx";
@@ -10,11 +11,13 @@ import ArrowBlackButton from "../../assets/Icons/arrow-black-button-icon.svg";
 
 //Images
 import HeroImg from "../../assets/Images/hero-home.svg";
-import useProperties from "../../hooks/useProperties.js";
 
 
 function Home() {
-  const {cardList, loading} = useProperties()
+  const navigate = useNavigate();
+  const onClickProperties = () => {
+    navigate(`/propiedades`);
+  };
 
   return (
     <section className="home-section">
@@ -54,11 +57,12 @@ function Home() {
               text={"Ver todas propiedades"}
               icon={ArrowWhiteButton}
               className="btn-green"
+              onClick={onClickProperties}
             />
           </div>
         </div>
       </section>
-      <CardList cardList={cardList} loading={loading}/>
+      <CardList isFilterByHome />
     </section>
   );
 }

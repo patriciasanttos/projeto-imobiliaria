@@ -25,6 +25,7 @@ function mapSheetRowToCard(row) {
       { icon: Bathroom, name: `${row.Bano}-Baño` },
       { icon: Car, name: `${row.Cochera}-Auto` },
     ],
+    home: row.Home
   };
 }
 

@@ -1,7 +1,7 @@
 import "./Properties.scss";
 
 import PropertiesFilter from "../../Components/PropertiesFilter/PropertiesFilter";
-
+import CardList from "../../Components/CardList/CardList.jsx";
 
 function Properties() {
   return (
@@ -16,7 +16,8 @@ function Properties() {
           soñador, tu viaje...
         </p>
       </section>
-		<PropertiesFilter/>
+      <PropertiesFilter />
+      <CardList isShowAll/>
     </section>
   );
 }
