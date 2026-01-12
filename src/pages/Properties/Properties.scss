@@ -34,4 +34,11 @@
             }
         }
     }
+
+    @media (max-width: 1024px) {
+        .properties-description {
+            text-align: center;
+            width: 90%;
+        }
+    }
 }
