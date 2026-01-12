@@ -1,9 +1,18 @@
+import { useState } from "react";
 import "./Properties.scss";
 
 import PropertiesFilter from "../../Components/PropertiesFilter/PropertiesFilter";
 import CardList from "../../Components/CardList/CardList.jsx";
 
 function Properties() {
+  const [filters, setFilters] = useState({
+    modality: "",
+    bedrooms: "",
+    propertyType: "",
+    minPrice: "",
+    maxPrice: "",
+  });
+
   return (
     <section className="properties-container">
       <section className="properties-description">
@@ -16,8 +25,8 @@ function Properties() {
           soñador, tu viaje...
         </p>
       </section>
-      <PropertiesFilter />
-      <CardList isShowAll/>
+      <PropertiesFilter filters={filters} setFilters={setFilters} />
+      <CardList isShowAll filters={filters} />
     </section>
   );
 }

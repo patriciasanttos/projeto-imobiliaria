@@ -3,28 +3,70 @@ import Card from "../Card/Card";
 import Loading from "../Loading/Loading";
 import useProperties from "../../hooks/useProperties.js";
 
-function CardList({isShowAll, isFilterByHome}) {
+function CardList({ isShowAll, isFilterByHome, filters }) {
   const { cardList, loading } = useProperties();
 
-  const getFilteredList = () => {
-    if (isShowAll) {
-      return cardList
-    }
+  const getFilteredList = (list) => {
+    const getListByFlags = (items) => {
+      if (isShowAll) {
+        return items;
+      }
 
-    if (isFilterByHome) {
-      return cardList.filter(
-        (card) => card.home !== null && card.home !== ""
-      );
-    }
+      if (isFilterByHome) {
+        return items.filter((card) => card.home !== null && card.home !== "");
+      }
 
-    return cardList.slice(0, 2)
-  }
+      return items.slice(0, 2);
+    };
+
+    const filteredList = getListByFlags(list).filter((card) => {
+      let returnRow = true;
+
+      if (filters.operationType) {
+        returnRow =
+          returnRow &&
+          card.operationType.toLowerCase() ===
+            filters.operationType.toLowerCase();
+      }
+
+      if (filters.bedrooms) {
+        const bedrooms = parseInt(card.bedrooms);
+        const filterBedrooms = parseInt(filters.bedrooms);
+
+        if (filterBedrooms === 4) {
+          returnRow = returnRow && bedrooms >= 4;
+        } else {
+          returnRow = returnRow && bedrooms === filterBedrooms;
+        }
+      }
+
+      if (filters.propertyType) {
+        returnRow =
+          returnRow &&
+          card.propertyType.toLowerCase() ===
+            filters.propertyType.toLowerCase();
+      }
+
+      if (filters.minPrice && card.price) {
+        const price = parseInt(card.price.replace(/\./g, "").replace(/,/g, ""));
+        returnRow = returnRow && price >= filters.minPrice;
+      }
+
+      if (filters.maxPrice && card.price) {
+        const price = parseInt(card.price.replace(/\./g, "").replace(/,/g, ""));
+        returnRow = returnRow && price <= filters.maxPrice;
+      }
+
+      return returnRow;
+    });
+    return filteredList;
+  };
 
   return loading ? (
     <Loading />
   ) : (
     <div className="card-list">
-      {getFilteredList().map((card) => (
+      {getFilteredList(cardList).map((card) => (
         <Card key={card.id} {...card} />
       ))}
     </div>

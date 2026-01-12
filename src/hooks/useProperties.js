@@ -20,19 +20,24 @@ function mapSheetRowToCard(row) {
     nameLocation: row.Ubicacion,
     image: House1,
     price: row.Precio,
+    bathrooms: row.Bano,
+    bedrooms: row.Habitaciones,
+    parkingSlots: row.Cochera,
+    home: row.Home,
+    operationType: row.Operacion,
+    propertyType: row.Tipo,
     tagList: [
       { icon: Room, name: `${row.Habitaciones}-Habitación` },
       { icon: Bathroom, name: `${row.Bano}-Baño` },
       { icon: Car, name: `${row.Cochera}-Auto` },
     ],
-    home: row.Home
   };
 }
 
 const useProperties = () => {
-      const [cardList, setCardList] = useState([]);
-      const [loading, setLoading] = useState(true);
-      const [error, setError] = useState(null);
+  const [cardList, setCardList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetchGoogleSheetCSV(SHEET_URL)
