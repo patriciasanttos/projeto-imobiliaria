@@ -150,16 +150,15 @@
             margin: 4rem 0;
         }
 
-        .card-description-section {
-            flex-direction: column;
-            text-align: center;
-            
+        .card-description-container {
+            .card-description-section {
+                flex-direction: column;
+                text-align: center;
+                margin: 0px; // agora funciona aqui
 
-            .card-description-title {
-                width: 80%;
-            }
-
-            .card-description-container {
+                .card-description-title {
+                    width: 80%;
+                }
 
                 .card-description-text {
                     width: 80%;
