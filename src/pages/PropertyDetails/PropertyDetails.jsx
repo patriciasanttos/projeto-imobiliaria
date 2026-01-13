@@ -3,8 +3,8 @@ import "./PropertyDetails.scss";
 
 //Icons
 import ArrowBack from "../../assets/Icons/arrow-back.svg";
-import ArrowZoom from "../../assets/Icons/PropertyDetails/arrow-zoom.svg"
-import LocationGreen from "../../assets/Icons/PropertyDetails/location-green.svg"
+import ArrowZoom from "../../assets/Icons/PropertyDetails/arrow-zoom.svg";
+import LocationGreen from "../../assets/Icons/PropertyDetails/location-green.svg";
 import WhatsApp from "../../assets/Icons/Social media/whatsapp-icon.svg";
 
 //Components
@@ -31,12 +31,18 @@ function PropertyDetails() {
               <h1>Dúplex en Venta </h1>
               <h1>Gs. 4.500.000</h1>
             </div>
-            <div className="property-">
+            <div className="property-adress-container">
               <div className="property-location">
                 <img src={LocationGreen} alt="" />
                 <p>Barrio San Miguel, Cambyretá </p>
               </div>
-              <Button text="Consultar" icon={WhatsApp} className=""/>
+              <div className="property-btn-container">
+                <Button
+                  text="Consultar"
+                  icon={WhatsApp}
+                  className="property-btn-contact"
+                />
+              </div>
             </div>
             <div></div>
             <div className="property-description"></div>

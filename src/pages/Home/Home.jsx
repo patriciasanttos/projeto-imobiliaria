@@ -31,7 +31,7 @@ function Home() {
             misión cumplida. <br />
             Descubrí espacios con alma, viví donde querés estar.
           </p>
-          <div className="home-buttons-container">
+          <div className="home-button-container">
             <Button
               text={"Contactanos"}
               icon={ArrowBlackButton}
