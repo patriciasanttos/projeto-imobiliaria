@@ -154,14 +154,54 @@
             .card-description-section {
                 flex-direction: column;
                 text-align: center;
-                margin: 0px; // agora funciona aqui
+                gap: 1rem;
+                margin: 0px;
+                width: 100%;
 
-                .card-description-title {
-                    width: 80%;
+                .card-text-description {
+                    width: 100%;
+
+                    .card-description-title {
+                        width: 100%;
+                    }
+
+                    .card-description-text {
+                        margin: 1rem auto;
+                        width: 95%;
+                    }
                 }
 
-                .card-description-text {
-                    width: 80%;
+                .card-button-container {
+                    margin: 0 auto 2rem auto;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 1024px) and (max-width: 1210px) {
+        .card-description-container {
+            .card-description-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+                margin: 0px;
+                width: 100%;
+
+                .card-text-description {
+                    width: 100%;
+
+                    .card-description-title {
+                        width: 100%;
+                    }
+
+                    .card-description-text {
+                        margin: 1rem auto;
+                        width: 95%;
+                    }
+                }
+
+                .card-button-container {
+                    margin: 0 auto 2rem auto;
                 }
             }
         }
