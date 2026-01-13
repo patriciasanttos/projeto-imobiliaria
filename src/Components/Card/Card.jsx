@@ -1,10 +1,50 @@
 import "./Card.scss";
+import { useState, useEffect } from "react";
 
 import Location from "../../assets/Icons/Propiedades/location-icon.svg";
 import { useNavigate } from "react-router-dom";
+import { extractFolderId, getDriveImageUrl } from "../../utils/googleDrive";
 
-function Card({ id, tagList, title, nameLocation, image, price }) {
+// Google Apps Script URL - User needs to deploy and update this
+const APPS_SCRIPT_URL =
+  "https://script.google.com/macros/s/AKfycbzSEn2OIiqn8ATsvdUknoK2v0SUvfTYNfiAzX9Mf0UJS2JWrgqr_TE0Rtur770b9JIf/exec";
+
+function Card({ id, tagList, title, nameLocation, image, imagenes, price }) {
   const navigate = useNavigate();
+  const [displayImage, setDisplayImage] = useState(image);
+  const [imageLoading, setImageLoading] = useState(false);
+
+  useEffect(() => {
+    // If we have a Google Drive folder URL and Apps Script is configured
+    if (imagenes && APPS_SCRIPT_URL) {
+      setImageLoading(true);
+      const folderId = extractFolderId(imagenes);
+      console.log(">>> folderId", folderId);
+
+      if (folderId) {
+        // Use redirect: 'follow' for Google Apps Script CORS compatibility
+        fetch(`${APPS_SCRIPT_URL}?folderId=${folderId}`, {
+          method: "GET",
+          redirect: "follow",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(">>> Drive response:", data);
+            if (data.images && data.images.length > 0) {
+              console.log(">>> Image URL:", data.images[0].url);
+              setDisplayImage(data.images[0].url);
+            }
+          })
+          .catch((err) => {
+            console.error("Error fetching Drive images:", err);
+          })
+          .finally(() => setImageLoading(false));
+      } else {
+        setImageLoading(false);
+      }
+    }
+  }, [imagenes]);
+
   const onClickPropertyDetails = () => {
     navigate(`/propiedades/${id}`);
   };
@@ -12,7 +52,16 @@ function Card({ id, tagList, title, nameLocation, image, price }) {
   return (
     <section className="card-container">
       <div className="card-img-container">
-        <img src={image} alt="" className="card-img" />
+        {imageLoading ? (
+          <div className="card-img-skeleton"></div>
+        ) : (
+          <img
+            src={displayImage}
+            alt=""
+            className="card-img"
+            referrerPolicy="no-referrer"
+          />
+        )}
       </div>
       <section className="card-information">
         <h3>{title}</h3>
