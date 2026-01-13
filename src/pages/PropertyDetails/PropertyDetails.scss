@@ -33,7 +33,24 @@
                 justify-content: space-between;
             }
 
-            
+            .property-adress-container {
+                display: flex;
+                justify-content: space-between;
+
+                .property-location {
+                    display: flex;
+                    gap: 0.5rem;
+                    align-items: center;
+
+                    img {
+                        width: 1.2rem;
+                    }
+
+                    p {
+                        color: var(--text);
+                    }
+                }
+            }
         }
 
     }

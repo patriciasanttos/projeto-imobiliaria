@@ -31,7 +31,7 @@ function Home() {
             misión cumplida. <br />
             Descubrí espacios con alma, viví donde querés estar.
           </p>
-          <div className="home-buttons-container">
+          <div className="home-button-container">
             <Button
               text={"Contactanos"}
               icon={ArrowBlackButton}
@@ -43,7 +43,7 @@ function Home() {
       <div className="div-home"></div>
       <section className="card-description-container">
         <div className="card-description-section">
-          <div>
+          <div className="card-text-description">
             <h1 className="card-description-title">Propiedades Destacadas</h1>
             <p className="card-description-text">
               Explore nuestra cuidada selección de propiedades destacadas. Cada
