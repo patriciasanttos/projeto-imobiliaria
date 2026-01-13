@@ -1,5 +1,6 @@
 import "./Header.scss";
 import { useMediaQuery } from "react-responsive";
+import { Tooltip } from "react-tooltip";
 import MobileMenu from "../../Components/MobileMenu/MobileMenu.jsx";
 
 //Images
@@ -22,10 +23,10 @@ function Header() {
   ];
 
   const socialMedia = [
-    { icon: { WhatsApp }, link: "#" },
-    { icon: { Facebook }, link: "#" },
-    { icon: { Instagram }, link: "#" },
-    { icon: { Email }, link: "#" },
+    { icon: { WhatsApp }, link: "#", tooltip: "WhatsApp" },
+    { icon: { Facebook }, link: "#", tooltip: "Facebook" },
+    { icon: { Instagram }, link: "#", tooltip: "Instagram" },
+    { icon: { Email }, link: "#", tooltip: "Correo electrónico" },
   ];
 
   const onClickLogo = () => {
@@ -55,10 +56,16 @@ function Header() {
             </section>
             <section className="social-media-icons-container">
               {socialMedia.map((item, index) => (
-                <a key={index} href={item.link}>
-                  <img src={Object.values(item.icon)[0]} alt="" />
+                <a
+                  key={index}
+                  href={item.link}
+                  data-tooltip-id="header-tooltip"
+                  data-tooltip-content={item.tooltip}
+                >
+                  <img src={Object.values(item.icon)[0]} alt={item.tooltip} />
                 </a>
               ))}
+              <Tooltip id="header-tooltip" place="bottom" />
             </section>
           </>
         )}
