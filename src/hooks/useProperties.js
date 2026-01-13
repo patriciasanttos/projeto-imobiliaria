@@ -19,6 +19,7 @@ function mapSheetRowToCard(row) {
     title: row.Titulo,
     nameLocation: row.Ubicacion,
     image: House1,
+    imagenes: row.Imagenes || null, // Google Drive folder URL
     price: row.Precio,
     bathrooms: row.Bano,
     bedrooms: row.Habitaciones,
