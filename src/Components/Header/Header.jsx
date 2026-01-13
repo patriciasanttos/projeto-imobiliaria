@@ -23,10 +23,26 @@ function Header() {
   ];
 
   const socialMedia = [
-    { icon: { WhatsApp }, link: "#", tooltip: "WhatsApp" },
-    { icon: { Facebook }, link: "#", tooltip: "Facebook" },
-    { icon: { Instagram }, link: "#", tooltip: "Instagram" },
-    { icon: { Email }, link: "#", tooltip: "Correo electrónico" },
+    {
+      icon: { WhatsApp },
+      link: "https://wa.me/595971507508",
+      tooltip: "WhatsApp",
+    },
+    {
+      icon: { Facebook },
+      link: "https://www.facebook.com/romeogabriel.cardozo",
+      tooltip: "Facebook",
+    },
+    {
+      icon: { Instagram },
+      link: "https://www.instagram.com/habbitainmobiliarios",
+      tooltip: "Instagram",
+    },
+    {
+      icon: { Email },
+      link: "mailto:habbitainmobiliarios@gmail.com",
+      tooltip: "Correo electrónico",
+    },
   ];
 
   const onClickLogo = () => {
@@ -59,6 +75,8 @@ function Header() {
                 <a
                   key={index}
                   href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   data-tooltip-id="header-tooltip"
                   data-tooltip-content={item.tooltip}
                 >

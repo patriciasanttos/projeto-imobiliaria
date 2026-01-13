@@ -15,27 +15,27 @@ function Contact() {
     {
       icon: WhatsAppContact,
       text: "+595971-507-508",
-      link: "",
+      link: "https://wa.me/595971507508",
     },
     {
       icon: WhatsAppContact,
       text: "+595991-464-114",
-      link: "",
+      link: "https://wa.me/595991464114",
     },
     {
       icon: EmailContact,
       text: "habbitainmobiliarios@gmail.com",
-      link: "",
+      link: "mailto:habbitainmobiliarios@gmail.com",
     },
     {
       icon: FacebookContact,
       text: "habbitainmobiliarios",
-      link: "",
+      link: "https://www.facebook.com/romeogabriel.cardozo",
     },
     {
       icon: InstagramContact,
       text: "habbitainmobiliarios",
-      link: "",
+      link: "https://www.instagram.com/habbitainmobiliarios",
     },
   ];
 
@@ -58,7 +58,13 @@ function Contact() {
       </section>
       <section className="contact-cards-container">
         {contactListCard.map((contact, index) => (
-          <div className="contact-card" key={index}>
+          <a
+            href={contact.link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-card"
+            key={index}
+          >
             <div className="contact-arrow">
               <img src={ArrowLink} alt="" />
             </div>
@@ -66,7 +72,7 @@ function Contact() {
               <img src={contact.icon} alt="" />
               <p>{contact.text}</p>
             </div>
-          </div>
+          </a>
         ))}
       </section>
       <section className="contact-map-container">
