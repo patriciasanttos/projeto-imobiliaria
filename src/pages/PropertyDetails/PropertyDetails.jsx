@@ -23,7 +23,13 @@ function PropertyDetails() {
         <div className="property-description-container">
           <div className="property-photos">
             <div className="property-main-photo"></div>
-            <Button text="Ampliar foto" icon={ArrowZoom} />
+            <div className="zoom-photo-btn-container">
+              <Button
+                text="Ampliar foto"
+                icon={ArrowZoom}
+                className="zoom-photo-btn"
+              />
+            </div>
             <div className="property-mini-photos"></div>
           </div>
           <section className="property-info">

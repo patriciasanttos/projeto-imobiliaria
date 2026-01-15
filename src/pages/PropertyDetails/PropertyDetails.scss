@@ -1,7 +1,14 @@
 .property-container {
-
+    margin: 6rem auto;
     .back-page {
         display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin: 0 0 4rem 8rem;
+
+        img {
+            width: 2.5rem;
+        }
     }
 
     .property-description-container {
@@ -11,6 +18,7 @@
         .property-photos {
             display: flex;
             flex-direction: column;
+            gap: 1rem;
 
             .property-main-photo {
                 background-image: url("../../assets/Images/house-1.svg");
@@ -21,9 +29,29 @@
                 max-width: 24rem;
                 height: auto;
                 min-height: 30rem;
-
-
             }
+
+            .zoom-photo-btn-container {
+                .zoom-photo-btn {
+                    border-radius: 40px;
+                    border: 1px solid var(--lines);
+                    display: flex;
+                    gap: 1.5rem;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    padding: 0.5rem 0 0.5rem 0;
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease-in-out;
+
+                    &:hover {
+                        background-color: var(--lines);
+                    }
+                }
+            }
+
         }
 
         .property-info {
