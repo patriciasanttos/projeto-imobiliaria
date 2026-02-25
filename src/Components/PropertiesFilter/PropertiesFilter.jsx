@@ -23,6 +23,7 @@ function PropertiesFilter({ filters, setFilters }) {
       propertyType: "",
       minPrice: "",
       maxPrice: "",
+      sortOrder: "",
     });
   };
 
@@ -96,6 +97,20 @@ function PropertiesFilter({ filters, setFilters }) {
           value={formatPYG(filters.maxPrice)}
           onChange={handleChange}
         />
+      </div>
+
+      <div className="property-filter__group">
+        <label className="property-filter__label">Ordenar precio</label>
+        <select
+          className="property-filter__select"
+          name="sortOrder"
+          value={filters.sortOrder}
+          onChange={handleChange}
+        >
+          <option value="">Seleccionar</option>
+          <option value="desc">Mayor a menor</option>
+          <option value="asc">Menor a mayor</option>
+        </select>
       </div>
 
       <button className="property-filter__btn" onClick={onClickClear}>

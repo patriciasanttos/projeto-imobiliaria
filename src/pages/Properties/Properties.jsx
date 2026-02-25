@@ -11,6 +11,7 @@ function Properties() {
     propertyType: "",
     minPrice: "",
     maxPrice: "",
+    sortOrder: "",
   });
 
   return (
