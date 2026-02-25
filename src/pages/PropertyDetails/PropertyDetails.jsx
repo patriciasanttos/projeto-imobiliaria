@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import "./PropertyDetails.scss";
 
@@ -13,6 +14,7 @@ import CarIcon from "../../assets/Icons/Propiedades/car-icon.svg";
 
 // Components
 import Button from "../../Components/Button/Button.jsx";
+import Modal from "../../Components/Modal/Modal.jsx";
 
 // Images
 import HouseImg from "../../assets/Images/house-1.svg";
@@ -33,8 +35,30 @@ const featuresRight = [
   "A minutos del centro de Encarnación",
 ];
 
+const propertyImages = [HouseImg, HouseImg, HouseImg, HouseImg];
+
 function PropertyDetails() {
   const { id } = useParams();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const openModal = (index = 0) => {
+    setCurrentImageIndex(index);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => setIsModalOpen(false);
+
+  const prevImage = () =>
+    setCurrentImageIndex((prev) =>
+      prev === 0 ? propertyImages.length - 1 : prev - 1,
+    );
+
+  const nextImage = () =>
+    setCurrentImageIndex((prev) =>
+      prev === propertyImages.length - 1 ? 0 : prev + 1,
+    );
 
   return (
     <div className="property-page">
@@ -46,22 +70,28 @@ function PropertyDetails() {
 
         <div className="property-description-container">
           <div className="property-photos">
-            <div className="property-main-photo" />
+            <div
+              className="property-main-photo"
+              onClick={() => openModal(0)}
+              style={{ cursor: "pointer" }}
+            />
 
             <div className="zoom-photo-btn-container">
               <Button
                 text="Ampliar foto"
                 icon={ArrowZoom}
                 className="zoom-photo-btn"
+                onClick={() => openModal(0)}
               />
             </div>
 
             <div className="property-mini-photos">
-              {[HouseImg, HouseImg, HouseImg, HouseImg].map((src, i) => (
+              {propertyImages.map((src, i) => (
                 <div
                   key={i}
                   className={`mini-photo${i === 0 ? " active" : ""}`}
                   style={{ backgroundImage: `url(${src})` }}
+                  onClick={() => openModal(i)}
                 />
               ))}
             </div>
@@ -148,6 +178,16 @@ function PropertyDetails() {
       <section className="similar-properties-container">
         <h1>Ver opciones similares</h1>
       </section>
+
+      {/* Photo Modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        images={propertyImages}
+        currentIndex={currentImageIndex}
+        onPrev={prevImage}
+        onNext={nextImage}
+      />
     </div>
   );
 }
