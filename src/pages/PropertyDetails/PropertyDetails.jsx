@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./PropertyDetails.scss";
 
 // Icons
@@ -39,6 +39,7 @@ const propertyImages = [HouseImg, HouseImg, HouseImg, HouseImg];
 
 function PropertyDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -63,7 +64,7 @@ function PropertyDetails() {
   return (
     <div className="property-page">
       <section className="property-container">
-        <div className="back-page">
+        <div className="back-page" onClick={() => navigate(-1)}>
           <img src={ArrowBack} alt="Volver" />
           <p>Volver</p>
         </div>

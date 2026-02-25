@@ -50,14 +50,14 @@ function CardList({ isShowAll, isFilterByHome, filters }) {
 
         if (filters.minPrice && card.price) {
           const price = parseInt(
-            card.price.replace(/\./g, "").replace(/,/g, "")
+            card.price.replace(/\./g, "").replace(/,/g, ""),
           );
           returnRow = returnRow && price >= filters.minPrice;
         }
 
         if (filters.maxPrice && card.price) {
           const price = parseInt(
-            card.price.replace(/\./g, "").replace(/,/g, "")
+            card.price.replace(/\./g, "").replace(/,/g, ""),
           );
           returnRow = returnRow && price <= filters.maxPrice;
         }
@@ -65,6 +65,18 @@ function CardList({ isShowAll, isFilterByHome, filters }) {
 
       return returnRow;
     });
+
+    if (filters?.sortOrder === "desc" || filters?.sortOrder === "asc") {
+      filteredList.sort((a, b) => {
+        const parsePrice = (card) =>
+          card.price
+            ? parseInt(card.price.replace(/\./g, "").replace(/,/g, ""))
+            : 0;
+        const diff = parsePrice(a) - parsePrice(b);
+        return filters.sortOrder === "asc" ? diff : -diff;
+      });
+    }
+
     return filteredList;
   };
 
