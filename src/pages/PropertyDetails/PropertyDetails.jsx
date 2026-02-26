@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./PropertyDetails.scss";
 
@@ -12,6 +12,7 @@ import ShareIcon from "../../assets/Icons/Social media/share-icon.svg";
 // Components
 import Button from "../../Components/Button/Button.jsx";
 import Modal from "../../Components/Modal/Modal.jsx";
+import Card from "../../components/Card/Card.jsx";
 import useProperties from "../../hooks/useProperties";
 
 // Utils
@@ -75,6 +76,13 @@ function PropertyDetails() {
   const { cardList } = useProperties();
   const property = cardList.find((p) => p.id === id);
   const detallesList = parseDetalles(property?.detalles);
+
+  const otherProperties = useMemo(() => {
+    const others = cardList.filter((p) => p.id !== id);
+    // Shuffle and pick up to 3
+    const shuffled = [...others].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 3);
+  }, [cardList, id]);
 
   const [images, setImages] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -260,7 +268,12 @@ function PropertyDetails() {
       </section>
       <div className="div-property-details"></div>
       <section className="similar-properties-container">
-        <h1>Ver opciones similares</h1>
+        <h1>Ver otras propiedades</h1>
+        <div className="similar-properties-grid">
+          {otherProperties.map((card) => (
+            <Card key={card.id} {...card} />
+          ))}
+        </div>
       </section>
 
       {/* Photo Modal */}

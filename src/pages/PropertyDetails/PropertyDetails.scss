@@ -350,8 +350,21 @@
 
 .similar-properties-container {
     max-width: 85rem;
-    margin: 6rem auto;
+    margin: 0 auto 6rem;
     padding: 0 1.5rem;
+
+    h1 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin-bottom: 2rem;
+    }
+
+    .similar-properties-grid {
+        display: flex;
+        gap: 2rem;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
 }
 
 @media (max-width: 850px) {
