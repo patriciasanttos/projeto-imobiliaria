@@ -9,7 +9,16 @@ import { extractFolderId, getDriveImageUrl } from "../../utils/googleDrive";
 const APPS_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbzSEn2OIiqn8ATsvdUknoK2v0SUvfTYNfiAzX9Mf0UJS2JWrgqr_TE0Rtur770b9JIf/exec";
 
-function Card({ id, tagList, title, nameLocation, image, imagenes, price }) {
+function Card({
+  id,
+  tagList,
+  title,
+  nameLocation,
+  image,
+  imagenes,
+  price,
+  currency,
+}) {
   const navigate = useNavigate();
   const [displayImage, setDisplayImage] = useState(image);
   const [imageLoading, setImageLoading] = useState(false);
@@ -83,7 +92,9 @@ function Card({ id, tagList, title, nameLocation, image, imagenes, price }) {
         <div className="card-footer">
           <div className="card-price">
             <p className="price-title">Precio</p>
-            <p className="price-value">{price}</p>
+            <p className="price-value">
+              {currency} {price}
+            </p>
           </div>
           <div className="card-button-container">
             <button className="card-button" onClick={onClickPropertyDetails}>

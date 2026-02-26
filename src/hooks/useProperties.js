@@ -14,6 +14,31 @@ const SHEET_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vS9HwFXM91221YFd2SSXmNISzCmYPQB-4uvh-qWAkKf0ESpFZEGSXSkVBxh-MenIHqZ6RIqROo9CBot/pub?output=csv";
 
 function mapSheetRowToCard(row) {
+  // Build tagList only for fields that have a value > 0
+  const tagList = [];
+  const habitaciones = parseInt(row.Habitaciones || row["Habitaciones "], 10);
+  const bano = parseInt(row.Bano, 10);
+  const cochera = parseInt(row.Cochera, 10);
+
+  if (habitaciones > 0) {
+    tagList.push({
+      icon: Room,
+      name: `${habitaciones} ${habitaciones === 1 ? "Habitación" : "Habitaciones"}`,
+    });
+  }
+  if (bano > 0) {
+    tagList.push({
+      icon: Bathroom,
+      name: `${bano} ${bano === 1 ? "Baño" : "Baños"}`,
+    });
+  }
+  if (cochera > 0) {
+    tagList.push({
+      icon: Car,
+      name: `${cochera} ${cochera === 1 ? "Auto" : "Autos"}`,
+    });
+  }
+
   return {
     id: row.ID,
     title: row.Titulo,
@@ -21,17 +46,14 @@ function mapSheetRowToCard(row) {
     image: House1,
     imagenes: row.Imagenes || null, // Google Drive folder URL
     price: row.Precio,
+    currency: row.Moneda || "",
     bathrooms: row.Bano,
-    bedrooms: row.Habitaciones,
+    bedrooms: row.Habitaciones || row["Habitaciones "],
     parkingSlots: row.Cochera,
     home: row.Home,
     operationType: row.Operacion,
     propertyType: row.Tipo,
-    tagList: [
-      { icon: Room, name: `${row.Habitaciones}-Habitación` },
-      { icon: Bathroom, name: `${row.Bano}-Baño` },
-      { icon: Car, name: `${row.Cochera}-Auto` },
-    ],
+    tagList,
   };
 }
 
