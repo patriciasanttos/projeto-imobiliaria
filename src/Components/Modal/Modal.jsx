@@ -44,6 +44,7 @@ function Modal({ isOpen, onClose, images, currentIndex, onPrev, onNext }) {
             src={images[currentIndex]}
             alt={`Foto ${currentIndex + 1}`}
             className="modal-image"
+            referrerPolicy="no-referrer"
           />
         </div>
 

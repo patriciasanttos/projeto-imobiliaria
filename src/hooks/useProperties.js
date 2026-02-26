@@ -53,6 +53,9 @@ function mapSheetRowToCard(row) {
     home: row.Home,
     operationType: row.Operacion,
     propertyType: row.Tipo,
+    descripcion: row["Descripción"] || "",
+    detalles: row.Detalles || "",
+    maps: row.Maps || "",
     tagList,
   };
 }
