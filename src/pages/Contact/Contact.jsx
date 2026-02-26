@@ -1,43 +1,14 @@
 import "./Contact.scss";
+import useContacts from "../../hooks/useContacts";
 
 //Images
 import ContactImage from "../../assets/Images/contact-hero.svg";
 
 //Icons
-import WhatsAppContact from "../../assets/Icons/Contact/whatsapp-contact-icon.svg";
-import EmailContact from "../../assets/Icons/Contact/email-contact-icon.svg";
-import FacebookContact from "../../assets/Icons/Contact/facebook-contact-icon.svg";
-import InstagramContact from "../../assets/Icons/Contact/instagram-contact-icon.svg";
 import ArrowLink from "../../assets/Icons/Contact/arrow-contact-link.svg";
 
 function Contact() {
-  const contactListCard = [
-    {
-      icon: WhatsAppContact,
-      text: "+595971-507-508",
-      link: "https://wa.me/595971507508",
-    },
-    {
-      icon: WhatsAppContact,
-      text: "+595991-464-114",
-      link: "https://wa.me/595991464114",
-    },
-    {
-      icon: EmailContact,
-      text: "habbitainmobiliarios@gmail.com",
-      link: "mailto:habbitainmobiliarios@gmail.com",
-    },
-    {
-      icon: FacebookContact,
-      text: "habbitainmobiliarios",
-      link: "https://www.facebook.com/romeogabriel.cardozo",
-    },
-    {
-      icon: InstagramContact,
-      text: "habbitainmobiliarios",
-      link: "https://www.instagram.com/habbitainmobiliarios",
-    },
-  ];
+  const { contacts, loading, error } = useContacts();
 
   return (
     <section className="contact-section">
@@ -57,7 +28,9 @@ function Contact() {
         </div>
       </section>
       <section className="contact-cards-container">
-        {contactListCard.map((contact, index) => (
+        {loading && <p>Cargando contactos...</p>}
+        {error && <p>Error al cargar contactos: {error}</p>}
+        {contacts.map((contact, index) => (
           <a
             href={contact.link}
             target="_blank"
@@ -69,7 +42,7 @@ function Contact() {
               <img src={ArrowLink} alt="" />
             </div>
             <div className="contact-info">
-              <img src={contact.icon} alt="" />
+              {contact.icon && <img src={contact.icon} alt="" />}
               <p>{contact.text}</p>
             </div>
           </a>

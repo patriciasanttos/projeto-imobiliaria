@@ -2,47 +2,20 @@ import "./Header.scss";
 import { useMediaQuery } from "react-responsive";
 import { Tooltip } from "react-tooltip";
 import MobileMenu from "../../Components/MobileMenu/MobileMenu.jsx";
+import useHeaderContacts from "../../hooks/useHeaderContacts";
 
 //Images
 import Logo from "../../assets/Images/logo.svg";
 
-//Icons
-import WhatsApp from "../../assets/Icons/Social media/whatsapp-icon.svg";
-import Facebook from "../../assets/Icons/Social media/facebook-icon.svg";
-import Instagram from "../../assets/Icons/Social media/instagram-icon.svg";
-import Email from "../../assets/Icons/Social media/email-icon.svg";
-
 function Header() {
   const isMobile = useMediaQuery({ maxWidth: 848 });
+  const { socialMedia } = useHeaderContacts();
 
   const menuItems = [
     { name: "Inicio", link: "/" },
     { name: "Quienes Somos", link: "quienes-somos" },
-    { name: "Servicios", link: "propiedades" },
+    { name: "Propiedades", link: "propiedades" },
     { name: "Contactos", link: "contacto" },
-  ];
-
-  const socialMedia = [
-    {
-      icon: { WhatsApp },
-      link: "https://wa.me/595971507508",
-      tooltip: "WhatsApp",
-    },
-    {
-      icon: { Facebook },
-      link: "https://www.facebook.com/romeogabriel.cardozo",
-      tooltip: "Facebook",
-    },
-    {
-      icon: { Instagram },
-      link: "https://www.instagram.com/habbitainmobiliarios",
-      tooltip: "Instagram",
-    },
-    {
-      icon: { Email },
-      link: "mailto:habbitainmobiliarios@gmail.com",
-      tooltip: "Correo electrónico",
-    },
   ];
 
   const onClickLogo = () => {
