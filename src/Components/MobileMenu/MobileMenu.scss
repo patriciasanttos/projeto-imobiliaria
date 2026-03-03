@@ -107,6 +107,12 @@
             filter: brightness(1) invert(0.2) sepia(1) hue-rotate(60deg) saturate(4);
         }
     }
+
+    .mobile-lang-switcher {
+        margin-top: 1.2rem;
+        display: flex;
+        justify-content: center;
+    }
 }
 
 @keyframes fadeInMenu {

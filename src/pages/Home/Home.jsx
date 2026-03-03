@@ -1,5 +1,6 @@
 import "./Home.scss";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../../context/LanguageContext.jsx";
 
 //Components
 import Button from "../../Components/Button/Button.jsx";
@@ -12,9 +13,10 @@ import ArrowBlackButton from "../../assets/Icons/arrow-black-button-icon.svg";
 //Images
 import HeroImg from "../../assets/Images/hero-home.svg";
 
-
 function Home() {
   const navigate = useNavigate();
+  const { t } = useLanguage();
+
   const onClickProperties = () => {
     navigate(`/propiedades`);
   };
@@ -24,16 +26,11 @@ function Home() {
       <section className="hero-section">
         <img src={HeroImg} alt="" className="hero-img" />
         <div className="description-section">
-          <h1 className="hero-title">Hacemos realidad el lugar que soñás…</h1>
-          <p className="hero-text">
-            En <span>Habbita Negocios Inmobiliarios</span>, cada propiedad es
-            una oportunidad, cada cliente, una historia, y cada historia, una
-            misión cumplida. <br />
-            Descubrí espacios con alma, viví donde querés estar.
-          </p>
+          <h1 className="hero-title">{t("home.hero.title")}</h1>
+          <p className="hero-text">{t("home.hero.text")}</p>
           <div className="home-button-container">
             <Button
-              text={"Contactanos"}
+              text={t("home.hero.contactBtn")}
               icon={ArrowBlackButton}
               className="btn-gold home-btn"
             />
@@ -44,17 +41,14 @@ function Home() {
       <section className="card-description-container">
         <div className="card-description-section">
           <div className="card-text-description">
-            <h1 className="card-description-title">Propiedades Destacadas</h1>
-            <p className="card-description-text">
-              Explore nuestra cuidada selección de propiedades destacadas. Cada
-              anuncio ofrece un vistazo a las excepcionales casas e inversiones
-              disponibles a través de Habbita. Haga clic en "Ver Detalles" para
-              más información.
-            </p>
+            <h1 className="card-description-title">
+              {t("home.featured.title")}
+            </h1>
+            <p className="card-description-text">{t("home.featured.text")}</p>
           </div>
           <div className="card-button-container">
             <Button
-              text={"Ver todas propiedades"}
+              text={t("home.featured.viewAllBtn")}
               icon={ArrowWhiteButton}
               className="btn-green"
               onClick={onClickProperties}

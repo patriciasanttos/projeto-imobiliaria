@@ -1,0 +1,41 @@
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.lang-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.55rem;
+    border: 1.5px solid transparent;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    cursor: pointer;
+    font-family: var(--font-secondary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.75);
+    transition: all 150ms ease;
+    letter-spacing: 0.04em;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.22);
+        color: #fff;
+        transform: scale(1.05);
+    }
+
+    &--active {
+        background: rgba(255, 255, 255, 0.25);
+        border-color: rgba(255, 255, 255, 0.55);
+        color: #fff;
+    }
+}
+
+.flag-icon {
+    width: 1.1rem;
+    height: auto;
+    border-radius: 2px;
+    display: block;
+}

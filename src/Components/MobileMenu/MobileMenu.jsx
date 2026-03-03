@@ -3,7 +3,7 @@ import "./MobileMenu.scss";
 
 import MenuOpenIcon from "../../assets/Icons/MenuHeader/menu-open.svg";
 import MenuCloseIcon from "../../assets/Icons/MenuHeader/menu-close.svg";
-
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 
 const MobileMenu = ({ menuItems, socialMedia }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -74,6 +74,9 @@ const MobileMenu = ({ menuItems, socialMedia }) => {
                   <img src={Object.values(item.icon)[0]} alt="Social Icon" />
                 </a>
               ))}
+            </div>
+            <div className="mobile-lang-switcher">
+              <LanguageSwitcher />
             </div>
           </nav>
         </div>

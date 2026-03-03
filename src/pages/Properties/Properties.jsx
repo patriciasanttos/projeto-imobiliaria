@@ -1,10 +1,12 @@
 import { useState } from "react";
 import "./Properties.scss";
+import { useLanguage } from "../../context/LanguageContext.jsx";
 
 import PropertiesFilter from "../../Components/PropertiesFilter/PropertiesFilter";
 import CardList from "../../Components/CardList/CardList.jsx";
 
 function Properties() {
+  const { t } = useLanguage();
   const [filters, setFilters] = useState({
     modality: "",
     bedrooms: "",
@@ -17,14 +19,8 @@ function Properties() {
   return (
     <section className="properties-container">
       <section className="properties-description">
-        <h1>Encuentre la propiedad de sus sueños</h1>
-        <p>
-          Bienvenido a Habbita, donde la propiedad de tus sueños te espera en
-          cada rincón de nuestro hermoso mundo. Explora nuestra cuidada
-          selección de propiedades, cada una con una historia única y la
-          oportunidad de redefinir tu vida. Con categorías que se adaptan a cada
-          soñador, tu viaje...
-        </p>
+        <h1>{t("properties.title")}</h1>
+        <p>{t("properties.text")}</p>
       </section>
       <PropertiesFilter filters={filters} setFilters={setFilters} />
       <CardList isShowAll filters={filters} />

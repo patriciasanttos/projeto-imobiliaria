@@ -1,0 +1,89 @@
+{
+  "header": {
+    "nav": {
+      "home": "Início",
+      "aboutUs": "Quem Somos",
+      "properties": "Imóveis",
+      "contact": "Contato"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "Realizamos o lugar que você sonha…",
+      "text": "Na Habbita Negócios Imobiliários, cada imóvel é uma oportunidade, cada cliente, uma história, e cada história, uma missão cumprida. Descubra espaços com alma, viva onde você quer estar.",
+      "contactBtn": "Fale Conosco"
+    },
+    "featured": {
+      "title": "Imóveis em Destaque",
+      "text": "Explore nossa cuidadosa seleção de imóveis em destaque. Cada anúncio oferece um vislumbre das casas e investimentos excepcionais disponíveis pela Habbita. Clique em \"Ver Detalhes\" para mais informações.",
+      "viewAllBtn": "Ver todos os imóveis"
+    }
+  },
+  "properties": {
+    "title": "Encontre o imóvel dos seus sonhos",
+    "text": "Bem-vindo à Habbita, onde o imóvel dos seus sonhos espera por você em cada canto do nosso belo mundo. Explore nossa cuidadosa seleção de imóveis, cada um com uma história única e a oportunidade de redefinir sua vida. Com categorias que se adaptam a cada sonhador, sua jornada..."
+  },
+  "contact": {
+    "title": "Entre em contato com a Habbita",
+    "text": "Bem-vindo à página de contato da Habbita. Estamos aqui para ajudá-lo com qualquer dúvida, solicitação ou comentário que você tenha. Se você está buscando comprar ou alugar um imóvel, explorar oportunidades de investimento ou simplesmente se conectar, estamos a apenas uma mensagem de distância. Fale conosco.",
+    "location": "Localização",
+    "loading": "Carregando contatos...",
+    "error": "Erro ao carregar contatos:"
+  },
+  "aboutUs": {
+    "title": "Quem somos nós?",
+    "text": "Na Habbita Negócios Imobiliários, somos uma empresa comprometida em oferecer soluções confiáveis, ágeis e personalizadas no setor imobiliário. Somos especializados na compra, venda e aluguel de imóveis urbanos e rurais, oferecendo acompanhamento integral aos nossos clientes em cada etapa do processo.\n\nNossa missão é facilitar o caminho até o lar ideal ou o investimento imobiliário perfeito, com uma abordagem baseada em confiança, transparência e profissionalismo. Contamos com uma equipe treinada e com conhecimento do mercado local, que trabalha com dedicação para garantir resultados eficazes e experiências satisfatórias.\n\nEscolher-nos é optar por um atendimento próximo, uma assessoria clara e um serviço que se adapta às suas necessidades. Na Habbita, não apenas encontramos imóveis: construímos vínculos duradouros e oportunidades reais.",
+    "cards": [
+      {
+        "title": "Missão",
+        "description": "Oferecer soluções imobiliárias confiáveis, eficientes e personalizadas, voltadas a atender as necessidades de nossos clientes na compra, venda e aluguel de imóveis. Focamo-nos em gerar relacionamentos baseados em confiança, compromisso e transparência, contribuindo para o desenvolvimento do mercado imobiliário local."
+      },
+      {
+        "title": "Visão",
+        "description": "Ser uma empresa imobiliária de referência na região, reconhecida pelo profissionalismo, inovação e qualidade de serviço. Aspiramos continuar crescendo junto com nossos clientes, consolidando uma marca sólida que inspire segurança e acompanhe cada projeto imobiliário com responsabilidade e excelência."
+      },
+      {
+        "title": "Valores",
+        "description": "<b>Comprometimento</b>: Dedicamo-nos com responsabilidade e paixão a cada gestão, cumprindo o que prometemos.<br><br><b>Transparência</b>: Agimos com honestidade e clareza em todas as nossas operações.<br><br><b>Confiança</b>: Construímos relacionamentos sólidos e duradouros com nossos clientes e parceiros."
+      }
+    ]
+  },
+  "filter": {
+    "modality": "Modalidade",
+    "bedrooms": "Quartos",
+    "propertyType": "Tipo de imóvel",
+    "minPrice": "Preço a partir de:",
+    "maxPrice": "Preço até:",
+    "sortPrice": "Ordenar por preço",
+    "clearBtn": "Limpar filtros",
+    "select": "Selecionar",
+    "options": {
+      "sale": "Venda",
+      "rent": "Aluguel",
+      "bed4plus": "4+",
+      "house": "Casa",
+      "duplex": "Duplex",
+      "apartment": "Apartamento",
+      "land": "Terreno/Fazenda",
+      "highToLow": "Maior para menor",
+      "lowToHigh": "Menor para maior"
+    },
+    "placeholderMin": "Mín",
+    "placeholderMax": "Máx"
+  },
+  "footer": {
+    "text": "Explore nossa seleção em destaque de imóveis premium. Cada anúncio oferece propriedades excepcionais com oportunidades únicas de investimento."
+  },
+  "card": {
+    "viewDetails": "Ver Detalhes",
+    "price": "Preço",
+    "bedrooms": "Quartos",
+    "loading": "Carregando imóveis...",
+    "noProperties": "Nenhum imóvel encontrado.",
+    "tags": {
+      "rooms":     { "one": "Quarto",    "many": "Quartos" },
+      "bathrooms": { "one": "Banheiro",  "many": "Banheiros" },
+      "parking":   { "one": "Vaga",       "many": "Vagas" }
+    }
+  }
+}
