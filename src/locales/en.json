@@ -74,6 +74,15 @@
   "footer": {
     "text": "Explore our featured selection of premium real estate. Each listing offers exceptional properties with unique investment opportunities."
   },
+  "propertyDetails": {
+    "back": "Back",
+    "enlargePhoto": "Enlarge photo",
+    "inquire": "Inquire",
+    "share": "Share",
+    "description": "Description",
+    "location": "Location",
+    "otherProperties": "View other properties"
+  },
   "card": {
     "viewDetails": "View Details",
     "price": "Price",

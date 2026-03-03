@@ -74,6 +74,15 @@
   "footer": {
     "text": "Explore nossa seleção em destaque de imóveis premium. Cada anúncio oferece propriedades excepcionais com oportunidades únicas de investimento."
   },
+  "propertyDetails": {
+    "back": "Voltar",
+    "enlargePhoto": "Ampliar foto",
+    "inquire": "Consultar",
+    "share": "Compartilhar",
+    "description": "Descrição",
+    "location": "Localização",
+    "otherProperties": "Ver outros imóveis"
+  },
   "card": {
     "viewDetails": "Ver Detalhes",
     "price": "Preço",
