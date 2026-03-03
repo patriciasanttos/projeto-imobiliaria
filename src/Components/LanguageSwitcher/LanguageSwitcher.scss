@@ -1,41 +1,107 @@
 .lang-switcher {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 0.35rem;
 }
 
-.lang-btn {
+/* ── Toggle button (round flag + label beside it) ── */
+.lang-switcher__toggle {
     display: flex;
     align-items: center;
-    gap: 0.3rem;
-    padding: 0.3rem 0.55rem;
-    border: 1.5px solid transparent;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.12);
+    gap: 0.4rem;
+    background: none;
+    border: none;
     cursor: pointer;
-    font-family: var(--font-secondary);
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.75);
-    transition: all 150ms ease;
-    letter-spacing: 0.04em;
+    padding: 0;
+    transition: transform 150ms ease;
 
     &:hover {
-        background: rgba(255, 255, 255, 0.22);
-        color: #fff;
-        transform: scale(1.05);
-    }
-
-    &--active {
-        background: rgba(255, 255, 255, 0.25);
-        border-color: rgba(255, 255, 255, 0.55);
-        color: #fff;
+        transform: scale(1.08);
     }
 }
 
-.flag-icon {
-    width: 1.1rem;
-    height: auto;
-    border-radius: 2px;
-    display: block;
+.lang-switcher__flag-circle {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.12);
+
+    .flag-icon {
+        width: 1.6rem;
+        height: auto;
+        display: block;
+    }
+}
+
+.lang-switcher__label {
+    font-family: var(--font-secondary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.04em;
+}
+
+.lang-switcher__chevron {
+    opacity: 0.7;
+    transition: transform 150ms ease;
+}
+
+/* ── Dropdown (2 remaining options) ── */
+.lang-switcher__dropdown {
+    position: absolute;
+    top: calc(100% + 0.45rem);
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    padding: 0.35rem;
+    z-index: 1000;
+    min-width: 5.5rem;
+    animation: langDropIn 120ms ease-out;
+}
+
+.lang-switcher__option {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.35rem 0.55rem;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    cursor: pointer;
+    font-family: var(--font-secondary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #333;
+    transition: background 120ms ease;
+
+    &:hover {
+        background: #f0f0f0;
+    }
+
+    .flag-icon {
+        width: 1.15rem;
+        height: auto;
+        border-radius: 2px;
+        display: block;
+    }
+}
+
+@keyframes langDropIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
