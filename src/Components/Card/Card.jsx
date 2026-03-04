@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Location from "../../assets/Icons/Propiedades/location-icon.svg";
 import { useNavigate } from "react-router-dom";
 import { extractFolderId, getDriveImageUrl } from "../../utils/googleDrive";
+import { useLanguage } from "../../context/LanguageContext.jsx";
 
 // Google Apps Script URL - User needs to deploy and update this
 const APPS_SCRIPT_URL =
@@ -20,6 +21,7 @@ function Card({
   currency,
 }) {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [displayImage, setDisplayImage] = useState(image);
   const [imageLoading, setImageLoading] = useState(false);
 
@@ -81,24 +83,29 @@ function Card({
         </div>
 
         <div className="card-tag-list">
-          {tagList.map((tag, index) => (
-            <div key={index} className="card-tags">
-              <img src={tag.icon} alt="" />
-              <p>{tag.name}</p>
-            </div>
-          ))}
+          {tagList.map((tag, index) => {
+            const label = tag.type
+              ? `${tag.count} ${t(`card.tags.${tag.type}.${tag.count === 1 ? "one" : "many"}`)}`
+              : tag.name;
+            return (
+              <div key={index} className="card-tags">
+                <img src={tag.icon} alt="" />
+                <p>{label}</p>
+              </div>
+            );
+          })}
         </div>
 
         <div className="card-footer">
           <div className="card-price">
-            <p className="price-title">Precio</p>
+            <p className="price-title">{t("card.price")}</p>
             <p className="price-value">
               {currency} {price}
             </p>
           </div>
           <div className="card-button-container">
             <button className="card-button" onClick={onClickPropertyDetails}>
-              Ver Detalles
+              {t("card.viewDetails")}
             </button>
           </div>
         </div>

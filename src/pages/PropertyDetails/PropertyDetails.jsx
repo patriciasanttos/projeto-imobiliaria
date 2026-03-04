@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./PropertyDetails.scss";
+import { useLanguage } from "../../context/LanguageContext.jsx";
 
 // Icons
 import ArrowBack from "../../assets/Icons/arrow-back.svg";
@@ -73,6 +74,7 @@ function parseDetalles(detalles) {
 function PropertyDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const { cardList } = useProperties();
   const property = cardList.find((p) => p.id === id);
   const detallesList = parseDetalles(property?.detalles);
@@ -132,8 +134,8 @@ function PropertyDetails() {
     <div className="property-page">
       <section className="property-container">
         <div className="back-page" onClick={() => navigate(-1)}>
-          <img src={ArrowBack} alt="Volver" />
-          <p>Volver</p>
+          <img src={ArrowBack} alt={t("propertyDetails.back")} />
+          <p>{t("propertyDetails.back")}</p>
         </div>
 
         <div className="property-description-container">
@@ -156,7 +158,7 @@ function PropertyDetails() {
 
             <div className="zoom-photo-btn-container">
               <Button
-                text="Ampliar foto"
+                text={t("propertyDetails.enlargePhoto")}
                 icon={ArrowZoom}
                 className="zoom-photo-btn"
                 onClick={openModal}
@@ -200,12 +202,12 @@ function PropertyDetails() {
 
               <div className="property-btn-container">
                 <Button
-                  text="Consultar"
+                  text={t("propertyDetails.inquire")}
                   icon={WhatsApp}
                   className="property-btn-contact"
                 />
                 <Button
-                  text="Compartir"
+                  text={t("propertyDetails.share")}
                   icon={ShareIcon}
                   className="property-btn-share"
                 />
@@ -213,16 +215,21 @@ function PropertyDetails() {
             </div>
 
             <div className="property-tags">
-              {property?.tagList?.map((tag, index) => (
-                <span className="tag" key={index}>
-                  <img src={tag.icon} alt="" />
-                  {tag.name}
-                </span>
-              ))}
+              {property?.tagList?.map((tag, index) => {
+                const label = tag.type
+                  ? `${tag.count} ${t(`card.tags.${tag.type}.${tag.count === 1 ? "one" : "many"}`)}`
+                  : tag.name;
+                return (
+                  <span className="tag" key={index}>
+                    <img src={tag.icon} alt="" />
+                    {label}
+                  </span>
+                );
+              })}
             </div>
 
             <div className="property-description">
-              <h2>Descripción</h2>
+              <h2>{t("propertyDetails.description")}</h2>
               <div className="description-columns">
                 <ul className="check-list">
                   {detallesList
@@ -254,7 +261,7 @@ function PropertyDetails() {
           </section>
         </div>
         <section className="contact-map-container">
-          <h1>Ubicación</h1>
+          <h1>{t("propertyDetails.location")}</h1>
           <iframe
             src={getEmbedMapUrl(property?.maps, property?.nameLocation)}
             width="1200"
@@ -268,7 +275,7 @@ function PropertyDetails() {
       </section>
       <div className="div-property-details"></div>
       <section className="similar-properties-container">
-        <h1>Ver otras propiedades</h1>
+        <h1>{t("propertyDetails.otherProperties")}</h1>
         <div className="similar-properties-grid">
           {otherProperties.map((card) => (
             <Card key={card.id} {...card} />

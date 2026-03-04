@@ -1,15 +1,14 @@
 import "./Footer.scss";
+import { useLanguage } from "../../context/LanguageContext.jsx";
 
 function Footer() {
-    return (
-      <footer>
-        <p className="text-footer">
-          Explore nuestra selección destacada de inmuebles premium. Cada listing
-          ofrece propiedades excepcionales con oportunidades de inversión
-          unicas.
-        </p>
-      </footer>
-    );
+  const { t } = useLanguage();
+
+  return (
+    <footer>
+      <p className="text-footer">{t("footer.text")}</p>
+    </footer>
+  );
 }
 
 export default Footer;

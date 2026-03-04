@@ -1,0 +1,98 @@
+{
+  "header": {
+    "nav": {
+      "home": "Home",
+      "aboutUs": "About Us",
+      "properties": "Properties",
+      "contact": "Contact"
+    }
+  },
+  "home": {
+    "hero": {
+      "title": "We make the place you dream of a reality…",
+      "text": "At Habbita Negocios Inmobiliarios, every property is an opportunity, every client a story, and every story a mission accomplished. Discover soulful spaces, live where you want to be.",
+      "contactBtn": "Contact Us"
+    },
+    "featured": {
+      "title": "Featured Properties",
+      "text": "Explore our carefully curated selection of featured properties. Each listing offers a glimpse into the exceptional homes and investments available through Habbita. Click \"View Details\" for more information.",
+      "viewAllBtn": "View all properties"
+    }
+  },
+  "properties": {
+    "title": "Find the property of your dreams",
+    "text": "Welcome to Habbita, where the property of your dreams awaits you in every corner of our beautiful world. Explore our carefully curated selection of properties, each with a unique story and the opportunity to redefine your life. With categories that adapt to every dreamer, your journey..."
+  },
+  "contact": {
+    "title": "Get in touch with Habbita",
+    "text": "Welcome to Habbita's contact page. We are here to help you with any inquiry, request, or comment you may have. Whether you're looking to buy or rent a property, explore investment opportunities, or simply connect, we're just a message away. Contact us and let's talk.",
+    "location": "Location",
+    "loading": "Loading contacts...",
+    "error": "Error loading contacts:"
+  },
+  "aboutUs": {
+    "title": "Who are we?",
+    "text": "At Habbita Negocios Inmobiliarios, we are a company committed to providing reliable, agile, and personalized solutions in the real estate sector. We specialize in the purchase, sale, and rental of urban and rural properties, offering comprehensive support to our clients at every stage of the process.\n\nOur mission is to facilitate the path to the ideal home or the perfect real estate investment, with an approach based on trust, transparency, and professionalism. We have a trained team with knowledge of the local market, working dedicatedly to ensure effective results and satisfying experiences.\n\nChoosing us means opting for close attention, clear advice, and a service that adapts to your needs. At Habbita, we don't just find properties: we build lasting bonds and real opportunities.",
+    "cards": [
+      {
+        "title": "Mission",
+        "description": "To provide reliable, efficient, and personalized real estate solutions, aimed at meeting our clients' needs in the purchase, sale, and rental of properties. We focus on building relationships based on trust, commitment, and transparency, contributing to the development of the local real estate market."
+      },
+      {
+        "title": "Vision",
+        "description": "To be a reference real estate company in the region, recognized for its professionalism, innovation, and quality of service. We aspire to continue growing alongside our clients, consolidating a solid brand that inspires security and accompanies every real estate project with responsibility and excellence."
+      },
+      {
+        "title": "Values",
+        "description": "<b>Commitment</b>: We dedicate ourselves with responsibility and passion to every transaction, fulfilling what we promise.<br><br><b>Transparency</b>: We act with honesty and clarity in all our operations.<br><br><b>Trust</b>: We build solid and lasting relationships with our clients and partners."
+      }
+    ]
+  },
+  "filter": {
+    "modality": "Modality",
+    "bedrooms": "Bedrooms",
+    "propertyType": "Property Type",
+    "minPrice": "Price from:",
+    "maxPrice": "Price up to:",
+    "sortPrice": "Sort by price",
+    "clearBtn": "Clear filters",
+    "select": "Select",
+    "options": {
+      "sale": "Sale",
+      "rent": "Rent",
+      "bed4plus": "4+",
+      "house": "House",
+      "duplex": "Duplex",
+      "apartment": "Apartment",
+      "land": "Land/Estate",
+      "highToLow": "High to low",
+      "lowToHigh": "Low to high"
+    },
+    "placeholderMin": "Min",
+    "placeholderMax": "Max"
+  },
+  "footer": {
+    "text": "Explore our featured selection of premium real estate. Each listing offers exceptional properties with unique investment opportunities."
+  },
+  "propertyDetails": {
+    "back": "Back",
+    "enlargePhoto": "Enlarge photo",
+    "inquire": "Inquire",
+    "share": "Share",
+    "description": "Description",
+    "location": "Location",
+    "otherProperties": "View other properties"
+  },
+  "card": {
+    "viewDetails": "View Details",
+    "price": "Price",
+    "bedrooms": "Bedrooms",
+    "loading": "Loading properties...",
+    "noProperties": "No properties found.",
+    "tags": {
+      "rooms":     { "one": "Room",      "many": "Rooms" },
+      "bathrooms": { "one": "Bathroom",  "many": "Bathrooms" },
+      "parking":   { "one": "Car",        "many": "Cars" }
+    }
+  }
+}

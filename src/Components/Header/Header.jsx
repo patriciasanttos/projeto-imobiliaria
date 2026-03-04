@@ -3,6 +3,8 @@ import { useMediaQuery } from "react-responsive";
 import { Tooltip } from "react-tooltip";
 import MobileMenu from "../../Components/MobileMenu/MobileMenu.jsx";
 import useHeaderContacts from "../../hooks/useHeaderContacts";
+import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
+import { useLanguage } from "../../context/LanguageContext.jsx";
 
 //Images
 import Logo from "../../assets/Images/logo.svg";
@@ -10,12 +12,13 @@ import Logo from "../../assets/Images/logo.svg";
 function Header() {
   const isMobile = useMediaQuery({ maxWidth: 848 });
   const { socialMedia } = useHeaderContacts();
+  const { t } = useLanguage();
 
   const menuItems = [
-    { name: "Inicio", link: "/" },
-    { name: "Quienes Somos", link: "quienes-somos" },
-    { name: "Propiedades", link: "propiedades" },
-    { name: "Contactos", link: "contacto" },
+    { name: t("header.nav.home"), link: "/" },
+    { name: t("header.nav.aboutUs"), link: "quienes-somos" },
+    { name: t("header.nav.properties"), link: "propiedades" },
+    { name: t("header.nav.contact"), link: "contacto" },
   ];
 
   const onClickLogo = () => {
@@ -58,6 +61,7 @@ function Header() {
               ))}
               <Tooltip id="header-tooltip" place="bottom" />
             </section>
+            <LanguageSwitcher />
           </>
         )}
       </section>
