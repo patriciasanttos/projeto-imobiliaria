@@ -44,3 +44,20 @@ button {
   font-family: var(--font-tertiary);
 }
 
+/* Reusable text skeleton loader */
+.text-skeleton {
+  display: inline-block;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: text-skeleton-shimmer 1.5s infinite ease-in-out;
+  border-radius: 4px;
+  height: 1em;
+  min-width: 6rem;
+  vertical-align: middle;
+}
+
+@keyframes text-skeleton-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+

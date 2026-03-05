@@ -46,22 +46,24 @@ function Header() {
                 </a>
               ))}
             </section>
-            <section className="social-media-icons-container">
-              {socialMedia.map((item, index) => (
-                <a
-                  key={index}
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  data-tooltip-id="header-tooltip"
-                  data-tooltip-content={item.tooltip}
-                >
-                  <img src={Object.values(item.icon)[0]} alt={item.tooltip} />
-                </a>
-              ))}
-              <Tooltip id="header-tooltip" place="bottom" />
-            </section>
-            <LanguageSwitcher />
+            <div className="header-right">
+              <section className="social-media-icons-container">
+                {socialMedia.map((item, index) => (
+                  <a
+                    key={index}
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-tooltip-id="header-tooltip"
+                    data-tooltip-content={item.tooltip}
+                  >
+                    <img src={Object.values(item.icon)[0]} alt={item.tooltip} />
+                  </a>
+                ))}
+                <Tooltip id="header-tooltip" place="bottom" />
+              </section>
+              <LanguageSwitcher />
+            </div>
           </>
         )}
       </section>

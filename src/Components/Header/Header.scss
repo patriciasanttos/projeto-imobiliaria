@@ -6,22 +6,25 @@
 
     .header-content {
         display: flex;
-        justify-content: space-around;
         align-items: center;
         height: 100%;
-        padding: 0 1.2rem;
+        width: 80%;
+        margin: 0 auto;
 
         .logo-header {
             position: relative;
             top: clamp(1rem, 2vw, 1rem);
             width: clamp(4.8rem, 12vw, 5.5rem);
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .menu-items-header {
             display: flex;
+            flex: 1;
             gap: 2rem;
             align-items: center;
+            justify-content: center;
 
             font-family: var(--font-secondary);
             font-weight: 600;
@@ -36,6 +39,13 @@
         .menu-items-header a:hover {
             color: var(--lines);
             border-bottom: 1px solid var(--lines);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-shrink: 0;
         }
 
         .social-media-icons-container {

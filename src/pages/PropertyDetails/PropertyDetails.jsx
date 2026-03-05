@@ -75,7 +75,7 @@ function PropertyDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { t } = useLanguage();
-  const { cardList } = useProperties();
+  const { cardList, loading } = useProperties();
   const property = cardList.find((p) => p.id === id);
   const detallesList = parseDetalles(property?.detalles);
 
@@ -85,6 +85,11 @@ function PropertyDetails() {
     const shuffled = [...others].sort(() => Math.random() - 0.5);
     return shuffled.slice(0, 3);
   }, [cardList, id]);
+
+  // Scroll to top when navigating to a property
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [id]);
 
   const [images, setImages] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -190,14 +195,32 @@ function PropertyDetails() {
 
           <section className="property-info">
             <div className="property-title">
-              <h1>Dúplex en Venta</h1>
-              <h1 className="property-price">Gs. 4.500.000</h1>
+              <h1>
+                {loading ? (
+                  <span className="text-skeleton" style={{ width: "16rem" }}>
+                    &nbsp;
+                  </span>
+                ) : (
+                  property?.title
+                )}
+              </h1>
+              <h1 className="property-price">
+                {property?.currency} {property?.price}
+              </h1>
             </div>
 
             <div className="property-adress-container">
               <div className="property-location">
                 <img src={LocationGreen} alt="Localização" />
-                <p>Barrio San Miguel, Cambyretá</p>
+                <p>
+                  {loading ? (
+                    <span className="text-skeleton" style={{ width: "12rem" }}>
+                      &nbsp;
+                    </span>
+                  ) : (
+                    property?.nameLocation
+                  )}
+                </p>
               </div>
 
               <div className="property-btn-container">
@@ -230,32 +253,63 @@ function PropertyDetails() {
 
             <div className="property-description">
               <h2>{t("propertyDetails.description")}</h2>
-              <div className="description-columns">
-                <ul className="check-list">
-                  {detallesList
-                    .slice(0, Math.ceil(detallesList.length / 2))
-                    .map((item, i) => (
+              {loading ? (
+                <div className="description-columns">
+                  <ul className="check-list">
+                    {[1, 2, 3].map((i) => (
                       <li key={i}>
-                        <span className="checkmark">✓</span>
-                        {item}
+                        <span
+                          className="text-skeleton"
+                          style={{ width: `${8 + i * 2}rem` }}
+                        >
+                          &nbsp;
+                        </span>
                       </li>
                     ))}
-                </ul>
-                <ul className="check-list">
-                  {detallesList
-                    .slice(Math.ceil(detallesList.length / 2))
-                    .map((item, i) => (
+                  </ul>
+                  <ul className="check-list">
+                    {[1, 2, 3].map((i) => (
                       <li key={i}>
-                        <span className="checkmark">✓</span>
-                        {item}
+                        <span
+                          className="text-skeleton"
+                          style={{ width: `${10 - i}rem` }}
+                        >
+                          &nbsp;
+                        </span>
                       </li>
                     ))}
-                </ul>
-              </div>
-              {property?.descripcion && (
-                <p className="property-description-text">
-                  {property.descripcion}
-                </p>
+                  </ul>
+                </div>
+              ) : (
+                <>
+                  <div className="description-columns">
+                    <ul className="check-list">
+                      {detallesList
+                        .slice(0, Math.ceil(detallesList.length / 2))
+                        .map((item, i) => (
+                          <li key={i}>
+                            <span className="checkmark">✓</span>
+                            {item}
+                          </li>
+                        ))}
+                    </ul>
+                    <ul className="check-list">
+                      {detallesList
+                        .slice(Math.ceil(detallesList.length / 2))
+                        .map((item, i) => (
+                          <li key={i}>
+                            <span className="checkmark">✓</span>
+                            {item}
+                          </li>
+                        ))}
+                    </ul>
+                  </div>
+                  {property?.descripcion && (
+                    <p className="property-description-text">
+                      {property.descripcion}
+                    </p>
+                  )}
+                </>
               )}
             </div>
           </section>

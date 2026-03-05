@@ -1,17 +1,24 @@
 import { useEffect, useState } from "react";
 import { fetchGoogleSheetCSV } from "../utils/googleSheet";
+import { useLanguage } from "../context/LanguageContext";
 
 //Images
 import House1 from "../assets/Images/house-1.svg";
-
 
 //Icons
 import Room from "../assets/Icons/Propiedades/room-icon.svg";
 import Bathroom from "../assets/Icons/Propiedades/bathroom-icon.svg";
 import Car from "../assets/Icons/Propiedades/car-icon.svg";
 
-const SHEET_URL =
+const SHEET_BASE_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vS9HwFXM91221YFd2SSXmNISzCmYPQB-4uvh-qWAkKf0ESpFZEGSXSkVBxh-MenIHqZ6RIqROo9CBot/pub?output=csv";
+
+// Map app language codes to spreadsheet tab GIDs
+const LANG_TO_GID = {
+  es: "139553777",
+  pt: "104221366",
+  en: "371251503",
+};
 
 function mapSheetRowToCard(row) {
   // Build tagList only for fields that have a value > 0
@@ -53,16 +60,48 @@ function mapSheetRowToCard(row) {
 }
 
 const useProperties = () => {
+  const { lang } = useLanguage();
   const [cardList, setCardList] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetchGoogleSheetCSV(SHEET_URL)
-      .then((rows) => setCardList(rows.map(mapSheetRowToCard)))
+    setLoading(true);
+
+    const gid = LANG_TO_GID[lang] || LANG_TO_GID.es;
+    const localizedUrl = `${SHEET_BASE_URL}&gid=${gid}`;
+
+    // Fetch base data and localized tab in parallel
+    Promise.all([
+      fetchGoogleSheetCSV(SHEET_BASE_URL),
+      fetchGoogleSheetCSV(localizedUrl).catch(() => []),
+    ])
+      .then(([baseRows, localizedRows]) => {
+        // Build a lookup map from the localized tab by ID
+        const localizedMap = {};
+        localizedRows.forEach((row) => {
+          if (row.ID) {
+            localizedMap[row.ID] = row;
+          }
+        });
+
+        // Map base rows and override translatable fields
+        const cards = baseRows.map((row) => {
+          const localized = localizedMap[row.ID];
+          if (localized) {
+            row.Titulo = localized.Titulo || row.Titulo;
+            row.Ubicacion = localized.Ubicacion || row.Ubicacion;
+            row["Descripción"] = localized["Descripción"] || row["Descripción"];
+            row.Detalles = localized.Detalles || row.Detalles;
+          }
+          return mapSheetRowToCard(row);
+        });
+
+        setCardList(cards);
+      })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
-  }, []);
+  }, [lang]);
 
   return {
     cardList, setCardList, loading, setLoading, error, setError
