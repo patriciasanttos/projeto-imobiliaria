@@ -1,4 +1,5 @@
 import "./Header.scss";
+import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import { Tooltip } from "react-tooltip";
 import MobileMenu from "../../Components/MobileMenu/MobileMenu.jsx";
@@ -16,9 +17,9 @@ function Header() {
 
   const menuItems = [
     { name: t("header.nav.home"), link: "/" },
-    { name: t("header.nav.aboutUs"), link: "quienes-somos" },
-    { name: t("header.nav.properties"), link: "propiedades" },
-    { name: t("header.nav.contact"), link: "contacto" },
+    { name: t("header.nav.aboutUs"), link: "/quienes-somos" },
+    { name: t("header.nav.properties"), link: "/propiedades" },
+    { name: t("header.nav.contact"), link: "/contacto" },
   ];
 
   const onClickLogo = () => {
@@ -41,9 +42,9 @@ function Header() {
           <>
             <section className="menu-items-header">
               {menuItems.map((item, index) => (
-                <a key={index} href={item.link}>
+                <Link key={index} to={item.link}>
                   {item.name}
-                </a>
+                </Link>
               ))}
             </section>
             <div className="header-right">

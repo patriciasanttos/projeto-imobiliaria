@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./MobileMenu.scss";
 
 import MenuOpenIcon from "../../assets/Icons/MenuHeader/menu-open.svg";
@@ -64,7 +65,7 @@ const MobileMenu = ({ menuItems, socialMedia }) => {
             <ul className="mobile-nav-links">
               {menuItems.map((item, index) => (
                 <li key={index} onClick={toggleMenu}>
-                  <a href={item.link}>{item.name}</a>
+                  <Link to={item.link}>{item.name}</Link>
                 </li>
               ))}
             </ul>
