@@ -8,7 +8,7 @@ import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 import { useLanguage } from "../../context/LanguageContext.jsx";
 
 //Images
-import Logo from "../../assets/Images/logo-header.svg";
+import Logo from "../../assets/Images/logo-header.png";
 
 function Header() {
   const isMobile = useMediaQuery({ maxWidth: 848 });
