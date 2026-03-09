@@ -5,6 +5,12 @@
       "aboutUs": "Quem Somos",
       "properties": "Imóveis",
       "contact": "Contato"
+    },
+    "tooltips": {
+      "whatsapp": "WhatsApp",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "email": "E-mail"
     }
   },
   "home": {
@@ -94,5 +100,6 @@
       "bathrooms": { "one": "Banheiro",  "many": "Banheiros" },
       "parking":   { "one": "Vaga",       "many": "Vagas" }
     }
-  }
+  },
+  "scrollTop": "Voltar ao topo"
 }

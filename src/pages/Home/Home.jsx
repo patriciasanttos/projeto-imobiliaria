@@ -33,6 +33,7 @@ function Home() {
               text={t("home.hero.contactBtn")}
               icon={ArrowBlackButton}
               className="btn-gold home-btn"
+              onClick={() => navigate('/contacto')}
             />
           </div>
         </div>

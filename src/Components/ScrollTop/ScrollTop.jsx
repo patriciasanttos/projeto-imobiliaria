@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Tooltip } from "react-tooltip";
 import "./ScrollTop.scss";
+import { useLanguage } from "../../context/LanguageContext.jsx";
 
 import ScrollTopIcon from "../../assets/Icons/scroll-top.svg";
 
 function ScrollTop() {
   const [isVisible, setIsVisible] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -24,10 +26,10 @@ function ScrollTop() {
     <div className={`scroll-container ${isVisible ? "visible" : ""}`}>
       <img
         src={ScrollTopIcon}
-        alt="Volver arriba"
+        alt={t("scrollTop")}
         onClick={scrollToTop}
         data-tooltip-id="scroll-top-tooltip"
-        data-tooltip-content="Volver arriba"
+        data-tooltip-content={t("scrollTop")}
       />
       <Tooltip id="scroll-top-tooltip" place="left" />
     </div>
