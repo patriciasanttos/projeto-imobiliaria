@@ -1,5 +1,16 @@
 {
   "rewrites": [
+    {
+      "source": "/propiedades/:id",
+      "has": [
+        {
+          "type": "header",
+          "key": "user-agent",
+          "value": "(?i).*(facebookexternalhit|Facebot|Twitterbot|WhatsApp|TelegramBot|LinkedInBot|Slackbot|Discordbot|Pinterest).*"
+        }
+      ],
+      "destination": "/api/og?id=:id"
+    },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

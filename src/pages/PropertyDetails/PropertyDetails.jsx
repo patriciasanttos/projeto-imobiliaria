@@ -279,13 +279,36 @@ function PropertyDetails() {
                   icon={ShareIcon}
                   className="property-btn-share"
                   onClick={async () => {
-                    const shareData = {
-                      title: property?.title || "",
-                      text: `${property?.title || ""} – ${property?.currency || ""} ${property?.price || ""}`,
-                      url: window.location.href,
-                    };
+                    const shareText = `${property?.title || ""} – ${property?.currency || ""} ${property?.price || ""}`;
+                    const shareUrl = window.location.href;
+
                     if (navigator.share) {
                       try {
+                        // Try to include the main image as a file
+                        let shareData = {
+                          title: property?.title || "",
+                          text: shareText,
+                          url: shareUrl,
+                        };
+
+                        const mainImage = images.length > 0 ? images[0] : null;
+                        if (mainImage) {
+                          try {
+                            const response = await fetch(mainImage);
+                            const blob = await response.blob();
+                            const ext = blob.type.split("/")[1] || "jpg";
+                            const file = new File([blob], `property.${ext}`, {
+                              type: blob.type,
+                            });
+                            const dataWithFile = { ...shareData, files: [file] };
+                            if (navigator.canShare && navigator.canShare(dataWithFile)) {
+                              shareData = dataWithFile;
+                            }
+                          } catch {
+                            // Image fetch failed, share without image
+                          }
+                        }
+
                         await navigator.share(shareData);
                       } catch (err) {
                         if (err.name !== "AbortError") {
@@ -294,7 +317,7 @@ function PropertyDetails() {
                       }
                     } else {
                       try {
-                        await navigator.clipboard.writeText(window.location.href);
+                        await navigator.clipboard.writeText(shareUrl);
                         alert(t("propertyDetails.linkCopied") || "Link copied!");
                       } catch (err) {
                         console.error("Copy failed:", err);

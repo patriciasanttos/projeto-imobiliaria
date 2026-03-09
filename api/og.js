@@ -1,5 +1,5 @@
-// Vercel Edge Middleware – serves OG meta tags to social-media crawlers
-// For normal users the SPA is served as usual.
+// Vercel Serverless Function – serves OG meta tags to social-media crawlers
+// This function is called via conditional rewrites in vercel.json
 
 const SHEET_CSV_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vS9HwFXM91221YFd2SSXmNISzCmYPQB-4uvh-qWAkKf0ESpFZEGSXSkVBxh-MenIHqZ6RIqROo9CBot/pub?output=csv";
@@ -7,11 +7,7 @@ const SHEET_CSV_URL =
 const APPS_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbzSEn2OIiqn8ATsvdUknoK2v0SUvfTYNfiAzX9Mf0UJS2JWrgqr_TE0Rtur770b9JIf/exec";
 
-// Bot user-agents that need OG tags
-const CRAWLER_UA =
-  /facebookexternalhit|Facebot|Twitterbot|WhatsApp|TelegramBot|LinkedInBot|Slackbot|Discordbot|Pinterest|Googlebot|bingbot/i;
-
-// --------------- CSV helpers (same logic as the frontend) ---------------
+// --------------- CSV helpers ---------------
 
 function parseCsvLine(line) {
   const fields = [];
@@ -72,51 +68,52 @@ function parseCSV(csv) {
   });
 }
 
-// Extract Google Drive folder ID from a URL
 function extractFolderId(url) {
   if (!url) return null;
-  const match = url.match(/\/folders\/([a-zA-Z0-9_-]+)/);
+  const match = url.match(/folders\/([a-zA-Z0-9_-]+)/);
   return match ? match[1] : null;
 }
 
-// --------------- Middleware handler ---------------
+function escapeHtml(str) {
+  return (str || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
 
-export const config = {
-  matcher: "/propiedades/:id*",
-};
+function escapeAttr(str) {
+  return (str || "")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
 
-export default async function middleware(request) {
-  const ua = request.headers.get("user-agent") || "";
+// --------------- Handler ---------------
 
-  // Only intercept crawler requests
-  if (!CRAWLER_UA.test(ua)) {
-    return; // pass through to the SPA
+export default async function handler(req, res) {
+  const { id } = req.query;
+
+  if (!id) {
+    return res.status(400).send("Missing property ID");
   }
-
-  // Extract property ID from URL
-  const url = new URL(request.url);
-  const segments = url.pathname.split("/").filter(Boolean);
-  // Expected: ["propiedades", "<id>"]
-  const propertyId = segments[1];
-  if (!propertyId) return;
 
   try {
     // Fetch property data from the base (Spanish) sheet
     const csvRes = await fetch(SHEET_CSV_URL);
     const csvText = await csvRes.text();
     const rows = parseCSV(csvText);
-    const property = rows.find((r) => r.ID === propertyId);
+    const property = rows.find((r) => r.ID === id);
 
-    if (!property) return;
+    if (!property) {
+      return res.status(404).send("Property not found");
+    }
 
     const title = property.Titulo || "Habbita Negocios Inmobiliarios";
     const price = property.Precio || "";
     const currency = property.Moneda || "";
-    const description =
-      property["Descripción"] || property.Ubicacion || "";
-    const ogTitle = price
-      ? `${title} – ${currency} ${price}`
-      : title;
+    const description = property["Descripción"] || property.Ubicacion || "";
+    const ogTitle = price ? `${title} – ${currency} ${price}` : title;
 
     // Try to get the first image from Google Drive
     let imageUrl = "";
@@ -136,9 +133,11 @@ export default async function middleware(request) {
       }
     }
 
-    const pageUrl = request.url;
+    // Build the canonical page URL
+    const host = req.headers.host || "localhost";
+    const protocol = req.headers["x-forwarded-proto"] || "https";
+    const pageUrl = `${protocol}://${host}/propiedades/${id}`;
 
-    // Return minimal HTML with OG meta tags
     const html = `<!DOCTYPE html>
 <html>
 <head>
@@ -150,6 +149,8 @@ export default async function middleware(request) {
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Habbita Negocios Inmobiliarios" />
   ${imageUrl ? `<meta property="og:image" content="${escapeAttr(imageUrl)}" />` : ""}
+  ${imageUrl ? `<meta property="og:image:width" content="1200" />` : ""}
+  ${imageUrl ? `<meta property="og:image:height" content="630" />` : ""}
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="${escapeAttr(ogTitle)}" />
   <meta name="twitter:description" content="${escapeAttr(description)}" />
@@ -159,33 +160,15 @@ export default async function middleware(request) {
   <h1>${escapeHtml(ogTitle)}</h1>
   <p>${escapeHtml(description)}</p>
   ${imageUrl ? `<img src="${escapeAttr(imageUrl)}" alt="${escapeAttr(title)}" />` : ""}
+  <a href="${escapeAttr(pageUrl)}">Ver propiedad</a>
 </body>
 </html>`;
 
-    return new Response(html, {
-      status: 200,
-      headers: { "Content-Type": "text/html; charset=utf-8" },
-    });
+    res.setHeader("Content-Type", "text/html; charset=utf-8");
+    res.setHeader("Cache-Control", "s-maxage=300, stale-while-revalidate");
+    return res.status(200).send(html);
   } catch (err) {
-    // On error, fall through to the SPA
-    console.error("Middleware OG error:", err);
-    return;
+    console.error("OG metadata error:", err);
+    return res.status(500).send("Internal server error");
   }
-}
-
-// --------------- HTML escaping helpers ---------------
-
-function escapeHtml(str) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
-}
-
-function escapeAttr(str) {
-  return str
-    .replace(/&/g, "&amp;")
-    .replace(/"/g, "&quot;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;");
 }
