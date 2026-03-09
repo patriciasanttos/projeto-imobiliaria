@@ -2,7 +2,7 @@ import "./AboutUs.scss";
 import { useLanguage } from "../../context/LanguageContext.jsx";
 
 //Images
-import AboutUsImage from "../../assets/Images/logo-aboutus.svg";
+import AboutUsImage from "../../assets/Images/logo-main.jpeg";
 
 //Icons
 import Mission from "../../assets/Icons/About Us/mission-icon.svg";

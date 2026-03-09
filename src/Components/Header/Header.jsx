@@ -8,7 +8,7 @@ import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 import { useLanguage } from "../../context/LanguageContext.jsx";
 
 //Images
-import Logo from "../../assets/Images/logo.svg";
+import Logo from "../../assets/Images/logo-header.svg";
 
 function Header() {
   const isMobile = useMediaQuery({ maxWidth: 848 });
@@ -51,18 +51,22 @@ function Header() {
               <section className="social-media-icons-container">
                 {socialMedia.map((item, index) => {
                   const tipo = Object.keys(item.icon)[0];
-                  const tooltipText = t(`header.tooltips.${tipo}`) || item.tooltip;
+                  const tooltipText =
+                    t(`header.tooltips.${tipo}`) || item.tooltip;
                   return (
-                  <a
-                    key={index}
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-tooltip-id="header-tooltip"
-                    data-tooltip-content={tooltipText}
-                  >
-                    <img src={Object.values(item.icon)[0]} alt={tooltipText} />
-                  </a>
+                    <a
+                      key={index}
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      data-tooltip-id="header-tooltip"
+                      data-tooltip-content={tooltipText}
+                    >
+                      <img
+                        src={Object.values(item.icon)[0]}
+                        alt={tooltipText}
+                      />
+                    </a>
                   );
                 })}
                 <Tooltip id="header-tooltip" place="bottom" />
