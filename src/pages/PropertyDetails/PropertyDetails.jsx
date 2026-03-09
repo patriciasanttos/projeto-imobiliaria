@@ -69,7 +69,7 @@ function parseDetalles(detalles) {
   if (!detalles) return [];
   return detalles
     .split("\n")
-    .map((line) => line.replace(/^✓\s*/, "").trim())
+    .map((line) => line.trim())
     .filter((line) => line.length > 0);
 }
 
@@ -160,7 +160,7 @@ function PropertyDetails() {
         {pageImage && <meta name="twitter:image" content={pageImage} />}
       </Helmet>
       <section className="property-container">
-        <div className="back-page" onClick={() => navigate('/propiedades')}>
+        <div className="back-page" onClick={() => navigate("/propiedades")}>
           <img src={ArrowBack} alt={t("propertyDetails.back")} />
           <p>{t("propertyDetails.back")}</p>
         </div>
@@ -237,7 +237,10 @@ function PropertyDetails() {
                   <img src={LocationGreen} alt="Localização" />
                   <p>
                     {loading ? (
-                      <span className="text-skeleton" style={{ width: "12rem" }}>
+                      <span
+                        className="text-skeleton"
+                        style={{ width: "12rem" }}
+                      >
                         &nbsp;
                       </span>
                     ) : (
@@ -269,7 +272,10 @@ function PropertyDetails() {
                   onClick={() => {
                     const template = variables.PropertyLink || "";
                     if (template) {
-                      const url = template.replace("[LINK]", window.location.href);
+                      const url = template.replace(
+                        "[LINK]",
+                        window.location.href,
+                      );
                       window.open(url, "_blank");
                     }
                   }}
@@ -295,7 +301,9 @@ function PropertyDetails() {
                     } else {
                       try {
                         await navigator.clipboard.writeText(shareUrl);
-                        alert(t("propertyDetails.linkCopied") || "Link copied!");
+                        alert(
+                          t("propertyDetails.linkCopied") || "Link copied!",
+                        );
                       } catch (err) {
                         console.error("Copy failed:", err);
                       }
@@ -341,20 +349,14 @@ function PropertyDetails() {
                       {detallesList
                         .slice(0, Math.ceil(detallesList.length / 2))
                         .map((item, i) => (
-                          <li key={i}>
-                            <span className="checkmark">✓</span>
-                            {item}
-                          </li>
+                          <li key={i}>{item}</li>
                         ))}
                     </ul>
                     <ul className="check-list">
                       {detallesList
                         .slice(Math.ceil(detallesList.length / 2))
                         .map((item, i) => (
-                          <li key={i}>
-                            <span className="checkmark">✓</span>
-                            {item}
-                          </li>
+                          <li key={i}>{item}</li>
                         ))}
                     </ul>
                   </div>
