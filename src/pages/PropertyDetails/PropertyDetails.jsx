@@ -279,37 +279,15 @@ function PropertyDetails() {
                   icon={ShareIcon}
                   className="property-btn-share"
                   onClick={async () => {
-                    const shareText = `${property?.title || ""} – ${property?.currency || ""} ${property?.price || ""}`;
                     const shareUrl = window.location.href;
 
                     if (navigator.share) {
                       try {
-                        // Try to include the main image as a file
-                        let shareData = {
+                        await navigator.share({
                           title: property?.title || "",
-                          text: shareText,
+                          text: `${property?.title || ""} – ${property?.currency || ""} ${property?.price || ""}`,
                           url: shareUrl,
-                        };
-
-                        const mainImage = images.length > 0 ? images[0] : null;
-                        if (mainImage) {
-                          try {
-                            const response = await fetch(mainImage);
-                            const blob = await response.blob();
-                            const ext = blob.type.split("/")[1] || "jpg";
-                            const file = new File([blob], `property.${ext}`, {
-                              type: blob.type,
-                            });
-                            const dataWithFile = { ...shareData, files: [file] };
-                            if (navigator.canShare && navigator.canShare(dataWithFile)) {
-                              shareData = dataWithFile;
-                            }
-                          } catch {
-                            // Image fetch failed, share without image
-                          }
-                        }
-
-                        await navigator.share(shareData);
+                        });
                       } catch (err) {
                         if (err.name !== "AbortError") {
                           console.error("Share failed:", err);
