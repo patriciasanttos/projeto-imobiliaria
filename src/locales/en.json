@@ -87,7 +87,8 @@
     "share": "Share",
     "description": "Description",
     "location": "Location",
-    "otherProperties": "View other properties"
+    "otherProperties": "View other properties",
+    "linkCopied": "Link copied!"
   },
   "card": {
     "viewDetails": "View Details",

@@ -169,6 +169,14 @@
             flex-wrap: wrap;
             gap: 1rem;
 
+            .property-adress-left {
+                display: flex;
+                flex-direction: column;
+                gap: 1.2rem;
+                flex: 1;
+                min-width: 0;
+            }
+
             .property-location {
                 display: flex;
                 gap: 0.4rem;
@@ -181,6 +189,30 @@
                 p {
                     color: var(--text);
                     font-size: clamp(0.95rem, 1vw, 1.1rem);
+                }
+            }
+
+            .property-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+
+                .tag {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 0.4rem;
+                    background-color: #1a1a1a;
+                    color: #fff;
+                    border-radius: 40px;
+                    padding: 0.35rem 0.85rem;
+                    font-size: 0.85rem;
+                    font-weight: 500;
+                    font-family: var(--font-secondary);
+
+                    img {
+                        width: 1.1rem;
+                        filter: brightness(0) invert(1);
+                    }
                 }
             }
 
@@ -240,31 +272,6 @@
             }
         }
 
-        .property-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 0.25rem;
-
-            .tag {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.4rem;
-                background-color: #1a1a1a;
-                color: #fff;
-                border-radius: 40px;
-                padding: 0.35rem 0.85rem;
-                font-size: 0.85rem;
-                font-weight: 500;
-                font-family: var(--font-secondary);
-
-                img {
-                    width: 1.1rem;
-                    filter: brightness(0) invert(1);
-                }
-            }
-        }
-
         .property-description {
             margin-top: 0.5rem;
 
@@ -311,7 +318,7 @@
             }
 
             .property-description-text {
-                margin-top: 5.5rem;
+                margin-top: 2rem;
                 font-size: clamp(0.95rem, 1vw, 1.1rem);
                 color: var(--text);
                 font-family: var(--font-secondary);
@@ -372,7 +379,7 @@
         max-width: 80%;
 
         .property-description-container {
-            flex-direction: column;
+            flex-direction: column-reverse;
             align-items: stretch;
         }
 
@@ -397,6 +404,9 @@
         margin: 4rem auto;
         max-width: 100%;
 
+        .property-description-container {
+            flex-direction: column-reverse;
+        }
         .back-page {
             margin-bottom: 1.5rem;
         }

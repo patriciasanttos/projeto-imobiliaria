@@ -87,7 +87,8 @@
     "share": "Compartir",
     "description": "Descripción",
     "location": "Ubicación",
-    "otherProperties": "Ver otras propiedades"
+    "otherProperties": "Ver otras propiedades",
+    "linkCopied": "¡Enlace copiado!"
   },
   "card": {
     "viewDetails": "Ver Detalles",

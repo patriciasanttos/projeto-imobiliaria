@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import "./PropertyDetails.scss";
 import { useLanguage } from "../../context/LanguageContext.jsx";
 
@@ -15,6 +16,7 @@ import Button from "../../Components/Button/Button.jsx";
 import Modal from "../../Components/Modal/Modal.jsx";
 import Card from "../../Components/Card/Card.jsx";
 import useProperties from "../../hooks/useProperties";
+import useVariables from "../../hooks/useVariables";
 
 // Utils
 import { extractFolderId } from "../../utils/googleDrive";
@@ -76,6 +78,7 @@ function PropertyDetails() {
   const navigate = useNavigate();
   const { t } = useLanguage();
   const { cardList, loading } = useProperties();
+  const { variables } = useVariables();
   const property = cardList.find((p) => p.id === id);
   const detallesList = parseDetalles(property?.detalles);
 
@@ -135,8 +138,27 @@ function PropertyDetails() {
   const nextImage = () =>
     setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
 
+  const pageTitle = property
+    ? `${property.title} – ${property.currency} ${property.price}`
+    : "Habbita Negocios Inmobiliarios";
+  const pageDescription = property?.descripcion || property?.title || "";
+  const pageImage = images.length > 0 ? images[0] : "";
+  const pageUrl = typeof window !== "undefined" ? window.location.href : "";
+
   return (
     <div className="property-page">
+      <Helmet>
+        <title>{pageTitle}</title>
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content={pageDescription} />
+        {pageImage && <meta property="og:image" content={pageImage} />}
+        <meta property="og:url" content={pageUrl} />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={pageTitle} />
+        <meta name="twitter:description" content={pageDescription} />
+        {pageImage && <meta name="twitter:image" content={pageImage} />}
+      </Helmet>
       <section className="property-container">
         <div className="back-page" onClick={() => navigate('/propiedades')}>
           <img src={ArrowBack} alt={t("propertyDetails.back")} />
@@ -210,17 +232,33 @@ function PropertyDetails() {
             </div>
 
             <div className="property-adress-container">
-              <div className="property-location">
-                <img src={LocationGreen} alt="Localização" />
-                <p>
-                  {loading ? (
-                    <span className="text-skeleton" style={{ width: "12rem" }}>
-                      &nbsp;
-                    </span>
-                  ) : (
-                    property?.nameLocation
-                  )}
-                </p>
+              <div className="property-adress-left">
+                <div className="property-location">
+                  <img src={LocationGreen} alt="Localização" />
+                  <p>
+                    {loading ? (
+                      <span className="text-skeleton" style={{ width: "12rem" }}>
+                        &nbsp;
+                      </span>
+                    ) : (
+                      property?.nameLocation
+                    )}
+                  </p>
+                </div>
+
+                <div className="property-tags">
+                  {property?.tagList?.map((tag, index) => {
+                    const label = tag.type
+                      ? `${tag.count} ${t(`card.tags.${tag.type}.${tag.count === 1 ? "one" : "many"}`)}`
+                      : tag.name;
+                    return (
+                      <span className="tag" key={index}>
+                        <img src={tag.icon} alt="" />
+                        {label}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
 
               <div className="property-btn-container">
@@ -228,27 +266,43 @@ function PropertyDetails() {
                   text={t("propertyDetails.inquire")}
                   icon={WhatsApp}
                   className="property-btn-contact"
+                  onClick={() => {
+                    const template = variables.PropertyLink || "";
+                    if (template) {
+                      const url = template.replace("[LINK]", window.location.href);
+                      window.open(url, "_blank");
+                    }
+                  }}
                 />
                 <Button
                   text={t("propertyDetails.share")}
                   icon={ShareIcon}
                   className="property-btn-share"
+                  onClick={async () => {
+                    const shareData = {
+                      title: property?.title || "",
+                      text: `${property?.title || ""} – ${property?.currency || ""} ${property?.price || ""}`,
+                      url: window.location.href,
+                    };
+                    if (navigator.share) {
+                      try {
+                        await navigator.share(shareData);
+                      } catch (err) {
+                        if (err.name !== "AbortError") {
+                          console.error("Share failed:", err);
+                        }
+                      }
+                    } else {
+                      try {
+                        await navigator.clipboard.writeText(window.location.href);
+                        alert(t("propertyDetails.linkCopied") || "Link copied!");
+                      } catch (err) {
+                        console.error("Copy failed:", err);
+                      }
+                    }
+                  }}
                 />
               </div>
-            </div>
-
-            <div className="property-tags">
-              {property?.tagList?.map((tag, index) => {
-                const label = tag.type
-                  ? `${tag.count} ${t(`card.tags.${tag.type}.${tag.count === 1 ? "one" : "many"}`)}`
-                  : tag.name;
-                return (
-                  <span className="tag" key={index}>
-                    <img src={tag.icon} alt="" />
-                    {label}
-                  </span>
-                );
-              })}
             </div>
 
             <div className="property-description">
