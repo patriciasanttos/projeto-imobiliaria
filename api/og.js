@@ -120,54 +120,40 @@ export default async function handler(req, res) {
     const folderId = extractFolderId(property.Imagenes);
 
     if (folderId) {
-      // Approach 1: Try Apps Script (handles Google redirects)
       try {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 8000);
+        // Google Apps Script does multiple 302 redirects.
+        // We follow them manually to guarantee we reach the final JSON.
+        let location = `${APPS_SCRIPT_URL}?folderId=${folderId}`;
+        let finalRes = null;
+        const MAX_REDIRECTS = 10;
 
-        const imgRes = await fetch(
-          `${APPS_SCRIPT_URL}?folderId=${folderId}`,
-          { redirect: "follow", signal: controller.signal }
-        );
-        clearTimeout(timeout);
+        for (let i = 0; i < MAX_REDIRECTS; i++) {
+          const res = await fetch(location, { redirect: "manual" });
 
-        const contentType = imgRes.headers.get("content-type") || "";
-        if (contentType.includes("application/json")) {
-          const imgData = await imgRes.json();
-          if (imgData.images && imgData.images.length > 0) {
-            imageUrl = imgData.images[0].url;
+          if (res.status >= 300 && res.status < 400) {
+            const next = res.headers.get("location");
+            if (!next) break;
+            location = next;
+            continue;
           }
-        } else {
-          // Google may return HTML with a redirect; parse the JSON from the body
-          const text = await imgRes.text();
-          const jsonMatch = text.match(/\{"images":\[.*?\]\}/);
-          if (jsonMatch) {
-            const imgData = JSON.parse(jsonMatch[0]);
-            if (imgData.images && imgData.images.length > 0) {
-              imageUrl = imgData.images[0].url;
+
+          finalRes = res;
+          break;
+        }
+
+        if (finalRes && finalRes.ok) {
+          const text = await finalRes.text();
+          try {
+            const data = JSON.parse(text);
+            if (data.images && data.images.length > 0) {
+              imageUrl = data.images[0].url;
             }
+          } catch {
+            // Not JSON – ignore
           }
         }
       } catch {
-        // Apps Script failed, continue
-      }
-
-      // Approach 2: Fallback – scrape folder page for first image ID
-      if (!imageUrl) {
-        try {
-          const folderRes = await fetch(
-            `https://drive.google.com/drive/folders/${folderId}`,
-            { redirect: "follow" }
-          );
-          const folderHtml = await folderRes.text();
-          // Google Drive folder pages contain file IDs in the HTML
-          const fileIdMatch = folderHtml.match(/data-id="([a-zA-Z0-9_-]{20,})"/);
-          if (fileIdMatch) {
-            imageUrl = `https://lh3.googleusercontent.com/d/${fileIdMatch[1]}`;
-          }
-        } catch {
-          // Fallback also failed
-        }
+        // Fetch failed entirely
       }
     }
 
