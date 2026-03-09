@@ -13,7 +13,7 @@ import ShareIcon from "../../assets/Icons/Social media/share-icon.svg";
 // Components
 import Button from "../../Components/Button/Button.jsx";
 import Modal from "../../Components/Modal/Modal.jsx";
-import Card from "../../components/Card/Card.jsx";
+import Card from "../../Components/Card/Card.jsx";
 import useProperties from "../../hooks/useProperties";
 
 // Utils
