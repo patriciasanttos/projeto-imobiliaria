@@ -285,7 +285,6 @@ function PropertyDetails() {
                       try {
                         await navigator.share({
                           title: property?.title || "",
-                          text: `${property?.title || ""} – ${property?.currency || ""} ${property?.price || ""}`,
                           url: shareUrl,
                         });
                       } catch (err) {
