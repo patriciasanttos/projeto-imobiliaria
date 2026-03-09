@@ -138,7 +138,7 @@ function PropertyDetails() {
   return (
     <div className="property-page">
       <section className="property-container">
-        <div className="back-page" onClick={() => navigate(-1)}>
+        <div className="back-page" onClick={() => navigate('/propiedades')}>
           <img src={ArrowBack} alt={t("propertyDetails.back")} />
           <p>{t("propertyDetails.back")}</p>
         </div>
