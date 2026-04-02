@@ -59,6 +59,7 @@
 
     .card-location {
       display: flex;
+      justify-content: space-between;
       gap: 0.5rem;
       padding-top: 0.8rem;
       // Fixed height for location
@@ -70,6 +71,14 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+      }
+
+      .card-agent-id {
+        font-size: 0.75rem;
+        opacity: 0.55;
+        white-space: nowrap;
+        flex-shrink: 0;
+        margin-left: auto;
       }
     }
 

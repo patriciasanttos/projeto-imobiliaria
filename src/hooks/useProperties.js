@@ -43,6 +43,7 @@ function mapSheetRowToCard(row) {
     title: row.Titulo,
     districto: row.Districto || "",
     barrio: row.Barrio || "",
+    agentId: row.ID_Agente || row["ID Agente"] || "",
     image: House1,
     imagenes: row.Imagenes || null, // Google Drive folder URL
     price: row.Precio,
