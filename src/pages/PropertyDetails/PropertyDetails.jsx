@@ -262,6 +262,9 @@ function PropertyDetails() {
                     );
                   })}
                 </div>
+                {property?.agentId && (
+                  <p className="property-agent-id">ID: {property.agentId}</p>
+                )}
               </div>
 
               <div className="property-btn-container">

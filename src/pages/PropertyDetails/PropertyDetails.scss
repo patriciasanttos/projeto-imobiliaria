@@ -175,6 +175,13 @@
                 gap: 1.2rem;
                 flex: 1;
                 min-width: 0;
+
+                .property-agent-id {
+                    font-size: 0.8rem;
+                    color: var(--text);
+                    opacity: 0.45;
+                    margin-top: -0.6rem;
+                }
             }
 
             .property-location {
@@ -271,6 +278,7 @@
                 }
             }
         }
+
 
         .property-description {
             margin-top: 0.5rem;

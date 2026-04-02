@@ -82,7 +82,7 @@ function Card({
         <div className="card-location">
           <img src={Location} alt="" />
           <p>{[barrio, districto].filter(Boolean).join(", ")}</p>
-          {agentId && <span className="card-agent-id">• {agentId}</span>}
+          {agentId && <span className="card-agent-id">ID: {agentId}</span>}
         </div>
 
         <div className="card-tag-list">
