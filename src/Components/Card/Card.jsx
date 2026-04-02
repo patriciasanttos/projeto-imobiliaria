@@ -76,13 +76,13 @@ function Card({
             referrerPolicy="no-referrer"
           />
         )}
-        {status && (
-          <span
-            className={`card-ribbon card-ribbon--${status.toLowerCase()}`}
-            data-status={status}
-          ></span>
-        )}
       </div>
+      {status && (
+        <span
+          className={`card-ribbon card-ribbon--${status.toLowerCase()}`}
+          data-status={status}
+        ></span>
+      )}
       <section className="card-information">
         <h3>{title}</h3>
 
@@ -114,9 +114,19 @@ function Card({
             </p>
           </div>
           <div className="card-button-container">
-            <button className="card-button" onClick={onClickPropertyDetails}>
-              {t("card.viewDetails")}
-            </button>
+            {(() => {
+              const s = (status || "").toLowerCase();
+              const isDisabled = ["alquilado", "vendido", "agotado"].includes(s);
+              return (
+                <button
+                  className={`card-button${isDisabled ? " card-button--disabled" : ""}`}
+                  onClick={isDisabled ? undefined : onClickPropertyDetails}
+                  disabled={isDisabled}
+                >
+                  {t("card.viewDetails")}
+                </button>
+              );
+            })()}
           </div>
         </div>
       </section>
