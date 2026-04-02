@@ -41,7 +41,8 @@ function mapSheetRowToCard(row) {
   return {
     id: row.ID,
     title: row.Titulo,
-    nameLocation: row.Ubicacion,
+    districto: row.Districto || "",
+    barrio: row.Barrio || "",
     image: House1,
     imagenes: row.Imagenes || null, // Google Drive folder URL
     price: row.Precio,
@@ -90,7 +91,8 @@ const useProperties = () => {
           const localized = localizedMap[row.ID];
           if (localized) {
             row.Titulo = localized.Titulo || row.Titulo;
-            row.Ubicacion = localized.Ubicacion || row.Ubicacion;
+            row.Districto = localized.Districto || row.Districto;
+            row.Barrio = localized.Barrio || row.Barrio;
             row["Descripción"] = localized["Descripción"] || row["Descripción"];
             row.Detalles = localized.Detalles || row.Detalles;
           }

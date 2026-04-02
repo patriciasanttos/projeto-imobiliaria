@@ -14,7 +14,8 @@ function Card({
   id,
   tagList,
   title,
-  nameLocation,
+  districto,
+  barrio,
   image,
   imagenes,
   price,
@@ -79,7 +80,7 @@ function Card({
 
         <div className="card-location">
           <img src={Location} alt="" />
-          <p>{nameLocation} </p>
+          <p>{[barrio, districto].filter(Boolean).join(", ")} </p>
         </div>
 
         <div className="card-tag-list">

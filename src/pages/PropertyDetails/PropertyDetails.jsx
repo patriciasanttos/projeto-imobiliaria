@@ -244,7 +244,7 @@ function PropertyDetails() {
                         &nbsp;
                       </span>
                     ) : (
-                      property?.nameLocation
+                      [property?.barrio, property?.districto].filter(Boolean).join(", ")
                     )}
                   </p>
                 </div>
@@ -373,7 +373,7 @@ function PropertyDetails() {
         <section className="contact-map-container">
           <h1>{t("propertyDetails.location")}</h1>
           <iframe
-            src={getEmbedMapUrl(property?.maps, property?.nameLocation)}
+            src={getEmbedMapUrl(property?.maps, [property?.barrio, property?.districto].filter(Boolean).join(", "))}
             width="1200"
             height="376"
             style={{ border: 0 }}
