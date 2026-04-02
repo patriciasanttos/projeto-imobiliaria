@@ -17,6 +17,7 @@ function Card({
   districto,
   barrio,
   agentId,
+  status,
   image,
   imagenes,
   price,
@@ -74,6 +75,12 @@ function Card({
             className="card-img"
             referrerPolicy="no-referrer"
           />
+        )}
+        {status && (
+          <span
+            className={`card-ribbon card-ribbon--${status.toLowerCase()}`}
+            data-status={status}
+          ></span>
         )}
       </div>
       <section className="card-information">

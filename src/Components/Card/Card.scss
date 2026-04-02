@@ -10,6 +10,7 @@
     height: 250px;
     overflow: hidden;
     border-radius: 10px 10px 0 0;
+    position: relative;
 
     .card-img {
       width: 100%;
@@ -37,6 +38,103 @@
       }
       100% {
         background-position: -200% 0;
+      }
+    }
+
+    // ── Diagonal ribbon (from UIverse) ──
+    .card-ribbon {
+      position: absolute;
+      overflow: hidden;
+      width: 150px;
+      height: 150px;
+      top: -10px;
+      left: -10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 2;
+
+      &::before {
+        content: attr(data-status);
+        position: absolute;
+        width: 150%;
+        height: 40px;
+        transform: rotate(-45deg) translateY(-20px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 600;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.23);
+        // default gradient (reservado – orange)
+        background-image: linear-gradient(45deg, #ff6547 0%, #ffb144 51%, #ff7053 100%);
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        width: 10px;
+        bottom: 0;
+        left: 0;
+        height: 10px;
+        z-index: -1;
+        box-shadow: 140px -140px #cc3f47;
+        background-image: linear-gradient(45deg, #FF512F 0%, #F09819 51%, #FF512F 100%);
+      }
+
+      // ── Status color variants ──
+      &--disponible {
+        &::before {
+          background-image: linear-gradient(45deg, #2e7d32 0%, #66bb6a 51%, #2e7d32 100%);
+        }
+        &::after {
+          box-shadow: 140px -140px #1b5e20;
+          background-image: linear-gradient(45deg, #1b5e20 0%, #43a047 51%, #1b5e20 100%);
+        }
+      }
+
+      &--reservado {
+        &::before {
+          background-image: linear-gradient(45deg, #f9a825 0%, #fdd835 51%, #f9a825 100%);
+        }
+        &::after {
+          box-shadow: 140px -140px #f57f17;
+          background-image: linear-gradient(45deg, #f57f17 0%, #fbc02d 51%, #f57f17 100%);
+        }
+      }
+
+      &--alquilado {
+        &::before {
+          background-image: linear-gradient(45deg, #e65100 0%, #ff9800 51%, #e65100 100%);
+        }
+        &::after {
+          box-shadow: 140px -140px #bf360c;
+          background-image: linear-gradient(45deg, #bf360c 0%, #f57c00 51%, #bf360c 100%);
+        }
+      }
+
+      &--vendido {
+        &::before {
+          background-image: linear-gradient(45deg, #c62828 0%, #ef5350 51%, #c62828 100%);
+        }
+        &::after {
+          box-shadow: 140px -140px #b71c1c;
+          background-image: linear-gradient(45deg, #b71c1c 0%, #e53935 51%, #b71c1c 100%);
+        }
+      }
+
+      &--agotado {
+        &::before {
+          background-image: linear-gradient(45deg, #c62828 0%, #ef5350 51%, #c62828 100%);
+        }
+        &::after {
+          box-shadow: 140px -140px #b71c1c;
+          background-image: linear-gradient(45deg, #b71c1c 0%, #e53935 51%, #b71c1c 100%);
+        }
       }
     }
   }
