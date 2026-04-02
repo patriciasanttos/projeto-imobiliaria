@@ -31,24 +31,30 @@ const DEFAULT_MAP_URL =
   "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d453777.9190199634!2d-55.884627!3d-27.308807!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9457955e5597cfeb%3A0x6ff7d247ff05c071!2sEncarnaci%C3%B3n%2C%20Paraguay!5e0!3m2!1ses!2sus!4v1767910786774!5m2!1ses!2sus";
 
 function buildEmbedFromQuery(query) {
-  return `https://www.google.com/maps?output=embed&q=${encodeURIComponent(query)}`;
+  return `https://maps.google.com/maps?q=${encodeURIComponent(query)}&z=15&output=embed&iwloc=near`;
 }
 
 function getEmbedMapUrl(url, locationFallback) {
   if (!url) return DEFAULT_MAP_URL;
   // Already an embed URL
   if (url.includes("/maps/embed")) return url;
-  // Extract place/search query from full Google Maps URLs
-  // e.g. https://www.google.com/maps/place/Some+Place/@-27.3,...
+  // Extract coordinates from any Google Maps URL format:
+  //   @lat,lng          (place URLs)
+  //   /search/lat,+lng  (search URLs)
+  //   /search/lat,lng   (search URLs)
+  //   /@lat,lng         (place URLs)
+  const coordMatch = url.match(
+    /(?:@|\/search\/|\/place\/.+@)(-?\d+\.?\d*),\+?(-?\d+\.?\d*)/,
+  );
+  if (coordMatch)
+    return buildEmbedFromQuery(`${coordMatch[1]},${coordMatch[2]}`);
+  // Extract place name from full Google Maps URLs
+  // e.g. https://www.google.com/maps/place/Some+Place/...
   const placeMatch = url.match(/\/maps\/place\/([^/@]+)/);
   if (placeMatch)
     return buildEmbedFromQuery(
       decodeURIComponent(placeMatch[1].replace(/\+/g, " ")),
     );
-  // Extract @lat,lng from URL
-  const coordMatch = url.match(/@(-?\d+\.?\d*),(-?\d+\.?\d*)/);
-  if (coordMatch)
-    return buildEmbedFromQuery(`${coordMatch[1]},${coordMatch[2]}`);
   // Extract query param ?q=...
   try {
     const parsed = new URL(url);
@@ -393,7 +399,6 @@ function PropertyDetails() {
           <h1>{t("propertyDetails.location")}</h1>
           <iframe
             src={getEmbedMapUrl(property?.maps, [property?.barrio, property?.districto].filter(Boolean).join(", "))}
-            width="1200"
             height="376"
             style={{ border: 0 }}
             allowFullScreen
