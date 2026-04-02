@@ -20,6 +20,15 @@ const LANG_TO_GID = {
   en: "371251503",
 };
 
+// Status display priority — lower index = shown first
+const STATUS_PRIORITY = {
+  disponible: 0,
+  reservado: 1,
+  alquilado: 2,
+  vendido: 3,
+  agotado: 4,
+};
+
 function mapSheetRowToCard(row) {
   // Build tagList only for fields that have a value > 0
   // Store type + count so Card can translate the label at render time
@@ -44,6 +53,7 @@ function mapSheetRowToCard(row) {
     districto: row.Districto || "",
     barrio: row.Barrio || "",
     agentId: row.ID_Agente || row["ID Agente"] || "",
+    status: row.Status || "",
     image: House1,
     imagenes: row.Imagenes || null, // Google Drive folder URL
     price: row.Precio,
@@ -98,6 +108,13 @@ const useProperties = () => {
             row.Detalles = localized.Detalles || row.Detalles;
           }
           return mapSheetRowToCard(row);
+        });
+
+        // Sort by status priority: Disponible first, Agotado last
+        cards.sort((a, b) => {
+          const pa = STATUS_PRIORITY[(a.status || "").toLowerCase()] ?? 99;
+          const pb = STATUS_PRIORITY[(b.status || "").toLowerCase()] ?? 99;
+          return pa - pb;
         });
 
         setCardList(cards);
