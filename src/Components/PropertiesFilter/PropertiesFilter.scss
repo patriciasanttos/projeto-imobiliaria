@@ -1,7 +1,6 @@
 .property-filter {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     align-items: flex-end;
     width: clamp(70%, 75vw, 76%);
     gap: 1.5rem;
@@ -12,13 +11,10 @@
     border: 1px solid var(--lines);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 
-
     .property-filter__group {
         display: flex;
         flex-direction: column;
-        flex: 1;
         gap: 0.25rem;
-        min-width: 140px;
     }
 
     .property-filter__label {
@@ -65,6 +61,8 @@
         border-radius: 8px;
         cursor: pointer;
         transition: background-color 150ms ease;
+        align-self: flex-end;
+        justify-self: end;
     }
 
     .property-filter__btn:hover {
@@ -73,16 +71,11 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-        .property-filter {
-            flex-direction: column;
-        }
-
-        .property-filter__group {
-            width: 100%;
-        }
+        grid-template-columns: 1fr;
 
         .property-filter__btn {
             width: 100%;
+            justify-self: stretch;
         }
     }
-}
+}
