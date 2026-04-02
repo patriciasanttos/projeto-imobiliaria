@@ -83,11 +83,27 @@ function PropertyDetails() {
   const detallesList = parseDetalles(property?.detalles);
 
   const otherProperties = useMemo(() => {
-    const others = cardList.filter((p) => p.id !== id);
-    // Shuffle and pick up to 3
-    const shuffled = [...others].sort(() => Math.random() - 0.5);
+    const STATUS_PRIORITY = {
+      disponible: 0,
+      reservado: 1,
+      alquilado: 2,
+      vendido: 3,
+      agotado: 4,
+    };
+    // Only same districto
+    const sameDistricto = cardList.filter(
+      (p) => p.id !== id && p.districto === property?.districto
+    );
+    // Shuffle
+    const shuffled = [...sameDistricto].sort(() => Math.random() - 0.5);
+    // Sort by status priority
+    shuffled.sort((a, b) => {
+      const pa = STATUS_PRIORITY[(a.status || "").toLowerCase()] ?? 99;
+      const pb = STATUS_PRIORITY[(b.status || "").toLowerCase()] ?? 99;
+      return pa - pb;
+    });
     return shuffled.slice(0, 3);
-  }, [cardList, id]);
+  }, [cardList, id, property]);
 
   // Scroll to top when navigating to a property
   useEffect(() => {
