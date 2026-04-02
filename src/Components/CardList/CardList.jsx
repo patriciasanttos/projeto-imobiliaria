@@ -48,6 +48,20 @@ function CardList({ isShowAll, isFilterByHome, filters }) {
               filters.propertyType.toLowerCase();
         }
 
+        if (filters.districto) {
+          returnRow =
+            returnRow &&
+            card.districto &&
+            card.districto.toLowerCase() === filters.districto.toLowerCase();
+        }
+
+        if (filters.barrio) {
+          returnRow =
+            returnRow &&
+            card.barrio &&
+            card.barrio.toLowerCase() === filters.barrio.toLowerCase();
+        }
+
         if (filters.minPrice && card.price) {
           const price = parseInt(
             card.price.replace(/\./g, "").replace(/,/g, ""),

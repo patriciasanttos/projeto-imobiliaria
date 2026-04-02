@@ -11,6 +11,8 @@ function Properties() {
     modality: "",
     bedrooms: "",
     propertyType: "",
+    districto: "",
+    barrio: "",
     minPrice: "",
     maxPrice: "",
     sortOrder: "",

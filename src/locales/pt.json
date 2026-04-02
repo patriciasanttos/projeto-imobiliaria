@@ -61,6 +61,8 @@
     "minPrice": "Preço a partir de:",
     "maxPrice": "Preço até:",
     "sortPrice": "Ordenar por preço",
+    "districto": "Distrito",
+    "barrio": "Bairro",
     "clearBtn": "Limpar filtros",
     "select": "Selecionar",
     "options": {

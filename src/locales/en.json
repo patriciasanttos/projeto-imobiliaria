@@ -61,6 +61,8 @@
     "minPrice": "Price from:",
     "maxPrice": "Price up to:",
     "sortPrice": "Sort by price",
+    "districto": "District",
+    "barrio": "Neighborhood",
     "clearBtn": "Clear filters",
     "select": "Select",
     "options": {

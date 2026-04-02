@@ -1,16 +1,50 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import "./PropertiesFilter.scss";
 import { formatPYG, unformatPYG } from "../../utils/currency";
 import { useLanguage } from "../../context/LanguageContext.jsx";
+import useProperties from "../../hooks/useProperties.js";
 
 function PropertiesFilter({ filters, setFilters }) {
   const { t } = useLanguage();
+  const { cardList } = useProperties();
+
+  // Extract unique districtos from the data
+  const districtoOptions = useMemo(() => {
+    const set = new Set();
+    cardList.forEach((card) => {
+      if (card.districto) set.add(card.districto);
+    });
+    return [...set].sort();
+  }, [cardList]);
+
+  // Extract barrios filtered by selected districto
+  const barrioOptions = useMemo(() => {
+    const set = new Set();
+    cardList.forEach((card) => {
+      if (card.barrio) {
+        if (!filters.districto || card.districto === filters.districto) {
+          set.add(card.barrio);
+        }
+      }
+    });
+    return [...set].sort();
+  }, [cardList, filters.districto]);
 
   const handleChange = (e) => {
     let { name, value } = e.target;
 
     if (name === "minPrice" || name === "maxPrice") {
       value = unformatPYG(value);
+    }
+
+    // When districto changes, reset barrio
+    if (name === "districto") {
+      setFilters((prev) => ({
+        ...prev,
+        districto: value,
+        barrio: "",
+      }));
+      return;
     }
 
     setFilters((prev) => ({
@@ -24,6 +58,8 @@ function PropertiesFilter({ filters, setFilters }) {
       operationType: "",
       bedrooms: "",
       propertyType: "",
+      districto: "",
+      barrio: "",
       minPrice: "",
       maxPrice: "",
       sortOrder: "",
@@ -77,6 +113,36 @@ function PropertiesFilter({ filters, setFilters }) {
           <option value="duplex">{t("filter.options.duplex")}</option>
           <option value="departamento">{t("filter.options.apartment")}</option>
           <option value="terreno">{t("filter.options.land")}</option>
+        </select>
+      </div>
+
+      <div className="property-filter__group">
+        <label className="property-filter__label">{t("filter.districto")}</label>
+        <select
+          className="property-filter__select"
+          name="districto"
+          value={filters.districto}
+          onChange={handleChange}
+        >
+          <option value="">{t("filter.select")}</option>
+          {districtoOptions.map((d) => (
+            <option key={d} value={d}>{d}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="property-filter__group">
+        <label className="property-filter__label">{t("filter.barrio")}</label>
+        <select
+          className="property-filter__select"
+          name="barrio"
+          value={filters.barrio}
+          onChange={handleChange}
+        >
+          <option value="">{t("filter.select")}</option>
+          {barrioOptions.map((b) => (
+            <option key={b} value={b}>{b}</option>
+          ))}
         </select>
       </div>
 
