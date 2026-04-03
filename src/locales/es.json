@@ -4,6 +4,7 @@
       "home": "Inicio",
       "aboutUs": "Quienes Somos",
       "properties": "Propiedades",
+      "map": "Mapa",
       "contact": "Contactos"
     },
     "tooltips": {
@@ -27,7 +28,13 @@
   },
   "properties": {
     "title": "Encuentre la propiedad de sus sueños",
-    "text": "Bienvenido a Habbita, donde la propiedad de tus sueños te espera en cada rincón de nuestro hermoso mundo. Explora nuestra cuidada selección de propiedades, cada una con una historia única y la oportunidad de redefinir tu vida. Con categorías que se adaptan a cada soñador, tu viaje..."
+    "text": "Bienvenido a Habbita, donde la propiedad de tus sueños te espera en cada rincón de nuestro hermoso mundo. Explora nuestra cuidada selección de propiedades, cada una con una historia única y la oportunidad de redefinir tu vida. Con categorías que se adaptan a cada soñador, tu viaje...",
+    "listView": "Lista",
+    "mapView": "Mapa"
+  },
+  "mapView": {
+    "title": "Mapa de Propiedades",
+    "propertiesFound": "propiedades encontradas"
   },
   "contact": {
     "title": "Ponte en contacto con Habbita",
@@ -55,6 +62,7 @@
     ]
   },
   "filter": {
+    "title": "Filtros",
     "modality": "Modalidad",
     "bedrooms": "Dormitorios",
     "propertyType": "Tipo de propiedad",

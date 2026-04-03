@@ -4,6 +4,7 @@
       "home": "Início",
       "aboutUs": "Quem Somos",
       "properties": "Imóveis",
+      "map": "Mapa",
       "contact": "Contato"
     },
     "tooltips": {
@@ -27,7 +28,13 @@
   },
   "properties": {
     "title": "Encontre o imóvel dos seus sonhos",
-    "text": "Bem-vindo à Habbita, onde o imóvel dos seus sonhos espera por você em cada canto do nosso belo mundo. Explore nossa cuidadosa seleção de imóveis, cada um com uma história única e a oportunidade de redefinir sua vida. Com categorias que se adaptam a cada sonhador, sua jornada..."
+    "text": "Bem-vindo à Habbita, onde o imóvel dos seus sonhos espera por você em cada canto do nosso belo mundo. Explore nossa cuidadosa seleção de imóveis, cada um com uma história única e a oportunidade de redefinir sua vida. Com categorias que se adaptam a cada sonhador, sua jornada...",
+    "listView": "Lista",
+    "mapView": "Mapa"
+  },
+  "mapView": {
+    "title": "Mapa de Imóveis",
+    "propertiesFound": "imóveis encontrados"
   },
   "contact": {
     "title": "Entre em contato com a Habbita",
@@ -55,6 +62,7 @@
     ]
   },
   "filter": {
+    "title": "Filtros",
     "modality": "Modalidade",
     "bedrooms": "Quartos",
     "propertyType": "Tipo de imóvel",

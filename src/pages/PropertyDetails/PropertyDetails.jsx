@@ -20,6 +20,7 @@ import useVariables from "../../hooks/useVariables";
 
 // Utils
 import { extractFolderId } from "../../utils/googleDrive";
+import { extractCoordinates } from "../../utils/mapCoordinates";
 
 // Images
 import HouseImg from "../../assets/Images/house-1.svg";
@@ -38,16 +39,9 @@ function getEmbedMapUrl(url, locationFallback) {
   if (!url) return DEFAULT_MAP_URL;
   // Already an embed URL
   if (url.includes("/maps/embed")) return url;
-  // Extract coordinates from any Google Maps URL format:
-  //   @lat,lng          (place URLs)
-  //   /search/lat,+lng  (search URLs)
-  //   /search/lat,lng   (search URLs)
-  //   /@lat,lng         (place URLs)
-  const coordMatch = url.match(
-    /(?:@|\/search\/|\/place\/.+@)(-?\d+\.?\d*),\+?(-?\d+\.?\d*)/,
-  );
-  if (coordMatch)
-    return buildEmbedFromQuery(`${coordMatch[1]},${coordMatch[2]}`);
+  // Extract coordinates from Google Maps URL
+  const coords = extractCoordinates(url);
+  if (coords) return buildEmbedFromQuery(`${coords.lat},${coords.lng}`);
   // Extract place name from full Google Maps URLs
   // e.g. https://www.google.com/maps/place/Some+Place/...
   const placeMatch = url.match(/\/maps\/place\/([^/@]+)/);

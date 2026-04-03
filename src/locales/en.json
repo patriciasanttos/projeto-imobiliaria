@@ -4,6 +4,7 @@
       "home": "Home",
       "aboutUs": "About Us",
       "properties": "Properties",
+      "map": "Map",
       "contact": "Contact"
     },
     "tooltips": {
@@ -27,7 +28,13 @@
   },
   "properties": {
     "title": "Find the property of your dreams",
-    "text": "Welcome to Habbita, where the property of your dreams awaits you in every corner of our beautiful world. Explore our carefully curated selection of properties, each with a unique story and the opportunity to redefine your life. With categories that adapt to every dreamer, your journey..."
+    "text": "Welcome to Habbita, where the property of your dreams awaits you in every corner of our beautiful world. Explore our carefully curated selection of properties, each with a unique story and the opportunity to redefine your life. With categories that adapt to every dreamer, your journey...",
+    "listView": "List",
+    "mapView": "Map"
+  },
+  "mapView": {
+    "title": "Property Map",
+    "propertiesFound": "properties found"
   },
   "contact": {
     "title": "Get in touch with Habbita",
@@ -55,6 +62,7 @@
     ]
   },
   "filter": {
+    "title": "Filters",
     "modality": "Modality",
     "bedrooms": "Bedrooms",
     "propertyType": "Property Type",

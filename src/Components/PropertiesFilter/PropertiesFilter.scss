@@ -1,15 +1,49 @@
 .property-filter {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    align-items: flex-end;
+    display: flex;
+    flex-direction: column;
     width: clamp(70%, 75vw, 76%);
-    gap: 1.5rem;
-    padding: 2rem;
-    margin: 6rem auto 3rem auto;
+    padding: 1.5rem 2rem 2rem;
+    margin: 2rem auto 2rem auto;
     background-color: white;
     border-radius: 24px;
     border: 1px solid var(--lines);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    /* ─── Header Row ─── */
+    .property-filter__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid #eee;
+    }
+
+    .property-filter__title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        font-family: var(--font-primary);
+        color: var(--title);
+        margin: 0;
+    }
+
+    .property-filter__header-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .property-filter__toggle {
+        display: flex;
+        gap: 0.35rem;
+    }
+
+    /* ─── Filter Fields Grid ─── */
+    .property-filter__fields {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.25rem;
+    }
 
     .property-filter__group {
         display: flex;
@@ -18,7 +52,7 @@
     }
 
     .property-filter__label {
-        font-size: 1rem;
+        font-size: 0.9rem;
         font-weight: 500;
         font-family: var(--font-primary);
         color: var(--title);
@@ -26,8 +60,8 @@
 
     .property-filter__select,
     .property-filter__input {
-        padding: 0.75rem 1rem;
-        font-size: 0.9rem;
+        padding: 0.65rem 0.85rem;
+        font-size: 0.85rem;
         color: var(--title);
         background-color: #F6F7F5;
         border: 1px solid #e0e0e0;
@@ -52,8 +86,8 @@
     }
 
     .property-filter__btn {
-        padding: 0.75rem 1.5rem;
-        font-size: 0.9rem;
+        padding: 0.5rem 1.1rem;
+        font-size: 0.82rem;
         font-weight: 500;
         color: white;
         background-color: var(--color-primary);
@@ -61,21 +95,67 @@
         border-radius: 8px;
         cursor: pointer;
         transition: background-color 150ms ease;
-        align-self: flex-end;
-        justify-self: end;
+        white-space: nowrap;
     }
 
     .property-filter__btn:hover {
         background-color: var(--hover);
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-        grid-template-columns: 1fr;
+    /* ─── Toggle Buttons (inside header) ─── */
+    .view-toggle-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.45rem 0.85rem;
+        font-size: 0.82rem;
+        font-weight: 600;
+        font-family: var(--font-secondary, 'Inter', sans-serif);
+        border: 1.5px solid #d1d5db;
+        border-radius: 8px;
+        background: #fff;
+        color: var(--text, #6b7280);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        white-space: nowrap;
 
-        .property-filter__btn {
-            width: 100%;
-            justify-self: stretch;
+        svg {
+            flex-shrink: 0;
+        }
+
+        &:hover {
+            border-color: var(--color-primary, #0e4f4f);
+            color: var(--color-primary, #0e4f4f);
+        }
+
+        &.active {
+            background: var(--color-primary, #0e4f4f);
+            border-color: var(--color-primary, #0e4f4f);
+            color: #fff;
         }
     }
-}
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+        .property-filter__fields {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+        .property-filter__header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+
+        .property-filter__header-actions {
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .property-filter__fields {
+            grid-template-columns: 1fr;
+        }
+    }
+}

@@ -20,25 +20,28 @@
         margin: 6rem 0;
     }
 
-    .properties-filters-container {
-        border: 1px solid red;
-
-        .properties-filters-section {
-            border: 1px solid blue;
-            width: 80%;
-            height: auto;
-            margin: auto;
-
-            input {
-                width: 20%;
-            }
-        }
-    }
-
     @media (max-width: 1024px) {
         .properties-description {
             text-align: center;
             width: 90%;
         }
+    }
+}
+
+/* ─── Map Wrapper ─── */
+.properties-map-wrapper {
+    width: 95%;
+    margin: 2rem auto 0;
+}
+
+@media (max-width: 1024px) {
+    .properties-map-wrapper {
+        width: 95%;
+    }
+}
+
+@media (max-width: 768px) {
+    .properties-map-wrapper {
+        width: 98%;
     }
 }
