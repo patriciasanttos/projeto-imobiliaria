@@ -102,6 +102,13 @@
       "rooms":     { "one": "Quarto",    "many": "Quartos" },
       "bathrooms": { "one": "Banheiro",  "many": "Banheiros" },
       "parking":   { "one": "Vaga",       "many": "Vagas" }
+    },
+    "status": {
+      "disponible": "Disponível",
+      "reservado": "Reservado",
+      "alquilado": "Alugado",
+      "vendido": "Vendido",
+      "agotado": "Esgotado"
     }
   },
   "scrollTop": "Voltar ao topo"

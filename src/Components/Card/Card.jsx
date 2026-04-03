@@ -80,7 +80,7 @@ function Card({
       {status && (
         <span
           className={`card-ribbon card-ribbon--${status.toLowerCase()}`}
-          data-status={status}
+          data-status={t(`card.status.${status.toLowerCase()}`) || status}
         ></span>
       )}
       <section className="card-information">

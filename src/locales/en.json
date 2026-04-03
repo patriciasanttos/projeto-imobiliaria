@@ -102,6 +102,13 @@
       "rooms":     { "one": "Room",      "many": "Rooms" },
       "bathrooms": { "one": "Bathroom",  "many": "Bathrooms" },
       "parking":   { "one": "Car",        "many": "Cars" }
+    },
+    "status": {
+      "disponible": "Available",
+      "reservado": "Reserved",
+      "alquilado": "Rented",
+      "vendido": "Sold",
+      "agotado": "Sold Out"
     }
   },
   "scrollTop": "Back to top"
