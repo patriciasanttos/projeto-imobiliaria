@@ -1,11 +1,12 @@
 // import { useState } from 'react'
+import { useEffect } from "react";
 
 import Footer from "./Components/Footer/Footer.jsx";
 import Header from "./Components/Header/Header.jsx";
 import ScrollTop from "./Components/ScrollTop/ScrollTop.jsx";
 import "./index.scss";
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import Home from "./pages/Home/Home.jsx";
 import Contact from "./pages/Contact/Contact.jsx";
@@ -14,6 +15,12 @@ import Properties from "./pages/Properties/Properties.jsx";
 import PropertyDetails from "./pages/PropertyDetails/PropertyDetails.jsx";
 
 function App() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <>
       <Header />
