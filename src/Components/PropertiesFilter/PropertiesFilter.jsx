@@ -68,43 +68,7 @@ function PropertiesFilter({ filters, setFilters, viewMode, setViewMode }) {
 
   return (
     <div className="property-filter">
-      {/* Header row */}
-      <div className="property-filter__header">
-        <h3 className="property-filter__title">{t("filter.title")}</h3>
-        <div className="property-filter__header-actions">
-          <button className="property-filter__btn" onClick={onClickClear}>
-            {t("filter.clearBtn")}
-          </button>
-          <div className="property-filter__toggle">
-            <button
-              className={`view-toggle-btn${viewMode === "list" ? " active" : ""}`}
-              onClick={() => setViewMode("list")}
-              aria-label={t("properties.listView")}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="8" y1="6" x2="21" y2="6" />
-                <line x1="8" y1="12" x2="21" y2="12" />
-                <line x1="8" y1="18" x2="21" y2="18" />
-                <line x1="3" y1="6" x2="3.01" y2="6" />
-                <line x1="3" y1="12" x2="3.01" y2="12" />
-                <line x1="3" y1="18" x2="3.01" y2="18" />
-              </svg>
-              {t("properties.listView")}
-            </button>
-            <button
-              className={`view-toggle-btn${viewMode === "map" ? " active" : ""}`}
-              onClick={() => setViewMode("map")}
-              aria-label={t("properties.mapView")}
-            >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-              {t("properties.mapView")}
-            </button>
-          </div>
-        </div>
-      </div>
+      
 
       {/* Filter fields */}
       <div className="property-filter__fields">
@@ -119,22 +83,6 @@ function PropertiesFilter({ filters, setFilters, viewMode, setViewMode }) {
             <option value="">{t("filter.select")}</option>
             <option value="venta">{t("filter.options.sale")}</option>
             <option value="alquiler">{t("filter.options.rent")}</option>
-          </select>
-        </div>
-
-        <div className="property-filter__group">
-          <label className="property-filter__label">{t("filter.bedrooms")}</label>
-          <select
-            className="property-filter__select"
-            name="bedrooms"
-            value={filters.bedrooms}
-            onChange={handleChange}
-          >
-            <option value="">{t("filter.select")}</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">{t("filter.options.bed4plus")}</option>
           </select>
         </div>
 
@@ -187,27 +135,42 @@ function PropertiesFilter({ filters, setFilters, viewMode, setViewMode }) {
         </div>
 
         <div className="property-filter__group">
-          <label className="property-filter__label">{t("filter.minPrice")}</label>
-          <input
-            type="text"
-            className="property-filter__input"
-            placeholder={t("filter.placeholderMin")}
-            name="minPrice"
-            value={formatPYG(filters.minPrice)}
+          <label className="property-filter__label">{t("filter.bedrooms")}</label>
+          <select
+            className="property-filter__select"
+            name="bedrooms"
+            value={filters.bedrooms}
             onChange={handleChange}
-          />
+          >
+            <option value="">{t("filter.select")}</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">{t("filter.options.bed4plus")}</option>
+          </select>
         </div>
 
-        <div className="property-filter__group">
-          <label className="property-filter__label">{t("filter.maxPrice")}</label>
-          <input
-            type="text"
-            className="property-filter__input"
-            placeholder={t("filter.placeholderMax")}
-            name="maxPrice"
-            value={formatPYG(filters.maxPrice)}
-            onChange={handleChange}
-          />
+        <div className="property-filter__group property-filter__group--price">
+          <label className="property-filter__label">{t("filter.minPrice")}</label>
+          <div className="property-filter__price-row">
+            <input
+              type="text"
+              className="property-filter__input"
+              placeholder={t("filter.placeholderMin")}
+              name="minPrice"
+              value={formatPYG(filters.minPrice)}
+              onChange={handleChange}
+            />
+            <span className="property-filter__price-separator"> </span>
+            <input
+              type="text"
+              className="property-filter__input"
+              placeholder={t("filter.placeholderMax")}
+              name="maxPrice"
+              value={formatPYG(filters.maxPrice)}
+              onChange={handleChange}
+            />
+          </div>
         </div>
 
         <div className="property-filter__group">
@@ -224,6 +187,40 @@ function PropertiesFilter({ filters, setFilters, viewMode, setViewMode }) {
             <option value="desc">{t("filter.options.highToLow")}</option>
             <option value="asc">{t("filter.options.lowToHigh")}</option>
           </select>
+        </div>
+
+        <div className="property-filter__group property-filter__group--actions">
+          <button className="property-filter__btn" onClick={onClickClear}>
+            {t("filter.clearBtn")}
+          </button>
+          <div className="property-filter__toggle">
+            <button
+              className={`view-toggle-btn${viewMode === "list" ? " active" : ""}`}
+              onClick={() => setViewMode("list")}
+              aria-label={t("properties.listView")}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="8" y1="6" x2="21" y2="6" />
+                <line x1="8" y1="12" x2="21" y2="12" />
+                <line x1="8" y1="18" x2="21" y2="18" />
+                <line x1="3" y1="6" x2="3.01" y2="6" />
+                <line x1="3" y1="12" x2="3.01" y2="12" />
+                <line x1="3" y1="18" x2="3.01" y2="18" />
+              </svg>
+              {t("properties.listView")}
+            </button>
+            <button
+              className={`view-toggle-btn${viewMode === "map" ? " active" : ""}`}
+              onClick={() => setViewMode("map")}
+              aria-label={t("properties.mapView")}
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              {t("properties.mapView")}
+            </button>
+          </div>
         </div>
       </div>
     </div>

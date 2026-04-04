@@ -5,7 +5,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MapView.scss";
 
-import { extractCoordinates } from "../../utils/mapCoordinates";
+import { resolveCoordinates } from "../../utils/mapCoordinates";
 import { extractFolderId } from "../../utils/googleDrive";
 import { useLanguage } from "../../context/LanguageContext.jsx";
 
@@ -142,16 +142,40 @@ function MapView({ cardList = [], loading = false }) {
   const [activePropertyId, setActivePropertyId] = useState(null);
   const [mapCenter, setMapCenter] = useState(null);
   const [thumbnails, setThumbnails] = useState({});
+  const [propertiesWithCoords, setPropertiesWithCoords] = useState([]);
+  const [resolving, setResolving] = useState(false);
   const itemRefs = useRef({});
 
-  // Build list of properties with valid coordinates
-  const propertiesWithCoords = useMemo(() => {
-    return cardList
-      .map((property) => {
-        const coords = extractCoordinates(property.maps);
-        return coords ? { ...property, coords } : null;
-      })
-      .filter(Boolean);
+  // Resolve coordinates for all properties (supports async geocoding)
+  useEffect(() => {
+    let cancelled = false;
+
+    async function resolve() {
+      if (cardList.length === 0) {
+        setPropertiesWithCoords([]);
+        return;
+      }
+
+      setResolving(true);
+
+      const results = await Promise.all(
+        cardList.map(async (property) => {
+          const coords = await resolveCoordinates(property.maps);
+          return coords ? { ...property, coords } : null;
+        }),
+      );
+
+      if (!cancelled) {
+        setPropertiesWithCoords(results.filter(Boolean));
+        setResolving(false);
+      }
+    }
+
+    resolve();
+
+    return () => {
+      cancelled = true;
+    };
   }, [cardList]);
 
   // Compute center from all markers
@@ -213,7 +237,7 @@ function MapView({ cardList = [], loading = false }) {
           </span>
         </div>
         <div className="map-view-list-scroll">
-          {loading ? (
+          {loading || resolving ? (
             <div className="map-view-loading">
               <div className="map-view-spinner" />
               <p>{t("card.loading")}</p>

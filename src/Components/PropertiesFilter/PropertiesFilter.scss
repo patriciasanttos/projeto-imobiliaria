@@ -27,17 +27,6 @@
         margin: 0;
     }
 
-    .property-filter__header-actions {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-
-    .property-filter__toggle {
-        display: flex;
-        gap: 0.35rem;
-    }
-
     /* ─── Filter Fields Grid ─── */
     .property-filter__fields {
         display: grid;
@@ -49,6 +38,41 @@
         display: flex;
         flex-direction: column;
         gap: 0.25rem;
+    }
+
+    /* ─── Combined price block ─── */
+    .property-filter__group--price {
+        .property-filter__price-row {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+
+            .property-filter__input {
+                flex: 1;
+                min-width: 0;
+            }
+        }
+    }
+
+    .property-filter__price-separator {
+        color: #999;
+        font-size: 1rem;
+        flex-shrink: 0;
+    }
+
+    /* ─── Actions group (in the grid) ─── */
+    .property-filter__group--actions {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: flex-end;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .property-filter__toggle {
+        display: flex;
+        gap: 0.35rem;
     }
 
     .property-filter__label {
@@ -102,7 +126,7 @@
         background-color: var(--hover);
     }
 
-    /* ─── Toggle Buttons (inside header) ─── */
+    /* ─── Toggle Buttons ─── */
     .view-toggle-btn {
         display: inline-flex;
         align-items: center;
@@ -143,19 +167,12 @@
     }
 
     @media (max-width: 768px) {
-        .property-filter__header {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 0.75rem;
-        }
-
-        .property-filter__header-actions {
-            width: 100%;
-            justify-content: space-between;
-        }
-
         .property-filter__fields {
             grid-template-columns: 1fr;
+        }
+
+        .property-filter__group--actions {
+            justify-content: flex-start;
         }
     }
 }
