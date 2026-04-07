@@ -77,10 +77,8 @@ export async function geocodeQuery(query) {
   }
 
   try {
-    const nominatimUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1`;
-    const res = await fetch(
-      `https://corsproxy.io/?${encodeURIComponent(nominatimUrl)}`,
-    );
+    // Use our own serverless proxy to avoid CORS issues in production
+    const res = await fetch(`/api/geocode?q=${encodeURIComponent(query)}`);
     const data = await res.json();
     if (data && data.length > 0) {
       const result = {
