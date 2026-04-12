@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "./MapView.scss";
 
-import { resolveCoordinates } from "../../utils/mapCoordinates";
+
 import { extractFolderId } from "../../utils/googleDrive";
 import { useLanguage } from "../../context/LanguageContext.jsx";
 
@@ -37,14 +37,32 @@ function createMarkerIcon(isActive = false) {
 const defaultIcon = createMarkerIcon(false);
 const activeIcon = createMarkerIcon(true);
 
-// Component to recenter the map
-function MapRecenter({ center, zoom }) {
+// Component to recenter the map on a single marker click
+function MapRecenter({ center }) {
   const map = useMap();
   useEffect(() => {
     if (center) {
-      map.flyTo(center, zoom || map.getZoom(), { duration: 0.6 });
+      map.flyTo(center, 14, { duration: 0.6 });
     }
-  }, [center, zoom, map]);
+  }, [center, map]);
+  return null;
+}
+
+// Component to fit map bounds to show all markers
+function MapFitBounds({ properties }) {
+  const map = useMap();
+  const hasFitted = useRef(false);
+
+  useEffect(() => {
+    if (properties.length === 0 || hasFitted.current) return;
+
+    const bounds = L.latLngBounds(
+      properties.map((p) => [p.coords.lat, p.coords.lng])
+    );
+    map.fitBounds(bounds, { padding: [40, 40], maxZoom: 14 });
+    hasFitted.current = true;
+  }, [properties, map]);
+
   return null;
 }
 
@@ -111,13 +129,22 @@ function PropertyListItem({
         </div>
         <div className="map-property-item-tags">
           {property.tagList?.map((tag, i) => {
-            const label = tag.type
-              ? `${tag.count} ${t(`card.tags.${tag.type}.${tag.count === 1 ? "one" : "many"}`)}`
-              : tag.name;
+            const text = tag.type
+              ? t(`card.tags.${tag.type}.${tag.count === 1 ? "one" : "many"}`)
+              : "";
+            const count = tag.type ? tag.count : "";
+            const name = tag.name || "";
             return (
               <span key={i} className="map-item-tag">
                 <img src={tag.icon} alt="" />
-                {label}
+                {tag.type ? (
+                  <>
+                    <span className="map-item-tag__count">{count}</span>
+                    <span className="map-item-tag__text">{text}</span>
+                  </>
+                ) : (
+                  name
+                )}
               </span>
             );
           })}
@@ -142,40 +169,13 @@ function MapView({ cardList = [], loading = false }) {
   const [activePropertyId, setActivePropertyId] = useState(null);
   const [mapCenter, setMapCenter] = useState(null);
   const [thumbnails, setThumbnails] = useState({});
-  const [propertiesWithCoords, setPropertiesWithCoords] = useState([]);
-  const [resolving, setResolving] = useState(false);
   const itemRefs = useRef({});
 
-  // Resolve coordinates for all properties (supports async geocoding)
-  useEffect(() => {
-    let cancelled = false;
-
-    async function resolve() {
-      if (cardList.length === 0) {
-        setPropertiesWithCoords([]);
-        return;
-      }
-
-      setResolving(true);
-
-      const results = await Promise.all(
-        cardList.map(async (property) => {
-          const coords = await resolveCoordinates(property.maps);
-          return coords ? { ...property, coords } : null;
-        }),
-      );
-
-      if (!cancelled) {
-        setPropertiesWithCoords(results.filter(Boolean));
-        setResolving(false);
-      }
-    }
-
-    resolve();
-
-    return () => {
-      cancelled = true;
-    };
+  // Use pre-computed coordinates from JSON data (instant, no API calls)
+  const propertiesWithCoords = useMemo(() => {
+    return cardList
+      .filter((p) => p.lat != null && p.lng != null)
+      .map((p) => ({ ...p, coords: { lat: p.lat, lng: p.lng } }));
   }, [cardList]);
 
   // Compute center from all markers
@@ -237,7 +237,7 @@ function MapView({ cardList = [], loading = false }) {
           </span>
         </div>
         <div className="map-view-list-scroll">
-          {loading || resolving ? (
+          {loading ? (
             <div className="map-view-loading">
               <div className="map-view-spinner" />
               <p>{t("card.loading")}</p>
@@ -272,6 +272,7 @@ function MapView({ cardList = [], loading = false }) {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           <MapRecenter center={mapCenter} />
+          <MapFitBounds properties={propertiesWithCoords} />
           <MapInvalidateSize />
           {propertiesWithCoords.map((property) => (
             <Marker

@@ -156,7 +156,7 @@ function PropertyDetails() {
 
   const pageTitle = property
     ? `${property.title} – ${property.currency} ${property.price}`
-    : "Habbita Negocios Inmobiliarios";
+    : "Negocios Inmobiliarios";
   const pageDescription = property?.descripcion || property?.title || "";
   const pageImage = images.length > 0 ? images[0] : "";
   const pageUrl = typeof window !== "undefined" ? window.location.href : "";

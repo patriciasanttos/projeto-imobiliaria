@@ -68,6 +68,21 @@ const geocodeCache = {};
  * @param {string} query – place name to geocode
  * @returns {Promise<{ lat: number, lng: number } | null>}
  */
+// Throttle queue to respect Nominatim 1 req/s limit
+let lastGeocodeFetch = 0;
+const GEOCODE_DELAY_MS = 1500;
+
+function waitForThrottle() {
+  const now = Date.now();
+  const elapsed = now - lastGeocodeFetch;
+  if (elapsed < GEOCODE_DELAY_MS) {
+    return new Promise((r) => setTimeout(r, GEOCODE_DELAY_MS - elapsed));
+  }
+  return Promise.resolve();
+}
+
+const MAX_RETRIES = 3;
+
 export async function geocodeQuery(query) {
   if (!query) return null;
 
@@ -76,20 +91,34 @@ export async function geocodeQuery(query) {
     return geocodeCache[query];
   }
 
-  try {
-    // Use our own serverless proxy to avoid CORS issues in production
-    const res = await fetch(`/api/geocode?q=${encodeURIComponent(query)}`);
-    const data = await res.json();
-    if (data && data.length > 0) {
-      const result = {
-        lat: parseFloat(data[0].lat),
-        lng: parseFloat(data[0].lon),
-      };
-      geocodeCache[query] = result;
-      return result;
+  for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+    // Wait for throttle
+    await waitForThrottle();
+    lastGeocodeFetch = Date.now();
+
+    try {
+      const res = await fetch(`/api/geocode?q=${encodeURIComponent(query)}`);
+
+      // Retry on rate limit
+      if (res.status === 429) {
+        const backoff = GEOCODE_DELAY_MS * (attempt + 2);
+        await new Promise((r) => setTimeout(r, backoff));
+        continue;
+      }
+
+      const data = await res.json();
+      if (data && data.length > 0) {
+        const result = {
+          lat: parseFloat(data[0].lat),
+          lng: parseFloat(data[0].lon),
+        };
+        geocodeCache[query] = result;
+        return result;
+      }
+      break; // valid response but no data
+    } catch {
+      break; // network error, don't retry
     }
-  } catch {
-    /* geocoding failed */
   }
 
   geocodeCache[query] = null;
