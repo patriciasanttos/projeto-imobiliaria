@@ -1,13 +1,16 @@
 .property-filter {
     display: flex;
     flex-direction: column;
-    width: clamp(70%, 75vw, 76%);
+    width: clamp(70rem, 96vw, 90rem);
+    max-width: 100%;
     padding: 1.5rem 2rem 2rem;
     margin: 2rem auto 2rem auto;
     background-color: white;
     border-radius: 24px;
     border: 1px solid var(--lines);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    overflow: hidden;
 
     /* ─── Header Row ─── */
     .property-filter__header {
@@ -161,18 +164,29 @@
 
     /* ─── Responsive ─── */
     @media (max-width: 1024px) {
+        width: 95%;
+
         .property-filter__fields {
             grid-template-columns: repeat(2, 1fr);
         }
     }
 
     @media (max-width: 768px) {
+        width: 90%;
+        padding: 1.25rem 1rem 1.5rem;
+
         .property-filter__fields {
             grid-template-columns: 1fr;
         }
 
+        .property-filter__select,
+        .property-filter__input {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
         .property-filter__group--actions {
-            justify-content: flex-start;
+            justify-content: center;
         }
     }
 }

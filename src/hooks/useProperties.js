@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { fetchGoogleSheetCSV } from "../utils/googleSheet";
 import { useLanguage } from "../context/LanguageContext";
 
 //Images
@@ -10,14 +9,16 @@ import Room from "../assets/Icons/Propiedades/room-icon.svg";
 import Bathroom from "../assets/Icons/Propiedades/bathroom-icon.svg";
 import Car from "../assets/Icons/Propiedades/car-icon.svg";
 
-const SHEET_BASE_URL =
-  "https://docs.google.com/spreadsheets/d/e/2PACX-1vS9HwFXM91221YFd2SSXmNISzCmYPQB-4uvh-qWAkKf0ESpFZEGSXSkVBxh-MenIHqZ6RIqROo9CBot/pub?output=csv";
+// Local JSON data (extracted from Google Sheets)
+import propertiesBase from "../data/properties_base.json";
+import propertiesEs from "../data/properties_es.json";
+import propertiesPt from "../data/properties_pt.json";
+import propertiesEn from "../data/properties_en.json";
 
-// Map app language codes to spreadsheet tab GIDs
-const LANG_TO_GID = {
-  es: "139553777",
-  pt: "104221366",
-  en: "371251503",
+const LANG_TRANSLATIONS = {
+  es: propertiesEs,
+  pt: propertiesPt,
+  en: propertiesEn,
 };
 
 // Status display priority — lower index = shown first
@@ -67,6 +68,8 @@ function mapSheetRowToCard(row) {
     descripcion: row["Descripción"] || "",
     detalles: row.Detalles || "",
     maps: row.Maps || "",
+    lat: row.Lat ? parseFloat(row.Lat) : null,
+    lng: row.Lng ? parseFloat(row.Lng) : null,
     tagList,
   };
 }
@@ -80,47 +83,45 @@ const useProperties = () => {
   useEffect(() => {
     setLoading(true);
 
-    const gid = LANG_TO_GID[lang] || LANG_TO_GID.es;
-    const localizedUrl = `${SHEET_BASE_URL}&gid=${gid}`;
+    try {
+      // Deep-clone base rows to avoid mutating the imported JSON
+      const baseRows = JSON.parse(JSON.stringify(propertiesBase));
+      const localizedRows = LANG_TRANSLATIONS[lang] || LANG_TRANSLATIONS.es || [];
 
-    // Fetch base data and localized tab in parallel
-    Promise.all([
-      fetchGoogleSheetCSV(SHEET_BASE_URL),
-      fetchGoogleSheetCSV(localizedUrl).catch(() => []),
-    ])
-      .then(([baseRows, localizedRows]) => {
-        // Build a lookup map from the localized tab by ID
-        const localizedMap = {};
-        localizedRows.forEach((row) => {
-          if (row.ID) {
-            localizedMap[row.ID] = row;
-          }
-        });
+      // Build a lookup map from the localized tab by ID
+      const localizedMap = {};
+      localizedRows.forEach((row) => {
+        if (row.ID) {
+          localizedMap[row.ID] = row;
+        }
+      });
 
-        // Map base rows and override translatable fields
-        const cards = baseRows.map((row) => {
-          const localized = localizedMap[row.ID];
-          if (localized) {
-            row.Titulo = localized.Titulo || row.Titulo;
-            row.Districto = localized.Districto || row.Districto;
-            row.Barrio = localized.Barrio || row.Barrio;
-            row["Descripción"] = localized["Descripción"] || row["Descripción"];
-            row.Detalles = localized.Detalles || row.Detalles;
-          }
-          return mapSheetRowToCard(row);
-        });
+      // Map base rows and override translatable fields
+      const cards = baseRows.map((row) => {
+        const localized = localizedMap[row.ID];
+        if (localized) {
+          row.Titulo = localized.Titulo || row.Titulo;
+          row.Districto = localized.Districto || row.Districto;
+          row.Barrio = localized.Barrio || row.Barrio;
+          row["Descripción"] = localized["Descripción"] || row["Descripción"];
+          row.Detalles = localized.Detalles || row.Detalles;
+        }
+        return mapSheetRowToCard(row);
+      });
 
-        // Sort by status priority: Disponible first, Agotado last
-        cards.sort((a, b) => {
-          const pa = STATUS_PRIORITY[(a.status || "").toLowerCase()] ?? 99;
-          const pb = STATUS_PRIORITY[(b.status || "").toLowerCase()] ?? 99;
-          return pa - pb;
-        });
+      // Sort by status priority: Disponible first, Agotado last
+      cards.sort((a, b) => {
+        const pa = STATUS_PRIORITY[(a.status || "").toLowerCase()] ?? 99;
+        const pb = STATUS_PRIORITY[(b.status || "").toLowerCase()] ?? 99;
+        return pa - pb;
+      });
 
-        setCardList(cards);
-      })
-      .catch((err) => setError(err.message))
-      .finally(() => setLoading(false));
+      setCardList(cards);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
   }, [lang]);
 
   return {
