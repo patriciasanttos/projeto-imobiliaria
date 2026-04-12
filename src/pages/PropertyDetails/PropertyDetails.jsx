@@ -16,7 +16,7 @@ import Button from "../../Components/Button/Button.jsx";
 import Modal from "../../Components/Modal/Modal.jsx";
 import Card from "../../Components/Card/Card.jsx";
 import useProperties from "../../hooks/useProperties";
-import useVariables from "../../hooks/useVariables";
+
 
 // Utils
 import { extractFolderId } from "../../utils/googleDrive";
@@ -78,7 +78,7 @@ function PropertyDetails() {
   const navigate = useNavigate();
   const { t } = useLanguage();
   const { cardList, loading } = useProperties();
-  const { variables } = useVariables();
+
   const property = cardList.find((p) => p.id === id);
   const detallesList = parseDetalles(property?.detalles);
 
@@ -289,14 +289,7 @@ function PropertyDetails() {
                   icon={WhatsApp}
                   className="property-btn-contact"
                   onClick={() => {
-                    const template = variables.PropertyLink || "";
-                    if (template) {
-                      const url = template.replace(
-                        "[LINK]",
-                        window.location.href,
-                      );
-                      window.open(url, "_blank");
-                    }
+                    alert(t("propertyDetails.inquireAlert"));
                   }}
                 />
                 <Button

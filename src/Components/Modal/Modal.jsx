@@ -1,7 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import "./Modal.scss";
 
 function Modal({ isOpen, onClose, images, currentIndex, onPrev, onNext }) {
+  const touchStartX = useRef(null);
+  const touchEndX = useRef(null);
+  const MIN_SWIPE_DISTANCE = 50;
+
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") onClose();
@@ -19,32 +23,63 @@ function Modal({ isOpen, onClose, images, currentIndex, onPrev, onNext }) {
     };
   }, [isOpen]);
 
+  const handleTouchStart = useCallback((e) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchEndX.current = null;
+  }, []);
+
+  const handleTouchMove = useCallback((e) => {
+    touchEndX.current = e.touches[0].clientX;
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    if (touchStartX.current === null || touchEndX.current === null) return;
+    const distance = touchStartX.current - touchEndX.current;
+    if (Math.abs(distance) >= MIN_SWIPE_DISTANCE) {
+      if (distance > 0) {
+        onNext();
+      } else {
+        onPrev();
+      }
+    }
+    touchStartX.current = null;
+    touchEndX.current = null;
+  }, [onPrev, onNext]);
+
   if (!isOpen) return null;
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose} aria-label="Fechar">
-          <svg
-            viewBox="0 0 12 12"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M1 1L11 11M11 1L1 11"
-              stroke="currentColor"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-            />
-          </svg>
-        </button>
+        <div className="modal-header">
+          <button className="modal-close" onClick={onClose} aria-label="Fechar">
+            <svg
+              viewBox="0 0 12 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M1 1L11 11M11 1L1 11"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        </div>
 
-        <div className="modal-image-wrapper">
+        <div
+          className="modal-image-wrapper"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
           <img
             src={images[currentIndex]}
             alt={`Foto ${currentIndex + 1}`}
             className="modal-image"
             referrerPolicy="no-referrer"
+            draggable={false}
           />
         </div>
 
@@ -68,6 +103,9 @@ function Modal({ isOpen, onClose, images, currentIndex, onPrev, onNext }) {
               />
             </svg>
           </button>
+          <span className="modal-counter">
+            {currentIndex + 1} / {images.length}
+          </span>
           <button
             className="modal-nav-btn modal-nav-next"
             onClick={onNext}
@@ -80,7 +118,7 @@ function Modal({ isOpen, onClose, images, currentIndex, onPrev, onNext }) {
             >
               <path
                 d="M1 1L5 5L1 9"
-                stroke="white"
+                stroke="currentColor"
                 strokeWidth="1.6"
                 strokeLinecap="round"
                 strokeLinejoin="round"

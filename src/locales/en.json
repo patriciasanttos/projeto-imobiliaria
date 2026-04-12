@@ -100,7 +100,8 @@
     "description": "Description",
     "location": "Location",
     "otherProperties": "View other properties",
-    "linkCopied": "Link copied!"
+    "linkCopied": "Link copied!",
+    "inquireAlert": "This is a portfolio project. In a real scenario, this action would redirect the client to the company's WhatsApp."
   },
   "card": {
     "viewDetails": "View Details",

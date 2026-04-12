@@ -100,7 +100,8 @@
     "description": "Descripción",
     "location": "Ubicación",
     "otherProperties": "Ver otras propiedades",
-    "linkCopied": "¡Enlace copiado!"
+    "linkCopied": "¡Enlace copiado!",
+    "inquireAlert": "Este es un proyecto de portafolio. En un escenario real, esta acción redireccionaría al cliente al WhatsApp de la inmobiliaria."
   },
   "card": {
     "viewDetails": "Ver Detalles",
