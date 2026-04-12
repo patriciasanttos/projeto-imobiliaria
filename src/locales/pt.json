@@ -17,18 +17,18 @@
   "home": {
     "hero": {
       "title": "Realizamos o lugar que você sonha…",
-      "text": "Na Habbita Negócios Imobiliários, cada imóvel é uma oportunidade, cada cliente, uma história, e cada história, uma missão cumprida. Descubra espaços com alma, viva onde você quer estar.",
+      "text": "Cada imóvel é uma oportunidade, cada cliente, uma história, e cada história, uma missão cumprida. Descubra espaços com alma, viva onde você quer estar.",
       "contactBtn": "Fale Conosco"
     },
     "featured": {
       "title": "Imóveis em Destaque",
-      "text": "Explore nossa cuidadosa seleção de imóveis em destaque. Cada anúncio oferece um vislumbre das casas e investimentos excepcionais disponíveis pela Habbita. Clique em \"Ver Detalhes\" para mais informações.",
+      "text": "Explore nossa cuidadosa seleção de imóveis em destaque. Cada anúncio oferece um vislumbre das casas e investimentos excepcionais disponíveis. Clique em \"Ver Detalhes\" para mais informações.",
       "viewAllBtn": "Ver todos os imóveis"
     }
   },
   "properties": {
     "title": "Encontre o imóvel dos seus sonhos",
-    "text": "Bem-vindo à Habbita, onde o imóvel dos seus sonhos espera por você em cada canto do nosso belo mundo. Explore nossa cuidadosa seleção de imóveis, cada um com uma história única e a oportunidade de redefinir sua vida. Com categorias que se adaptam a cada sonhador, sua jornada...",
+    "text": "O imóvel dos seus sonhos espera por você em cada canto do nosso belo mundo. Explore nossa cuidadosa seleção de imóveis, cada um com uma história única e a oportunidade de redefinir sua vida. Com categorias que se adaptam a cada sonhador, sua jornada...",
     "listView": "Lista",
     "mapView": "Mapa"
   },
@@ -37,27 +37,29 @@
     "propertiesFound": "imóveis encontrados"
   },
   "contact": {
-    "title": "Entre em contato com a Habbita",
-    "text": "Bem-vindo à página de contato da Habbita. Estamos aqui para ajudá-lo com qualquer dúvida, solicitação ou comentário que você tenha. Se você está buscando comprar ou alugar um imóvel, explorar oportunidades de investimento ou simplesmente se conectar, estamos a apenas uma mensagem de distância. Fale conosco.",
+    "title": "Entre em contato conosco",
+    "text": "Bem-vindo à nossa página de contato. Estamos aqui para ajudá-lo com qualquer dúvida, solicitação ou comentário que você tenha. Se você está buscando comprar ou alugar um imóvel, explorar oportunidades de investimento ou simplesmente se conectar, estamos a apenas uma mensagem de distância. Fale conosco.",
     "location": "Localização",
     "loading": "Carregando contatos...",
-    "error": "Erro ao carregar contatos:"
+    "error": "Erro ao carregar contatos:",
+    "mapPlaceholder": "Sua localização aqui"
   },
   "aboutUs": {
     "title": "Quem somos nós?",
-    "text": "Na Habbita Negócios Imobiliários, somos uma empresa comprometida em oferecer soluções confiáveis, ágeis e personalizadas no setor imobiliário. Somos especializados na compra, venda e aluguel de imóveis urbanos e rurais, oferecendo acompanhamento integral aos nossos clientes em cada etapa do processo.\n\nNossa missão é facilitar o caminho até o lar ideal ou o investimento imobiliário perfeito, com uma abordagem baseada em confiança, transparência e profissionalismo. Contamos com uma equipe treinada e com conhecimento do mercado local, que trabalha com dedicação para garantir resultados eficazes e experiências satisfatórias.\n\nEscolher-nos é optar por um atendimento próximo, uma assessoria clara e um serviço que se adapta às suas necessidades. Na Habbita, não apenas encontramos imóveis: construímos vínculos duradouros e oportunidades reais.",
+    "imagePlaceholder": "Sua imagem aqui",
+    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n\nDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\n\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.",
     "cards": [
       {
         "title": "Missão",
-        "description": "Oferecer soluções imobiliárias confiáveis, eficientes e personalizadas, voltadas a atender as necessidades de nossos clientes na compra, venda e aluguel de imóveis. Focamo-nos em gerar relacionamentos baseados em confiança, compromisso e transparência, contribuindo para o desenvolvimento do mercado imobiliário local."
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris."
       },
       {
         "title": "Visão",
-        "description": "Ser uma empresa imobiliária de referência na região, reconhecida pelo profissionalismo, inovação e qualidade de serviço. Aspiramos continuar crescendo junto com nossos clientes, consolidando uma marca sólida que inspire segurança e acompanhe cada projeto imobiliário com responsabilidade e excelência."
+        "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit."
       },
       {
         "title": "Valores",
-        "description": "<b>Comprometimento</b>: Dedicamo-nos com responsabilidade e paixão a cada gestão, cumprindo o que prometemos.<br><br><b>Transparência</b>: Agimos com honestidade e clareza em todas as nossas operações.<br><br><b>Confiança</b>: Construímos relacionamentos sólidos e duradouros com nossos clientes e parceiros."
+        "description": "<b>Comprometimento</b>: Lorem ipsum dolor sit amet, consectetur adipiscing elit.<br><br><b>Transparência</b>: Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.<br><br><b>Confiança</b>: Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris."
       }
     ]
   },

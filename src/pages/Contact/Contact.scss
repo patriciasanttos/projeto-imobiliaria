@@ -94,9 +94,20 @@
             text-align: left;
         }
 
-        iframe {
-            border-radius: 8px;
+        .contact-map-placeholder {
+            width: 1200px;
             max-width: 95%;
+            height: 376px;
+            border-radius: 8px;
+            border: 2px dashed var(--lines);
+            background-color: rgba(0, 0, 0, 0.03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-secondary);
+            font-size: 1.2rem;
+            color: var(--text);
+            opacity: 0.6;
         }
     }
 

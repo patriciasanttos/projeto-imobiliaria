@@ -1,18 +1,31 @@
 import "./Header.scss";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-import { Tooltip } from "react-tooltip";
 import MobileMenu from "../../Components/MobileMenu/MobileMenu.jsx";
-import useHeaderContacts from "../../hooks/useHeaderContacts";
 import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 import { useLanguage } from "../../context/LanguageContext.jsx";
 
-//Images
-import Logo from "../../assets/Images/logo-header.png";
+// Social media icons
+import WhatsAppIcon from "../../assets/Icons/Social media/whatsapp-icon.svg";
+import FacebookIcon from "../../assets/Icons/Social media/facebook-icon.svg";
+import InstagramIcon from "../../assets/Icons/Social media/instagram-icon.svg";
+import EmailIcon from "../../assets/Icons/Social media/email-icon.svg";
+
+const socialIcons = [
+  { icon: WhatsAppIcon, label: "WhatsApp" },
+  { icon: FacebookIcon, label: "Facebook" },
+  { icon: InstagramIcon, label: "Instagram" },
+  { icon: EmailIcon, label: "Email" },
+];
+
+// Format compatible with MobileMenu component
+const mobileSocialIcons = socialIcons.map((item) => ({
+  icon: { [item.label.toLowerCase()]: item.icon },
+  link: "#",
+}));
 
 function Header() {
   const isMobile = useMediaQuery({ maxWidth: 848 });
-  const { socialMedia } = useHeaderContacts();
   const { t } = useLanguage();
 
   const menuItems = [
@@ -29,15 +42,13 @@ function Header() {
   return (
     <header className="header-section">
       <section className="header-content">
-        <img
-          src={Logo}
-          alt="Habbita Logo"
+        <span
           className="logo-header"
           onClick={onClickLogo}
-        />
+        >Logo</span>
 
         {isMobile ? (
-          <MobileMenu menuItems={menuItems} socialMedia={socialMedia} />
+          <MobileMenu menuItems={menuItems} socialMedia={mobileSocialIcons} />
         ) : (
           <>
             <section className="menu-items-header">
@@ -49,27 +60,11 @@ function Header() {
             </section>
             <div className="header-right">
               <section className="social-media-icons-container">
-                {socialMedia.map((item, index) => {
-                  const tipo = Object.keys(item.icon)[0];
-                  const tooltipText =
-                    t(`header.tooltips.${tipo}`) || item.tooltip;
-                  return (
-                    <a
-                      key={index}
-                      href={item.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      data-tooltip-id="header-tooltip"
-                      data-tooltip-content={tooltipText}
-                    >
-                      <img
-                        src={Object.values(item.icon)[0]}
-                        alt={tooltipText}
-                      />
-                    </a>
-                  );
-                })}
-                <Tooltip id="header-tooltip" place="bottom" />
+                {socialIcons.map((item, index) => (
+                  <span key={index} className="social-icon-placeholder">
+                    <img src={item.icon} alt={item.label} />
+                  </span>
+                ))}
               </section>
               <LanguageSwitcher />
             </div>
@@ -81,3 +76,4 @@ function Header() {
 }
 
 export default Header;
+

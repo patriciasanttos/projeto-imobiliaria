@@ -1,9 +1,6 @@
 import "./AboutUs.scss";
 import { useLanguage } from "../../context/LanguageContext.jsx";
 
-//Images
-import AboutUsImage from "../../assets/Images/logo-main.jpeg";
-
 //Icons
 import Mission from "../../assets/Icons/About Us/mission-icon.svg";
 import Values from "../../assets/Icons/About Us/values-icon.svg";
@@ -33,7 +30,9 @@ function AboutUs() {
           </p>
         </div>
         <div className="aboutus-img">
-          <img src={AboutUsImage} alt="" className="aboutus-logo" />
+          <div className="aboutus-image-placeholder">
+            {t("aboutUs.imagePlaceholder")}
+          </div>
         </div>
       </section>
       <div className="div-aboutus"></div>
@@ -62,3 +61,4 @@ function AboutUs() {
 }
 
 export default AboutUs;
+

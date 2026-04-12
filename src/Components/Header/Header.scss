@@ -12,11 +12,19 @@
         margin: 0 auto;
 
         .logo-header {
-            position: relative;
-            top: clamp(1rem, 2vw, 1rem);
-            width: clamp(4.8rem, 12vw, 5.5rem);
+            font-family: var(--font-secondary);
+            font-weight: 700;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: #fff;
+            letter-spacing: 0.05em;
             cursor: pointer;
             flex-shrink: 0;
+            user-select: none;
+            transition: opacity 0.2s ease;
+
+            &:hover {
+                opacity: 0.8;
+            }
         }
 
         .menu-items-header {
@@ -53,11 +61,17 @@
             gap: 0.6rem;
             align-items: center;
 
-            a {
+            .social-icon-placeholder {
                 border-radius: 40px;
                 width: 1.7rem;
                 align-items: center;
                 text-align: center;
+                cursor: pointer;
+                transition: transform 0.2s ease;
+            }
+
+            .social-icon-placeholder:hover {
+                transform: scale(1.1);
             }
 
             img {
@@ -65,15 +79,7 @@
             }
         }
 
-        .social-media-icons-container a:hover {
-            cursor: pointer;
-            transform: scale(1.1);
-        }
-
         @media (max-width: 848px) {
-            .logo-header {
-                width: 4.8rem;
-            }
             .mobile-menu-container {
                 margin-left: auto;
             }
