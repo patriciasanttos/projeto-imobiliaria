@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
 import L from "leaflet";
@@ -6,13 +6,14 @@ import "leaflet/dist/leaflet.css";
 import "./MapView.scss";
 
 
-import { extractFolderId } from "../../utils/googleDrive";
 import { useLanguage } from "../../context/LanguageContext.jsx";
+
+// Static portfolio image (same for all properties)
+import PropertyImg1 from "../../assets/Images/property-1.png";
 
 import LocationIcon from "../../assets/Icons/Propiedades/location-icon.svg";
 
-const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzSEn2OIiqn8ATsvdUknoK2v0SUvfTYNfiAzX9Mf0UJS2JWrgqr_TE0Rtur770b9JIf/exec";
+
 
 // Default center: Encarnación, Paraguay
 const DEFAULT_CENTER = [-27.3364, -55.8667];
@@ -168,7 +169,6 @@ function MapView({ cardList = [], loading = false }) {
   const { t } = useLanguage();
   const [activePropertyId, setActivePropertyId] = useState(null);
   const [mapCenter, setMapCenter] = useState(null);
-  const [thumbnails, setThumbnails] = useState({});
   const itemRefs = useRef({});
 
   // Use pre-computed coordinates from JSON data (instant, no API calls)
@@ -189,29 +189,7 @@ function MapView({ cardList = [], loading = false }) {
     ];
   }, [propertiesWithCoords]);
 
-  // Fetch first thumbnail for each property
-  useEffect(() => {
-    propertiesWithCoords.forEach((property) => {
-      if (thumbnails[property.id] || !property.imagenes) return;
-      const folderId = extractFolderId(property.imagenes);
-      if (!folderId) return;
 
-      fetch(`${APPS_SCRIPT_URL}?folderId=${folderId}`, {
-        method: "GET",
-        redirect: "follow",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.images && data.images.length > 0) {
-            setThumbnails((prev) => ({
-              ...prev,
-              [property.id]: data.images[0].url,
-            }));
-          }
-        })
-        .catch(() => {});
-    });
-  }, [propertiesWithCoords]);
 
   const handleMarkerClick = (property) => {
     setActivePropertyId(property.id);
@@ -252,7 +230,7 @@ function MapView({ cardList = [], loading = false }) {
                 isActive={activePropertyId === property.id}
                 onClick={() => handleListItemClick(property)}
                 itemRef={(el) => (itemRefs.current[property.id] = el)}
-                thumbnail={thumbnails[property.id]}
+                thumbnail={PropertyImg1}
               />
             ))
           )}

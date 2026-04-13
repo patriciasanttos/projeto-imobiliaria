@@ -1,14 +1,11 @@
 import "./Card.scss";
-import { useState, useEffect } from "react";
 
 import Location from "../../assets/Icons/Propiedades/location-icon.svg";
 import { useNavigate } from "react-router-dom";
-import { extractFolderId, getDriveImageUrl } from "../../utils/googleDrive";
 import { useLanguage } from "../../context/LanguageContext.jsx";
 
-// Google Apps Script URL - User needs to deploy and update this
-const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzSEn2OIiqn8ATsvdUknoK2v0SUvfTYNfiAzX9Mf0UJS2JWrgqr_TE0Rtur770b9JIf/exec";
+// Static portfolio image (same for all properties)
+import PropertyImg1 from "../../assets/Images/property-1.png";
 
 function Card({
   id,
@@ -25,39 +22,8 @@ function Card({
 }) {
   const navigate = useNavigate();
   const { t } = useLanguage();
-  const [displayImage, setDisplayImage] = useState(image);
-  const [imageLoading, setImageLoading] = useState(false);
-
-  useEffect(() => {
-    // If we have a Google Drive folder URL and Apps Script is configured
-    if (imagenes && APPS_SCRIPT_URL) {
-      setImageLoading(true);
-      const folderId = extractFolderId(imagenes);
-      console.log(">>> folderId", folderId);
-
-      if (folderId) {
-        // Use redirect: 'follow' for Google Apps Script CORS compatibility
-        fetch(`${APPS_SCRIPT_URL}?folderId=${folderId}`, {
-          method: "GET",
-          redirect: "follow",
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(">>> Drive response:", data);
-            if (data.images && data.images.length > 0) {
-              console.log(">>> Image URL:", data.images[0].url);
-              setDisplayImage(data.images[0].url);
-            }
-          })
-          .catch((err) => {
-            console.error("Error fetching Drive images:", err);
-          })
-          .finally(() => setImageLoading(false));
-      } else {
-        setImageLoading(false);
-      }
-    }
-  }, [imagenes]);
+  const displayImage = PropertyImg1;
+  const imageLoading = false;
 
   const onClickPropertyDetails = () => {
     navigate(`/propiedades/${id}`);

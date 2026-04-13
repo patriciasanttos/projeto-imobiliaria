@@ -19,14 +19,17 @@ import useProperties from "../../hooks/useProperties";
 
 
 // Utils
-import { extractFolderId } from "../../utils/googleDrive";
+
 import { extractCoordinates } from "../../utils/mapCoordinates";
 
 // Images
 import HouseImg from "../../assets/Images/house-1.svg";
+import PropertyImg1 from "../../assets/Images/property-1.png";
+import PropertyImg2 from "../../assets/Images/property-2.png";
+import PropertyImg3 from "../../assets/Images/property-3.png";
 
-const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbzSEn2OIiqn8ATsvdUknoK2v0SUvfTYNfiAzX9Mf0UJS2JWrgqr_TE0Rtur770b9JIf/exec";
+// Static portfolio images (same for all properties)
+const PORTFOLIO_IMAGES = [PropertyImg1, PropertyImg2, PropertyImg3];
 
 const DEFAULT_MAP_URL =
   "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d453777.9190199634!2d-55.884627!3d-27.308807!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9457955e5597cfeb%3A0x6ff7d247ff05c071!2sEncarnaci%C3%B3n%2C%20Paraguay!5e0!3m2!1ses!2sus!4v1767910786774!5m2!1ses!2sus";
@@ -110,38 +113,10 @@ function PropertyDetails() {
     window.scrollTo(0, 0);
   }, [id]);
 
-  const [images, setImages] = useState([]);
+  const images = PORTFOLIO_IMAGES;
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [imageLoading, setImageLoading] = useState(true);
-
-  // Fetch images from Google Drive folder
-  useEffect(() => {
-    if (!property?.imagenes || !APPS_SCRIPT_URL) {
-      setImageLoading(false);
-      return;
-    }
-    const folderId = extractFolderId(property.imagenes);
-    if (!folderId) {
-      setImageLoading(false);
-      return;
-    }
-
-    setImageLoading(true);
-    fetch(`${APPS_SCRIPT_URL}?folderId=${folderId}`, {
-      method: "GET",
-      redirect: "follow",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.images && data.images.length > 0) {
-          setImages(data.images.map((img) => img.url));
-          setCurrentImageIndex(0);
-        }
-      })
-      .catch((err) => console.error("Error fetching Drive images:", err))
-      .finally(() => setImageLoading(false));
-  }, [property?.imagenes]);
+  const imageLoading = false;
 
   const selectImage = (index) => setCurrentImageIndex(index);
 
