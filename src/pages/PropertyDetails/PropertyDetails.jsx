@@ -360,7 +360,11 @@ function PropertyDetails() {
         <section className="contact-map-container">
           <h1>{t("propertyDetails.location")}</h1>
           <iframe
-            src={getEmbedMapUrl(property?.maps, [property?.barrio, property?.districto].filter(Boolean).join(", "))}
+            src={
+              property?.lat && property?.lng
+                ? buildEmbedFromQuery(`${property.lat},${property.lng}`)
+                : getEmbedMapUrl(property?.maps, [property?.barrio, property?.districto].filter(Boolean).join(", "))
+            }
             height="376"
             style={{ border: 0 }}
             allowFullScreen
