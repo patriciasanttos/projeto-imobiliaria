@@ -41,16 +41,6 @@
     justify-content: end;
     transition: background 0.2s;
     padding-top: 5.5rem;
-
-    > .close-btn {
-        position: fixed;
-        top: 1.2rem;
-        right: 1.2rem;
-        z-index: 1201;
-        background: none;
-        border: none;
-        margin-left: 0;
-    }
 }
 
 .mobile-nav-overlay {

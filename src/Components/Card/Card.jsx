@@ -60,13 +60,15 @@ function Card({
 
         <div className="card-tag-list">
           {tagList.map((tag, index) => {
-            const label = tag.type
-              ? `${tag.count} ${t(`card.tags.${tag.type}.${tag.count === 1 ? "one" : "many"}`)}`
+            const countText = tag.count ?? "";
+            const labelText = tag.type
+              ? t(`card.tags.${tag.type}.${tag.count === 1 ? "one" : "many"}`)
               : tag.name;
             return (
               <div key={index} className="card-tags">
                 <img src={tag.icon} alt="" />
-                <p>{label}</p>
+                <span className="tag-count">{countText}</span>
+                <span className="tag-label">{labelText}</span>
               </div>
             );
           })}

@@ -197,8 +197,15 @@
         padding: 0.3rem 0.7rem;
         align-items: center;
 
-        p {
+        img {
+          width: 16px;
+          height: 16px;
+          flex-shrink: 0;
+        }
+
+        .tag-count, .tag-label {
           font-size: clamp(0.5rem, 5vw, 0.8rem);
+          white-space: nowrap;
         }
       }
     }
@@ -264,5 +271,12 @@
 @media (min-width: 360px) and (max-width: 400px) {
   .card-container {
     width: 22rem;
+  }
+}
+
+// Mobile & tablet: show only icon + number, hide text label
+@media (max-width: 848px) {
+  .card-tags .tag-label {
+    display: none;
   }
 }

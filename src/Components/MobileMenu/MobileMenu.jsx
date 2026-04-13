@@ -9,11 +9,17 @@ import LanguageSwitcher from "../LanguageSwitcher/LanguageSwitcher.jsx";
 const MobileMenu = ({ menuItems, socialMedia }) => {
   const [isOpen, setIsOpen] = useState(false);
   const overlayRef = useRef(null);
+  const toggleBtnRef = useRef(null);
 
   useEffect(() => {
     if (!isOpen) return;
     const handleClickOutside = (event) => {
-      if (overlayRef.current && !overlayRef.current.contains(event.target)) {
+      if (
+        overlayRef.current &&
+        !overlayRef.current.contains(event.target) &&
+        toggleBtnRef.current &&
+        !toggleBtnRef.current.contains(event.target)
+      ) {
         setIsOpen(false);
       }
     };
@@ -34,27 +40,19 @@ const MobileMenu = ({ menuItems, socialMedia }) => {
 
   return (
     <div className="mobile-menu-container">
-      {!isOpen && (
-        <button
-          className="menu-toggle-btn"
-          onClick={toggleMenu}
-          aria-label="Abrir menu"
-          aria-expanded={isOpen}
-          aria-controls="mobile-nav-overlay"
-        >
-          <img src={MenuOpenIcon} alt="Abrir menu" />
-        </button>
-      )}
+      <button
+        ref={toggleBtnRef}
+        className="menu-toggle-btn"
+        onClick={toggleMenu}
+        aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+        aria-expanded={isOpen}
+        aria-controls="mobile-nav-overlay"
+      >
+        <img src={isOpen ? MenuCloseIcon : MenuOpenIcon} alt={isOpen ? "Fechar menu" : "Abrir menu"} />
+      </button>
 
       {isOpen && (
         <div className="mobile-menu-fullscreen-overlay">
-          <button
-            className="menu-toggle-btn close-btn"
-            onClick={toggleMenu}
-            aria-label="Fechar menu"
-          >
-            <img src={MenuCloseIcon} alt="Fechar menu" />
-          </button>
           <nav
             className="mobile-nav-overlay"
             id="mobile-nav-overlay"

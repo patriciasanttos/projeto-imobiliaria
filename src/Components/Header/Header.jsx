@@ -25,7 +25,7 @@ const mobileSocialIcons = socialIcons.map((item) => ({
 }));
 
 function Header() {
-  const isMobile = useMediaQuery({ maxWidth: 848 });
+  const isMobile = useMediaQuery({ maxWidth: 948 });
   const { t } = useLanguage();
 
   const menuItems = [
@@ -42,10 +42,9 @@ function Header() {
   return (
     <header className="header-section">
       <section className="header-content">
-        <span
-          className="logo-header"
-          onClick={onClickLogo}
-        >Logo</span>
+        <span className="logo-header" onClick={onClickLogo}>
+          Logo
+        </span>
 
         {isMobile ? (
           <MobileMenu menuItems={menuItems} socialMedia={mobileSocialIcons} />
@@ -76,4 +75,3 @@ function Header() {
 }
 
 export default Header;
-
